@@ -219,6 +219,7 @@ all other colors are normal loading stuff just split up to make it easier to see
 	SchwEde (aka shinysonic)
 	Sgt M Everlast
 	MattL
+	AlexLawson
 	Each addon/script creator
 	The entire EPOCH team
 	The entire ARMA2 team
