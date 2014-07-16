@@ -3447,19 +3447,5 @@ if (true) then
   _this setPos [5110.9658, 2344.842, 1.2397766e-005];
 };
 
-_this = createCenter civilian;
-_center_2 = _this;
-
-_group_1 = createGroup _center_2;
-
-_unit_31 = objNull;
-if (true) then
-{
-  _this = _group_1 createUnit ["RU_Doctor", [4845.4375, 2293.7158], [], 0, "CAN_COLLIDE"];
-  _unit_31 = _this;
-  _this setDir 359.54327;
-  _this setVehicleInit "this allowDammage false; this disableAI 'FSM'; this disableAI 'MOVE'; this disableAI 'AUTOTARGET'; this disableAI 'TARGET'; this setBehaviour 'CARELESS'; this forceSpeed 0;";
-  _this setUnitAbility 0.60000002;
-  _this allowDammage false; _this disableAI 'FSM'; _this disableAI 'MOVE'; _this disableAI 'AUTOTARGET'; _this disableAI 'TARGET'; _this setBehaviour 'CARELESS'; _this forceSpeed 0;_this enableSimulation false;};
 
 processInitCommands;

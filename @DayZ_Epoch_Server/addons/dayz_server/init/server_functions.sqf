@@ -1135,3 +1135,6 @@ execVM "\z\addons\dayz_server\CustomBuildings\otmel.sqf";
 
 //road from dam to sector FNG
 execVM "\z\addons\dayz_server\CustomBuildings\roadpobeda.sqf";
+
+//Black forest outpost
+execVM "\z\addons\dayz_server\CustomBuildings\blackforestoutpost.sqf";
