@@ -54,6 +54,7 @@ SheepsMenu =
 	["Gems Menu >>", [], "#USER:GemsMenu", -5, [["expression", ""]], "1", "1"],	
 	["Show Position", [],"", -5, [["expression", format[_EXECscript7,"showpostion.sqf"]]], "1", "1"],
 	["Show Position ATL", [],"", -5, [["expression", format[_EXECscript7,"showpostionATL.sqf"]]], "1", "1"],
+	["Add NOS", [],"", -5, [["expression", format[_EXECscript7,"addNOS.sqf"]]], "1", "1"],
 	["Add 100oz Briefcase", [],"", -5, [["expression", format[_EXECscript7,"add100ozbriefcase.sqf"]]], "1", "1"],
 	["Add Zombie Bait Parts", [],"", -5, [["expression", format[_EXECscript7,"addZombieBait.sqf"]]], "1", "1"],
 	["Add Zombie Bomb Parts", [],"", -5, [["expression", format[_EXECscript7,"addZombieBomb.sqf"]]], "1", "1"],

@@ -85,4 +85,6 @@ TowingScript = true;
 BaseJumpScript = true;
 //Service Points
 ServicePointScript = true;
+//NOS
+NOSScript = true;
 
