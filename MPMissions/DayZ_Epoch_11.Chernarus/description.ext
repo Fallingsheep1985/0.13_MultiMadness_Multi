@@ -8,6 +8,9 @@ class RscIGUIShortcutButton;
 #include "scripts\journal\CfgPlayerStats\p_headshots.hpp"
 #include "scripts\journal\CfgPlayerStats\p_murders.hpp"
 
+//Infected Camps
+#include "scripts\InfectedCamps\CfgObjectCompositions.hpp"
+
 //Custom Loot
 #include "scripts\CustomLoot\CfgBuildingLoot.hpp"
 

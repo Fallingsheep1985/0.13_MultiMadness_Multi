@@ -51,4 +51,6 @@ player_updateGui = compile preprocessFileLineNumbers "fixes\player_updateGui.sqf
 	snap_build = compile preprocessFileLineNumbers "scripts\snap_pro\snap_build.sqf";
 	player_build = compile preprocessFileLineNumbers "fixes\player_build.sqf";
 	dayz_spaceInterrupt = compile preprocessFileLineNumbers "fixes\dayz_spaceInterrupt.sqf";
-
+//Infected Camps
+infectedcamps = compile preprocessFileLineNumbers "scripts\InfectedCamps\object_infectedcamps.sqf";
+camp_spawnZombies = compile preprocessFileLineNumbers "scripts\InfectedCamps\camp_spawnZombies.sqf";

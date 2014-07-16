@@ -484,7 +484,14 @@ if (isServer && isNil "sm_done") then {
 	if(DZMSScript)then{
 		[] ExecVM "\z\addons\dayz_server\DZMS\DZMSInit.sqf";
 	};
-	allowConnection = true;	
+	allowConnection = true;
+	//Spawn camps
+	dayz_Campspawner = [] spawn {
+		// quantity, marker, radius, min distance between 2 camps
+		Server_InfectedCamps = [3, "center", dayz_MapArea, 2500] call fn_bases;
+		dayzInfectedCamps = Server_InfectedCamps;
+		publicVariable "dayzInfectedCamps";
+	};	
 	sm_done = true;
 	publicVariable "sm_done";
 };

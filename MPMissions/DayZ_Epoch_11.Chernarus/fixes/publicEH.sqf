@@ -1,3 +1,6 @@
+//Infected Camps
+"dayzInfectedCamps"        addPublicVariableEventHandler {(_this select 1) call infectedcamps};
+
 //Medical Event Handlers
 "norrnRaLW"					addPublicVariableEventHandler {[_this select 1] execVM "\z\addons\dayz_code\medical\publicEH\load_wounded.sqf"};
 "norrnRLact"				addPublicVariableEventHandler {[_this select 1] execVM "\z\addons\dayz_code\medical\load\load_wounded.sqf"};

@@ -30,6 +30,9 @@ server_spawnAN2 = compile preprocessFileLineNumbers "\z\addons\dayz_server\compi
 server_carepackagedrop = compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\server_carepackagedrop.sqf";
 //Air Raid
 server_airRaid =            compile preprocessFileLineNumbers "z\addons\dayz_server\compile\server_airRaid.sqf";
+//Infected Camps
+spawnComposition = compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\object_mapper.sqf"; // Include BIS compositions
+fn_bases = compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\fn_bases.sqf"; // Infected Camps
 
 server_spawnEvents =			compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\server_spawnEvent.sqf";
 //server_weather =				compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\server_weather.sqf";

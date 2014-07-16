@@ -44,6 +44,7 @@ dayz_maxAnimals = 5; // Default: 8
 dayz_tameDogs = true;
 DynamicVehicleDamageLow = 0; // Default: 0
 DynamicVehicleDamageHigh = 100; // Default: 100
+dayz_spawnInfectedSite_clutterCutter = 2; // Infected Base Settings / 0 =  loot hidden in grass // 1 = loot lifted // 2 = cluttercutter // 3 = debug
 
 DZE_BuildOnRoads = true; // Default: False
 DZE_requireplot = 1;
