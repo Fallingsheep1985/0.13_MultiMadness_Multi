@@ -5,7 +5,7 @@ call compile preprocessFileLineNumbers "scripts\wmod\config.sqf";
 call compile preprocessFileLineNumbers "scripts\wmod\lib.sqf";
 call compile preprocessFileLineNumbers "scripts\wmod\functions.sqf";
 if(isServer) exitWith {};
-call compile preprocessFileLineNumbers "scripts\wmod\click\init.sqf";
+call compile preprocessFileLineNumbers "scripts\wmod\click_actions\init.sqf";
 if (isNil "DZE_CLICK_ACTIONS_BUILD") exitWith {
     diag_log text "WMOD: ERROR -- Click Actions Handler missing!";
 };

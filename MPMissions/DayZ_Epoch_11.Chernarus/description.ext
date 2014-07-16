@@ -574,8 +574,6 @@ class CfgSounds
 #include "scripts\dzgm\groupManagement.hpp"
 // Epoch Admin Tools
 #include "admintools\dialog.hpp"
-//Right Click
-#include "scripts\RightClick\extra_rc.hpp"
 //ESS
 #include "scripts\spawn\defines.hpp"
 #include "scripts\spawn\class.hpp"

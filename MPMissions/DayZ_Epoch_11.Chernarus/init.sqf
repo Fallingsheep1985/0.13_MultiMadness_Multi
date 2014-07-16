@@ -55,6 +55,7 @@ DZE_TRADER_SPAWNMODE = false;
 DZE_DeathMsgGlobal = true;
 DZE_DeathMsgTitleText = true;
 DZE_DeathMsgSide = true;
+DZE_BackpackGuard = false; //Default = true, true to enable, false to disable - wipes backpack on combat/ALT+F4 logging
 DZE_ForceNameTagsOff = false;
 DZE_R3F_WEIGHT = false; //use weight system
 DZE_PlotPole = [100,115];	
@@ -247,6 +248,8 @@ espawn = compile preprocessFileLineNumbers "scripts\spawn\spawn.sqf";
 waitUntil {!isNil "PVDZE_plr_LoginRecord"};
 if ((!isDedicated) && (dayzPlayerLogin2 select 2)) then {call espawn;};
 
+//Weapon Mods
+call compile preprocessFileLineNumbers "scripts\wmod\init.sqf";
 
 //Zombie Truck
 call compile preprocessFileLineNumbers "scripts\zombietruck\init.sqf";
