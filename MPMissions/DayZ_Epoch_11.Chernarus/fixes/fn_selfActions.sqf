@@ -16,6 +16,37 @@ _inVehicle = (_vehicle != player);
 _onLadder =		(getNumber (configFile >> "CfgMovesMaleSdr" >> "States" >> (animationState player) >> "onLadder")) == 1;
 _canDo = (!r_drag_sqf && !r_player_unconscious && !_onLadder);
 
+ 	//Nitro action
+	_hasNOSinstalled = _vehicle getVariable["nitroinstalled",0];
+	if (_inVehicle and _vehicle isKindOf "Car" and speed _vehicle >= 1) then {
+		if (_inVehicle and _hasNOSinstalled == 1) then {
+			if (isnil("NITRO_Cond")) then {NITRO_Cond = false;};
+			if (s_player_nitrobooston <0) then {	
+				if (NITRO_Cond) then {
+					s_player_nitrobooston = _vehicle addAction [("<t color=""#39C1F3"">" + ("Nitro Off") + "</t>"),"scripts\NOS\nitro.sqf", [_vehicle], 999, false,true,"","driver _target == _this"]; 
+				} else {
+					s_player_nitrobooston = _vehicle addAction [("<t color=""#39C1F3"">" + ("Nitro On") + "</t>"),"scripts\NOS\nitro.sqf", [_vehicle], 999, false,true,"","driver _target == _this"]; 
+				};	
+			};
+		} else {
+			 _vehicle removeAction s_player_nitrobooston;
+			s_player_nitrobooston = -1;
+		};
+  } else {
+		 _vehicle removeAction s_player_nitrobooston;
+		s_player_nitrobooston = -1;
+		if (_hasNOSinstalled == 1) then {
+			 _vehicle setVariable ["nitroinstalled", 1, true];
+		};
+	};
+if (_inVehicle && (_vehicle isKindOf "Car")) then {
+	_vTTpDlHU = _vehicle getVariable["NeonMenu", false]; 
+	if( !_vTTpDlHU ) then { 
+	_vehicle setVariable["NeonMenu", true, false];
+	neon = _vehicle addAction [("<t color=""#AB2DFF"">" + ("Neon!") + "</t>"),"scripts\neons\object_neon.sqf",[_vehicle],5,false,true,"","driver _target == _this && (daytime > 20 || daytime < 4)"]; 
+	}; 
+};  
+
 if(DeployBikeScript)then{
 	//Deploy Bike
 	if((speed player <= 1) && cursorTarget isKindOf "CSJ_GyroC" && _canDo) then {

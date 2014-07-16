@@ -558,6 +558,11 @@ class CfgSounds
 		sound[]={sounds\drink_water.ogg,1,1};
 		titles[] = {};
 	};
+	class nitro  {
+		 name="nitro";
+		 sound[]={sounds\nitro.ogg,0.9,1};
+		 titles[] = {};
+	};
 };
 //DZGM
 #include "scripts\dzgm\groupManagement.hpp"
