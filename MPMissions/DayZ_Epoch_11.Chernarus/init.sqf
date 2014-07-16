@@ -236,8 +236,11 @@ if(HeroPerkScript)then{
 if(WalkAmongstDeadScript)then{
 	call compile preprocessFileLineNumbers "scripts\walkamongstthedead\config.sqf";
 };
-
-
+if(BaseJumpScript)then{
+	if (!isDedicated) then {
+		execVM "scripts\BaseJump\baseJump.sqf";
+	};
+};
 espawn = compile preprocessFileLineNumbers "scripts\spawn\spawn.sqf";
 waitUntil {!isNil "PVDZE_plr_LoginRecord"};
 if ((!isDedicated) && (dayzPlayerLogin2 select 2)) then {call espawn;};

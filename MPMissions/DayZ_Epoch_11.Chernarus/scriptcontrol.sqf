@@ -83,4 +83,6 @@ SuicideScript = true;
 DeployBikeScript = true;
 //Towing
 TowingScript = true;
+//Base Jump
+BaseJumpScript = true;
 
