@@ -145,10 +145,6 @@ if(RegenBloodScript)then{
 	//Regen Blood
 	 execVM "scripts\RegenBlood\regenblood.sqf";
 };
-if (AutoRefuelScript)then{
-	//Auto Refuel
-	 execVM 'scripts\AutoRefuel\kh_actions.sqf'; 
-};
 #include "\z\addons\dayz_code\system\REsec.sqf"
 
 //Start Dynamic Weather
@@ -235,6 +231,11 @@ if(HeroPerkScript)then{
 };
 if(WalkAmongstDeadScript)then{
 	call compile preprocessFileLineNumbers "scripts\walkamongstthedead\config.sqf";
+};
+if(ServicePointScript)then{
+	if (!isDedicated) then {
+		execVM "scripts\ServicePoints\service_point.sqf";
+	};
 };
 if(BaseJumpScript)then{
 	if (!isDedicated) then {
