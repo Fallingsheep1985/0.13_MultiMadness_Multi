@@ -9,7 +9,9 @@ _qty = _this select 0;
 _centerPos = getMarkerPos (_this select 1);
 _placeSearchRadius = _this select 2;
 _placeMinDistance = _this select 3;
-
+//var fix
+fa_coor2str = nil;
+_itemtype = 0;
 
 // add some loot around the camp
 _addLoot = {
@@ -29,10 +31,13 @@ private ["_clutter","_index","_lootMaxRadius2","_itemType","_position","_item","
 			_index =        dayz_CBLBase find toLower(_lootTable);
 			_weights =		dayz_CBLChances select _index;
 			_cntWeights = count _weights;
+			//Zero divisor fix
+			if((_cntWeights < 0)||(_cntWeights == 0))then{_cntWeights = _cntWeights + 1};
 		
 			for "_x" from (round(random _randomLoot) + _guaranteedLoot) to 1 step -1  do {
 				//create loot
 				_index = floor(random _cntWeights);
+				
 				_index = _weights select _index;
 				_itemType = _itemTypes select _index;
 
