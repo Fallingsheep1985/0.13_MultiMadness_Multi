@@ -190,7 +190,7 @@ if(DeployBikeScript)then{
 
 if(AnimatedSUVMV22)then{
 	//animated mv22/suv hatch
-	if (_inVehicle and (_vehicle isKindOf "MV22")) then {
+	if (_inVehicle && (_vehicle isKindOf "MV22")) then {
 	   if (isEngineOn _vehicle) then {[_vehicle,0] call mv22_pack;};
 	   if (mv22_fold < 0) then {
 		 themv22 = _vehicle;
@@ -222,7 +222,7 @@ if(AnimatedSUVMV22)then{
 	   mv22_close = -1;
 	};
 
-	if (_inVehicle and (_vehicle isKindOf "ArmoredSUV_Base_PMC")) then {
+	if (_inVehicle && (_vehicle isKindOf "ArmoredSUV_Base_PMC")) then {
 	   if ((_vehicle animationPhase "HideGun_01") == 1) then {
 		 _unit = _vehicle turretUnit [0];
 		 if (!(isNull _unit)) then {
@@ -463,7 +463,7 @@ if (!isNull cursorTarget && !_inVehicle && !_isPZombie && (player distance curso
 		
 		//Allow owners to delete modulars
                //if(_isModular && (dayz_characterID == _ownerID)) then {
-			   if(_isModular and (_playerUID == _ownerID)) then {
+			   if(_isModular && (_playerUID == _ownerID)) then {
                         if(_hasToolbox && "ItemCrowbar" in _itemsPlayer) then {
                                 _player_deleteBuild = true;
                         };
@@ -518,7 +518,7 @@ if (!isNull cursorTarget && !_inVehicle && !_isPZombie && (player distance curso
 		s_player_getTargetUID = -1;
 	};
 	
-	// Operate Gates AND Add Authorization to Gate
+	// Operate Gates && Add Authorization to Gate
 	if (((typeOf(cursortarget) in _codePanels) && (_authorizedGateCodes || _baseBuildAdmin) && !remProc && !procBuild) || ((typeOf(cursortarget) in allbuildables_class) && (_authorizedGateCodes || _baseBuildAdmin) && !remProc && !procBuild)) then {
 		_gates = nearestObjects [_lever, ["Concrete_Wall_EP1"], 15];
 		if (s_player_gateActions < 0) then {
@@ -927,7 +927,7 @@ if(BuryHumanScript)then{
 	};
 if(BurnTentsScript)then{
 	//BURN TENT
-	if(_isTent and _hasMatches and _canDo and !_isMan) then {
+	if(_isTent && _hasMatches && _canDo && !_isMan) then {
         if (s_player_igniteTent < 0) then {
             s_player_igniteTent = player addAction [format["Ignite Tent"], "scripts\tent_ignite.sqf",cursorTarget, 1, true, true, "", ""];
         };
@@ -1134,8 +1134,8 @@ if(TowingScript)then{
 
 if(TentHealScript)then{
     //Sleep
-	if(_isTent and _ownerID ==  _playerUI) then {
-		if ((s_player_sleep < 0) and (player distance _cursorTarget < 3)) then {
+	if(_isTent && _ownerID ==  _playerUI) then {
+		if ((s_player_sleep < 0) && (player distance _cursorTarget < 3)) then {
 			s_player_sleep = player addAction [localize "str_actions_self_sleep", "scripts\player_sleep.sqf",_cursorTarget, 0, false, true, "",""];
 		};
 	} else {
@@ -1155,7 +1155,7 @@ if(TentHealScript)then{
 };	
 
 //Repairing Vehicles
-    if ((dayz_myCursorTarget != _cursorTarget) and _isVehicle and !_isMan and _hasToolbox and (damage _cursorTarget < 1) and !_isDisallowRepair) then {
+    if ((dayz_myCursorTarget != _cursorTarget) && _isVehicle && !_isMan && _hasToolbox && (damage _cursorTarget < 1) && !_isDisallowRepair) then {
 		_hasKey = _ownerID in _temp_keys;
 		_oldOwner = (_ownerID == dayz_playerUID);
 		if(!locked _cursorTarget) then {
@@ -1548,7 +1548,7 @@ isEmerald = ["MAP_kasna_new","MAP_Misc_Boogieman","MAP_ChickenCoop","MAP_Misc_Gr
 _isEmeraldItem = (typeOf cursorTarget) in isEmerald;
 _emeraldTarget = typeOf cursorTarget;
 
-if((_isEmeraldItem and (player distance cursorTarget <= 2)) and _canDo) then {
+if((_isEmeraldItem && (player distance cursorTarget <= 2)) && _canDo) then {
 if (s_player_removeEmerald < 0) then {
         s_player_removeEmerald = player addaction [format[("<t color=""#ff0000"">" + ("Remove %1") +"</t>"),_emeraldTarget],"scripts\interior\remove.sqf",_emeraldTarget];
     };
@@ -1556,3 +1556,21 @@ if (s_player_removeEmerald < 0) then {
     player removeAction s_player_removeEmerald;
     s_player_removeEmerald = -1;
 }; 
+
+//NEW NOS
+	if (("ItemJerrycan" in magazines player) && ("ItemSodaRbull" in magazines player)) then {
+		hasNOSitems = true;
+	} else {
+		hasNOSitems = false;
+	};
+	
+	if (NOS < 0) then {
+	if (_inVehicle && (_vehicle isKindOf "LandVehicle")) then {
+		if(hasNOSitems) then {
+			NOS = player addAction [("<t color=""#c30000"">" + ("Use NOS") +"</t>"),"scripts\NOS\boost.sqf","",5,false,true,"",""];
+			};
+		};
+	} else {
+		player removeAction NOS;
+		NOS = -1;
+	};
