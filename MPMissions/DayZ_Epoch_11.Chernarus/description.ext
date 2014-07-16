@@ -563,6 +563,12 @@ class CfgSounds
 		 sound[]={sounds\nitro.ogg,0.9,1};
 		 titles[] = {};
 	};
+	class siren
+    {
+		name="siren";
+		sound[]={sounds\siren.ogg,0.9,1};
+		titles[] = {};
+	};
 };
 //DZGM
 #include "scripts\dzgm\groupManagement.hpp"

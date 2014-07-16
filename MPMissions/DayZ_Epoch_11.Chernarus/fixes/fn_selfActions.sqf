@@ -39,13 +39,31 @@ _canDo = (!r_drag_sqf && !r_player_unconscious && !_onLadder);
 			 _vehicle setVariable ["nitroinstalled", 1, true];
 		};
 	};
+//NEONS
 if (_inVehicle && (_vehicle isKindOf "Car")) then {
-	_vTTpDlHU = _vehicle getVariable["NeonMenu", false]; 
-	if( !_vTTpDlHU ) then { 
+	_hasNEON = _vehicle getVariable["NeonMenu", false]; 
+	if( !_hasNEON ) then { 
 	_vehicle setVariable["NeonMenu", true, false];
-	neon = _vehicle addAction [("<t color=""#AB2DFF"">" + ("Neon!") + "</t>"),"scripts\neons\object_neon.sqf",[_vehicle],5,false,true,"","driver _target == _this && (daytime > 20 || daytime < 4)"]; 
+	neon = _vehicle addAction [("<t color=""#AB2DFF"">" + ("Neon!") + "</t>"),"scripts\neon\object_neon.sqf",[_vehicle],5,false,true,"","driver _target == _this && (daytime > 20 || daytime < 4)"]; 
 	}; 
 };  
+
+//Sirens
+_isCopcar = typeOf _vehicle in ["LadaLM","HMMWV_Ambulance","HMMWV_Ambulance_CZ_DES_EP1","S1203_ambulance_EP1","GAZ_Vodnik_MedEvac","policecar"];
+
+if (_inVehicle and _isCopcar and (driver _vehicle == player)) then {
+        dayz_addsirens = _vehicle;
+    if (s_player_sirens_on < 0) then {
+        s_player_sirens_on = dayz_addsirens addAction ["Sirens on","scripts\sirens\sirens_on.sqf",dayz_addsirens,2,false,true,"",""];
+        s_player_sirens_off = dayz_addsirens addAction ["Sirens off","scripts\sirens\sirens_off.sqf",dayz_addsirens,2,false,true,"",""];
+        };
+    } else {
+        dayz_addsirens removeAction s_player_sirens_on;
+        dayz_addsirens removeAction s_player_sirens_off;
+        s_player_sirens_on = -1;
+        s_player_sirens_off = -1;
+    };
+
 
 if(DeployBikeScript)then{
 	//Deploy Bike
