@@ -1,19 +1,19 @@
-private ["_8NT31bAOVzOuD","_AHsoThPSnba","_Fw9mkr9tYzYYK"];
+private ["_truck","_Vehicle","_ZombieCount"];
 player removeAction s_player_load_zombie;
-_8NT31bAOVzOuD = _this select 3 select 0;
-_AHsoThPSnba   = _this select 3 select 1;
+_truck = _this select 3 select 0;
+_Vehicle   = _this select 3 select 1;
 player playActionNow "Medic";
 sleep DZ_ZOMBIE_TRUCK_LOAD_TIME;
-if (alive _8NT31bAOVzOuD) then {
+if (alive _truck) then {
     {
-        _8NT31bAOVzOuD removeAllEventHandlers _x;
+        _truck removeAllEventHandlers _x;
     } forEach ["fired","firednear","dammaged","hit","killed","mphit","mpkilled"];
-    _8NT31bAOVzOuD setDamage 1;
-    deleteVehicle _8NT31bAOVzOuD;
-    _Fw9mkr9tYzYYK = _AHsoThPSnba getVariable["LoadedZombies",0];
-    _Fw9mkr9tYzYYK = _Fw9mkr9tYzYYK + 1;
-    _AHsoThPSnba setVariable["LoadedZombies",_Fw9mkr9tYzYYK];
-    cutText[format["This truck is now holding %1 zombies!",_Fw9mkr9tYzYYK],"PLAIN DOWN"];
+    _truck setDamage 1;
+    deleteVehicle _truck;
+    _ZombieCount = _Vehicle getVariable["LoadedZombies",0];
+    _ZombieCount = _ZombieCount + 1;
+    _Vehicle setVariable["LoadedZombies",_ZombieCount];
+    cutText[format["This truck is now holding %1 zombies!",_ZombieCount],"PLAIN DOWN"];
 } else {
     cutText["The zombie must be alive to load it!","PLAIN DOWN"];
 };
