@@ -1153,22 +1153,24 @@ if(TentHealScript)then{
 		s_player_sleep = -1;
 	};
 };	
-	//Repairing Vehicles
-	if ((dayz_myCursorTarget != _cursorTarget) and _isVehicle and !_isMan and _hasToolbox and (damage _cursorTarget < 1) and !_isDisallowRepair) then {
-        _hasKey = _ownerID in _temp_keys;
-        _oldOwner = (_ownerID == dayz_playerUID);
-        if (s_player_repair_crtl < 0) then {
-            dayz_myCursorTarget = _cursorTarget;
-            _menu = dayz_myCursorTarget addAction ["Repair Vehicle", "\z\addons\dayz_code\actions\repair_vehicle.sqf",_cursorTarget, 0, true, false, "",""];
-            s_player_repairActions set [count s_player_repairActions,_menu];
-            if(!locked _cursorTarget) then {
-            _menu1 = dayz_myCursorTarget addAction ["Salvage Vehicle", "\z\addons\dayz_code\actions\salvage_vehicle.sqf",_cursorTarget, 0, true, false, "",""];
-            s_player_repairActions set [count s_player_repairActions,_menu1];};
-            s_player_repair_crtl = 1;    
-        } else {
-            {dayz_myCursorTarget removeAction _x} forEach s_player_repairActions;s_player_repairActions = [];
-            s_player_repair_crtl = -1;
-        };
+
+//Repairing Vehicles
+    if ((dayz_myCursorTarget != _cursorTarget) and _isVehicle and !_isMan and _hasToolbox and (damage _cursorTarget < 1) and !_isDisallowRepair) then {
+		_hasKey = _ownerID in _temp_keys;
+		_oldOwner = (_ownerID == dayz_playerUID);
+		if(!locked _cursorTarget) then {
+			if (s_player_repair_crtl < 0) then {
+				dayz_myCursorTarget = _cursorTarget;
+				_menu = dayz_myCursorTarget addAction ["Repair Vehicle", "\z\addons\dayz_code\actions\repair_vehicle.sqf",_cursorTarget, 0, true, false, "",""];
+				_menu1 = dayz_myCursorTarget addAction ["Salvage Vehicle", "\z\addons\dayz_code\actions\salvage_vehicle.sqf",_cursorTarget, 0, true, false, "",""];;
+				s_player_repairActions set [count s_player_repairActions,_menu];
+				s_player_repairActions set [count s_player_repairActions,_menu1];
+				s_player_repair_crtl = 1;
+			} else {
+				{dayz_myCursorTarget removeAction _x} forEach s_player_repairActions;s_player_repairActions = [];
+				s_player_repair_crtl = -1;
+			};
+		};
     };
 
 	// All Traders
