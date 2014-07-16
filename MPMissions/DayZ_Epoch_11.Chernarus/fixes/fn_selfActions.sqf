@@ -1564,13 +1564,13 @@ if (s_player_removeEmerald < 0) then {
 		hasNOSitems = false;
 	};
 	
-	if (s_player_nitroInstall < 0) then {
+	if (NOS < 0) then {
 	if (_inVehicle && (_vehicle isKindOf "LandVehicle")) then {
 		if(hasNOSitems) then {
-			s_player_nitroInstall = player addAction [("<t color=""#c30000"">" + ("Use NOS") +"</t>"),"scripts\NOS\boost.sqf","",5,false,true,"",""];
+			NOS = player addAction [("<t color=""#c30000"">" + ("Use NOS") +"</t>"),"scripts\NOS\boost.sqf","",5,false,true,"",""];
 			};
 		};
 	} else {
-		player removeAction s_player_nitroInstall;
-		s_player_nitroInstall = -1;
+		player removeAction NOS;
+		NOS = -1;
 	};
