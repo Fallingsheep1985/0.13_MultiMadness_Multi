@@ -7,9 +7,10 @@ _display displayAddEventHandler ["KeyDown","if ((_this select 1) == 31) then {pl
 while {true} do {
 	sleep 0.001;
 	if !(hasNOSitems) then {
-		cutText [(localize "You need 1 Jerrycan and 1 Redbull to use NOS!"), "PLAIN DOWN"]; 
+		cutText ["You need 1 Jerrycan and 1 Redbull to use NOS!", "PLAIN DOWN"]; 
 		exitwith{};	
 	};
+
 	if (vehicle player != player) then {
 	player removeMagazine "ItemJerrycan";
 	player removeMagazine "ItemSodaRbull";
