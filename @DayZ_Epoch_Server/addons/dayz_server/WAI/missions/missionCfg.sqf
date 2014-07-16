@@ -1,22 +1,28 @@
 // Time between missions (seconds)
-wai_mission_timer = 1800;
+wai_mission_timer = 600;
 
 // How long before a mission times out (seconds)
-wai_mission_timeout = 3600;
+wai_mission_timeout = 1800;
 
 // missions used when selecting the next random mission
 wai_missions = [
+"bandit_base",
 "armed_vehicle",
-"crash_spawner",
 "disabled_civchopper",
+"crash_spawner",
 "disabled_milchopper",
 "MV22",
 "weapon_cache",
-"convoy"
+"mayors_mansion",
+"convoy",
+"C130_crash",
+"ems_cache",
+"medi_camp",
+"Ural"
 ];
 
 // fuel the mission vehicles spawn with 0-100.
-wai_mission_fuel = 0;
+wai_mission_fuel = .5;
 
 // armed vehicles to spawn in missions
 armed_vehicle = [
@@ -166,20 +172,7 @@ wai_mission_numberofitems = 10;
 // classnames of items to spawn in ammo boxes (only type magazine will work here)
 ammo_box_items =[
 "ItemBandage",
-"ItemSodaCoke",
-"ItemMorphine",
-"ItemTentDomed",
-"ItemWire",
-"ItemJerrycan",
-"PartGeneric",
-"ItemSodaPepsi",
-"ItemSodaMdew",
-"ItemBloodbag",
-"ItemPainkiller",
-"FoodCanBakedBeans",
-"FoodCanSardines",
-"FoodCanPasta",
-"FoodCanFrankBeans"
+"ItemSodaCoke"
 ];
 
 //////////////////////////////////////////////////////////////////////

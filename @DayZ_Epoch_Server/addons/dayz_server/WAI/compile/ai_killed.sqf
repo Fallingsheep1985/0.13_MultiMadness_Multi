@@ -25,33 +25,6 @@ if (isPlayer _player) then {
 		{_unit removeMagazine _x;} forEach (magazines _unit);
 		{_unit removeWeapon _x;} forEach (weapons _unit);
 	};
-if(TakeClothesScript)then{
-	//Script addition to add skin to units gear
-	_skin = (typeOf _unit);
-	_skin = "Skin_" + _skin;
-	_okSkin = isClass (configFile >> "CfgMagazines" >> _skin);
-
-	if (_okSkin) then {
-
-	 _result = [_unit,_skin] call BIS_fnc_invAdd;
-		if (_result) then {
-			hintSilent "";
-
-		} else {
-	 
-			 _pos = getPosATL _body;
-			 
-			 _box = 'Foodbox0' createVehicle _pos;
-			 _box setPosATL _pos;
-			 
-			 clearWeaponCargoGlobal _box;
-			 clearmagazinecargoGlobal _box;
-			 
-			 _box addMagazineCargoGlobal [_skin,1];
-	 
-		};
-	};
-};
 	if (ai_ahare_info) then {
 		{if (((position _x) distance (position _unit)) <= ai_share_distance) then {_x reveal [_player, 4.0];}} forEach allUnits;
 	};

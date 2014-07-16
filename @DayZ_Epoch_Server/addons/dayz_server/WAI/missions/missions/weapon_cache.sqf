@@ -1,9 +1,13 @@
+//Weapon Cache
+
 private ["_position","_box","_missiontimeout","_cleanmission","_playerPresent","_starttime","_currenttime","_cleanunits","_rndnum"];
 
 _position = [getMarkerPos "center",0,5500,10,0,2000,0] call BIS_fnc_findSafePos;
 diag_log format["WAI: Mission Weapon Cache Started At %1",_position];
+
+
 _box = createVehicle ["BAF_VehicleBox",[(_position select 0),(_position select 1),0], [], 0, "CAN_COLLIDE"];
-[_box] call spawn_ammo_box;
+[_box] call Medium_Gun_Box;
 
 
 _rndnum = round (random 3) + 4;
@@ -31,7 +35,7 @@ true
 
 [[[(_position select 0), (_position select 1) + 10, 0],[(_position select 0) + 10, (_position select 1), 0]], //position(s) (can be multiple).
 "M2StaticMG",             //Classname of turret
-0.5,					  //Skill level 0-1. Has no effect if using custom skills
+0.8,					  //Skill level 0-1. Has no effect if using custom skills
 "Bandit2_DZ",				          //Skin "" for random or classname here.
 0,						  //Primary gun set number. "Random" for random weapon set. (not needed if ai_static_useweapon = False)
 2,						  //Number of magazines. (not needed if ai_static_useweapon = False)
@@ -63,26 +67,26 @@ if (_playerPresent) then {
 		{if((isPlayer _x) AND (_x distance _position <= 30)) then {_playerPresent = true};}forEach playableUnits;
 		(_playerPresent)
 	};
-	diag_log format["WAI: Mission Wepaon cache Ended At %1",_position];
-	[nil,nil,rTitleText,"Survivors have secured the Wepaon Cache!", "PLAIN",10] call RE;
+	diag_log format["WAI: Mission Weapon cache Ended At %1",_position];
+	[nil,nil,rTitleText,"Survivors have secured the Weapon Cache!", "PLAIN",10] call RE;
 } else {
 	clean_running_mission = True;
 	deleteVehicle _box;
 	{_cleanunits = _x getVariable "missionclean";
 	if (!isNil "_cleanunits") then {
 		switch (_cleanunits) do {
-			case "ground" : {ai_ground_units = (ai_ground_units -1);};
-			case "air" : {ai_air_units = (ai_air_units -1);};
+			case "ground" :  {ai_ground_units = (ai_ground_units -1);};
+			case "air" :     {ai_air_units = (ai_air_units -1);};
 			case "vehicle" : {ai_vehicle_units = (ai_vehicle_units -1);};
-			case "static" : {ai_emplacement_units = (ai_emplacement_units -1);};
+			case "static" :  {ai_emplacement_units = (ai_emplacement_units -1);};
 		};
 		deleteVehicle _x;
 		sleep 0.05;
 	};	
 	} forEach allUnits;
 	
-	diag_log format["WAI: Mission Wepaon cache timed out At %1",_position];
-	[nil,nil,rTitleText,"Survivors did not secure the Wepaon Cache in time!", "PLAIN",10] call RE;
+	diag_log format["WAI: Mission Weapon cache timed out At %1",_position];
+	[nil,nil,rTitleText,"Survivors did not secure the Weapon Cache in time!", "PLAIN",10] call RE;
 };
 
 missionrunning = false;
