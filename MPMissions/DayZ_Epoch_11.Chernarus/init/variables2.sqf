@@ -24,7 +24,7 @@
 	BBTypeOfZShield				= "CDF_WarfareBUAVterminal"; //Type of object used for Zombie Shield, included this only in case some maps have this object banned
 	BBAllZShieldTypes			= ["CDF_WarfareBUAVterminal"]; //DO NOT REMOVE ITEMS FROM THIS ARRAY, you can ADD an object class if you want a different building to be used as a Zombie Shield Generator!
 	BBMaxZShields				= 1; //Maximum number of zombie shield generators a player can be added to, default is 1
-	BBZShieldRadius				= 50; //Radius for Base Build zombie shield generator, default is 50
+	BBZShieldRadius				= 100; //Radius for Base Build zombie shield generator, default is 50
 	BBZShieldClean				= 0; //Delete Zombies when they enter active shield radius/ 1 = Enabled // 0 = Disabled (If disabled, zombies will be killed but not deleted, could lead to zombie loot farming)
 	BBZShieldDis				= 1; //Limits the distance shield generators can be built from flags to (BBFlagRadius - BBZShieldRadius)/ 1 = Enabled // 0 = Disabled (If you reduce the flag radius, you may need to disable this)
 
@@ -229,7 +229,24 @@
 "MAP_P_pipe_big",
 "MAP_P_pipe_small",
 "MAP_P_ytong",
-"Land_Fire_DZ", "TentStorage", "Wire_cat1", "Sandbag1_DZ", "Hedgehog_DZ", "StashSmall", "StashMedium", "BearTrap_DZ", "DomeTentStorage", "CamoNet_DZ", "Trap_Cans", "TrapTripwireFlare", "TrapBearTrapSmoke", "TrapTripwireGrenade", "TrapTripwireSmoke", "TrapBearTrapFlare", "Grave", "Concrete_Wall_EP1", "Infostand_2_EP1", "WarfareBDepot", "Base_WarfareBBarrier10xTall", "WarfareBCamp", "Base_WarfareBBarrier10x", "Land_fortified_nest_big", "Land_Fort_Watchtower", "Land_fort_rampart_EP1", "Land_HBarrier_large", "Land_fortified_nest_small", "Land_BagFenceRound", "Land_fort_bagfence_long", "Land_Misc_Cargo2E", "Misc_Cargo1Bo_military", "Ins_WarfareBContructionSite", "Land_pumpa", "Land_CncBlock", "Hhedgehog_concrete", "Misc_cargo_cont_small_EP1", "Land_prebehlavka", "Fence_corrugated_plate", "ZavoraAnim", "Land_tent_east", "Land_CamoNetB_EAST", "Land_CamoNetB_NATO", "Land_CamoNetVar_EAST", "Land_CamoNetVar_NATO", "Land_CamoNet_EAST", "Land_CamoNet_NATO", "Fence_Ind_long", "Fort_RazorWire", "Fence_Ind","Land_sara_hasic_zbroj","Land_Shed_wooden","Land_Barrack2","Land_vez","FlagCarrierBAF","FlagCarrierBIS_EP1","FlagCarrierBLUFOR_EP1","FlagCarrierCDF_EP1","FlagCarrierCDFEnsign_EP1","FlagCarrierCzechRepublic_EP1","FlagCarrierGermany_EP1","FlagCarrierINDFOR_EP1","FlagCarrierUSA_EP1","Land_Ind_Shed_01_main","Land_Fire_barrel","Land_WoodenRamp","Land_Ind_TankSmall2_EP1","PowerGenerator_EP1","Land_Ind_IlluminantTower","Land_A_Castle_Stairs_A","Land_A_Castle_Bergfrit","Land_A_Castle_Bastion","Land_A_Castle_Wall1_20","Land_A_Castle_Wall1_20_Turn","Land_A_Castle_Wall2_30","Land_A_Castle_Gate","Land_House_L_1_EP1","Land_ConcreteRamp","RampConcrete","HeliH","HeliHCivil","Land_ladder","Land_ladder_half","Land_Misc_Scaffolding","CDF_WarfareBUAVterminal","Land_Ind_Shed_01_end","Land_Ind_SawMillPen"];
+"Land_Fire_DZ", 
+"TentStorage", 
+"Wire_cat1", 
+"Sandbag1_DZ", "Hedgehog_DZ", "StashSmall", "StashMedium", "BearTrap_DZ", 
+"DomeTentStorage", "CamoNet_DZ", "Trap_Cans", "TrapTripwireFlare", "TrapBearTrapSmoke", 
+"TrapTripwireGrenade", "TrapTripwireSmoke", "TrapBearTrapFlare", "Grave", "Concrete_Wall_EP1", 
+"Infostand_2_EP1", "WarfareBDepot", "Base_WarfareBBarrier10xTall", "WarfareBCamp", "Base_WarfareBBarrier10x", 
+"Land_fortified_nest_big", "Land_Fort_Watchtower", "Land_fort_rampart_EP1", "Land_HBarrier_large", "Land_fortified_nest_small", 
+"Land_BagFenceRound", "Land_fort_bagfence_long", "Land_Misc_Cargo2E", "Misc_Cargo1Bo_military", "Ins_WarfareBContructionSite", 
+"Land_pumpa", "Land_CncBlock", "Hhedgehog_concrete", "Misc_cargo_cont_small_EP1", "Land_prebehlavka", "Fence_corrugated_plate", 
+"ZavoraAnim", "Land_tent_east", "Land_CamoNetB_EAST", "Land_CamoNetB_NATO", "Land_CamoNetVar_EAST", "Land_CamoNetVar_NATO", 
+"Land_CamoNet_EAST", "Land_CamoNet_NATO", "Fence_Ind_long", "Fort_RazorWire", "Fence_Ind","Land_sara_hasic_zbroj",
+"Land_Shed_wooden","Land_Barrack2","Land_vez","FlagCarrierBAF","FlagCarrierBIS_EP1","FlagCarrierBLUFOR_EP1",
+"FlagCarrierCDF_EP1","FlagCarrierCDFEnsign_EP1","FlagCarrierCzechRepublic_EP1","FlagCarrierGermany_EP1","FlagCarrierINDFOR_EP1",
+"FlagCarrierUSA_EP1","Land_Ind_Shed_01_main","Land_Fire_barrel","Land_WoodenRamp","Land_Ind_TankSmall2_EP1","PowerGenerator_EP1",
+"Land_Ind_IlluminantTower","Land_A_Castle_Stairs_A","Land_A_Castle_Bergfrit","Land_A_Castle_Bastion","Land_A_Castle_Wall1_20",
+"Land_A_Castle_Wall1_20_Turn","Land_A_Castle_Wall2_30","Land_A_Castle_Gate","Land_House_L_1_EP1","Land_ConcreteRamp","RampConcrete",
+"HeliH","HeliHCivil","Land_ladder","Land_ladder_half","Land_Misc_Scaffolding","CDF_WarfareBUAVterminal","Land_Ind_Shed_01_end","Land_Ind_SawMillPen"];
 /******************************************************** END OF EDITABLE SETTINGS ********************************************************/
 
 //Daimyo Custom Variables
