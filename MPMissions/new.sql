@@ -6,7 +6,7 @@ REPLACE INTO `traders_data`(`id`,`item`,`qty`,`buy`,`sell`,`order`,`tid`,`afile`
 REPLACE INTO `traders_data`(`id`,`item`,`qty`,`buy`,`sell`,`order`,`tid`,`afile`) VALUES (10004,'["ItemEmerald",1]',250,'[9,"ItemGoldBar10oz",1]','[5,"ItemGoldBar10oz",1]',0,900,'trade_items');
 REPLACE INTO `traders_data`(`id`,`item`,`qty`,`buy`,`sell`,`order`,`tid`,`afile`) VALUES (10005,'["ItemCitrine",1]',250,'[9,"ItemGoldBar10oz",1]','[5,"ItemGoldBar10oz",1]',0,900,'trade_items');
 
-REPLACE INTO `traders_data`(`id`,`item`,`qty`,`buy`,`sell`,`order`,`tid`,`afile`) VALUES (10006,'["ItemHemp",1]',50,'[5,"ItemGoldBar10oz",1]','[1,"ItemGoldBar10oz",1]',0,901,'trade_items');
+REPLACE INTO `traders_data`(`id`,`item`,`qty`,`buy`,`sell`,`order`,`tid`,`afile`) VALUES (10006,'["ItemKiloHemp",1]',50,'[5,"ItemGoldBar10oz",1]','[1,"ItemGoldBar10oz",1]',0,901,'trade_items');
 REPLACE INTO `traders_data`(`id`,`item`,`qty`,`buy`,`sell`,`order`,`tid`,`afile`) VALUES (10007,'["ItemRadio",1]',50,'[1,"ItemBriefcase100oz",1]','[5,"ItemGoldBar10oz",1]',0,902,'trade_items');
 
 REPLACE INTO `traders_data`(`id`,`item`,`qty`,`buy`,`sell`,`order`,`tid`,`afile`) VALUES(10009,'["M107_DZ"]', 250, '[5,"ItemBriefcase100oz",1]', '[1,"ItemBriefcase100oz",1]',0, 672, 'trade_weapons');
