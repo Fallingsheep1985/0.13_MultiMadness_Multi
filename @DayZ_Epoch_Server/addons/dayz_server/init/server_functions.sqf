@@ -1094,7 +1094,7 @@ execVM "\z\addons\dayz_server\CustomBuildings\sectorfng\sectorfng_init.sqf";
 execVM "\z\addons\dayz_server\CustomBuildings\balota.sqf";
 execVM "\z\addons\dayz_server\CustomBuildings\kamenka.sqf";
 execVM "\z\addons\dayz_server\CustomBuildings\Krasno.sqf";
-execVM "\z\addons\dayz_server\CustomBuildings\northeastairfield.sqf";
+execVM "\z\addons\dayz_server\CustomBuildings\northeast.sqf";
 execVM "\z\addons\dayz_server\CustomBuildings\vybor.sqf";
 execVM "\z\addons\dayz_server\CustomBuildings\basebor.sqf";
 execVM "\z\addons\dayz_server\CustomBuildings\basedichina.sqf";
@@ -1114,9 +1114,11 @@ execVM "\z\addons\dayz_server\CustomBuildings\box_la_grotte.sqf";
 //CDC Balota + Trader
 execVM "\z\addons\dayz_server\CustomBuildings\Trader_CDC_Balota.sqf";
 
-//Misc
+//Altar
 execVM "\z\addons\dayz_server\CustomBuildings\altar.sqf";
-execVM "\z\addons\dayz_server\CustomBuildings\golden_river.sqf";
+
+//Golden River MIne
+execVM "\z\addons\dayz_server\CustomBuildings\golden_river_mine.sqf";
 
 //cherno heliport
 execVM "\z\addons\dayz_server\CustomBuildings\heliport.sqf";
@@ -1130,6 +1132,7 @@ execVM "\z\addons\dayz_server\CustomBuildings\banks\nbank_novy_sobor.sqf";
 //East coast cherno
 execVM "\z\addons\dayz_server\CustomBuildings\Eastcoast.sqf";
 execVM "\z\addons\dayz_server\CustomBuildings\Eastcoast2.sqf";
+
 //Black Lake Castle
 execVM "\z\addons\dayz_server\CustomBuildings\blacklakecastle.sqf";
 
@@ -1141,3 +1144,13 @@ execVM "\z\addons\dayz_server\CustomBuildings\roadpobeda.sqf";
 
 //Black forest outpost
 execVM "\z\addons\dayz_server\CustomBuildings\blackforestoutpost.sqf";
+
+//Electro
+execVM "\z\addons\dayz_server\CustomBuildings\electro.sqf";
+execVM "\z\addons\dayz_server\CustomBuildings\electroZI.sqf";
+
+//Cherno
+execVM "\z\addons\dayz_server\CustomBuildings\Cherno.sqf";
+
+//Anglorum
+execVM "\z\addons\dayz_server\CustomBuildings\Anglorum.sqf";

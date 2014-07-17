@@ -24,7 +24,7 @@
 		600						//(OPTIONAL)* Respawn time. Number of seconds to wait until AI and vehicle are respawned. (Default: 600). Timer begins after AI group is wiped out or vehicle is destroyed, whichever comes first.
 	] call DZAI_spawn_vehicle;
 	
-	The above DZAI_spawn_vehicle call will spawn an Armored SUV with 1 driver, 3 passenger units and 1 gunner unit with military-grade weapons, and will respawn after 600 seconds (10 minutes).
+	The above DZAI_spawn_vehicle call will spawn an Armored SUV with 1 driver, 3 passenger units and 1 gunner unit with military-grade weapons, and will respawn after 600 seconds (3 minutes).
 
 	* Optional parameters may be left out of the function call. A default action will be taken instead.
 	
@@ -44,145 +44,145 @@
 
 [
 "DZAI_marker_sectorfng_front",
-8,
+4,
 3,
 false
-] call DZAI_spawn;
+] call DZAI_spawn_units;
 
 [
 "DZAI_marker_sectorfng_sandl",
-8,
+4,
 3,
 false
-] call DZAI_spawn;
+] call DZAI_spawn_units;
 
 [
 "DZAI_marker_sectorfng_sandr",
-8,
+4,
 3,
 false
-] call DZAI_spawn;
+] call DZAI_spawn_units;
 
 [
 "DZAI_marker_sectorfng_roof",
-8,
+4,
 3,
 false
-] call DZAI_spawn;
+] call DZAI_spawn_units;
 
 [
 "DZAI_marker_sectorfng_hang",
-8,
+4,
 3,
 false
-] call DZAI_spawn;
+] call DZAI_spawn_units;
 
 [
 "DZAI_marker_sectorfng_back",
-8,
+4,
 2,
 false
-] call DZAI_spawn;
+] call DZAI_spawn_units;
 
 [
 "DZAI_marker_sectorfng_crate1",
-8,
+4,
 3,
 false
-] call DZAI_spawn;
+] call DZAI_spawn_units;
 
 [
 "DZAI_marker_sectorfng_crate2",
-8,
+4,
 2,
 false
-] call DZAI_spawn;
+] call DZAI_spawn_units;
 
 [
 "DZAI_marker_sectorfng_crate3",
-8,
+4,
 3,
 false
-] call DZAI_spawn;
+] call DZAI_spawn_units;
 
 [
 "DZAI_marker_sectorfng_crate4",
-6,
+3,
 2,
 false
-] call DZAI_spawn;
+] call DZAI_spawn_units;
 
 [
 "DZAI_marker_sectorfng_crate5",
-6,
+3,
 3,
 false
-] call DZAI_spawn;
+] call DZAI_spawn_units;
 
 // Golden Town
 [
 "DZAI_patrol_zone_s_1",
-12,
+5,
 3,
 false
-] call DZAI_spawn;
+] call DZAI_spawn_units;
 
 [
 "DZAI_patrol_zone_s_2",
-12,
+5,
 3,
 false
-] call DZAI_spawn;
+] call DZAI_spawn_units;
 
 [
 "DZAI_patrol_zone_s_3",
-10,
+3,
 3,
 false
-] call DZAI_spawn;
+] call DZAI_spawn_units;
 
 [
 "DZAI_patrol_zone_s_4",
-12,
+5,
 3,
 false
-] call DZAI_spawn;
+] call DZAI_spawn_units;
 
 [
 "DZAI_patrol_zone_s_5",
-10,
+3,
 3,
 false
-] call DZAI_spawn;
+] call DZAI_spawn_units;
 
 //Mine
 [
 "DZAI_patrol_zone_m_1",
-10,
+3,
 3,
 false
-] call DZAI_spawn;
+] call DZAI_spawn_units;
 
 [
 "DZAI_patrol_zone_m_2",
-10,
+3,
 3,
 false
-] call DZAI_spawn;
+] call DZAI_spawn_units;
 
 [
 "DZAI_patrol_zone_m_3",
-10,
+3,
 3,
 false
-] call DZAI_spawn;
+] call DZAI_spawn_units;
 
 [
 "DZAI_patrol_zone_m_4",
-10,
+3,
 3,
 false
-] call DZAI_spawn; 
+] call DZAI_spawn_units; 
 
 
 
