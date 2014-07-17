@@ -2,7 +2,7 @@
 	DayZ Base Building
 	Made for DayZ Epoch please ask permission to use/edit/distrubute email vbawol@veteranbastards.com.
 */
-private ["_playerUID","_found","_location","_dir","_classname","_item","_hasrequireditem","_missing","_hastoolweapon","_cancel","_reason","_started","_finished","_animState","_isMedic","_dis","_sfx","_hasbuilditem","_tmpbuilt","_onLadder","_isWater","_require","_text","_offset","_IsNearPlot","_isOk","_location1","_location2","_counter","_limit","_proceed","_num_removed","_position","_object","_canBuildOnPlot","_friendlies","_nearestPole","_ownerID","_findNearestPoles","_findNearestPole","_distance","_classnametmp","_ghost","_isPole","_needText","_lockable","_zheightchanged","_rotate","_combination_1","_combination_2","_combination_3","_combination_4","_combination","_combination_1_Display","_combinationDisplay","_zheightdirection","_abort","_isNear","_need","_needNear","_vehicle","_inVehicle","_requireplot","_objHDiff","_isLandFireDZ","_isTankTrap"];
+private ["_helperColor","_objectHelper","_objectHelperDir","_objectHelperPos","_canDo","_playerUID","_found","_location","_dir","_classname","_item","_hasrequireditem","_missing","_hastoolweapon","_cancel","_reason","_started","_finished","_animState","_isMedic","_dis","_sfx","_hasbuilditem","_tmpbuilt","_onLadder","_isWater","_require","_text","_offset","_IsNearPlot","_isOk","_location1","_location2","_counter","_limit","_proceed","_num_removed","_position","_object","_canBuildOnPlot","_friendlies","_nearestPole","_ownerID","_findNearestPoles","_findNearestPole","_distance","_classnametmp","_ghost","_isPole","_needText","_lockable","_zheightchanged","_rotate","_combination_1","_combination_2","_combination_3","_combination_4","_combination","_combination_1_Display","_combinationDisplay","_zheightdirection","_abort","_isNear","_need","_needNear","_vehicle","_inVehicle","_requireplot","_objHDiff","_isLandFireDZ","_isTankTrap"];
 
 if(DZE_ActionInProgress) exitWith { cutText [(localize "str_epoch_player_40") , "PLAIN DOWN"]; };
 DZE_ActionInProgress = true;
@@ -21,8 +21,6 @@ _inVehicle = (_vehicle != player);
 //snap
 helperDetach = false;
 _canDo = (!r_drag_sqf and !r_player_unconscious);
-DZE_F = false;
-
 DZE_Q = false;
 DZE_Z = false;
 
@@ -35,6 +33,7 @@ DZE_Z_ctrl = false;
 DZE_5 = false;
 DZE_4 = false;
 DZE_6 = false;
+DZE_F = false;
 
 DZE_cancelBuilding = false;
 
@@ -142,7 +141,7 @@ _findNearestPole = [];
 	if (alive _x) then {
 		_findNearestPole set [(count _findNearestPole),_x];
 	};
-} count _findNearestPoles;
+} foreach _findNearestPoles;
 
 _IsNearPlot = count (_findNearestPole);
 
@@ -402,7 +401,7 @@ if (isClass (missionConfigFile >> "SnapBuilding" >> _classname)) then {
 		if(abs(_objHDiff) > 10) exitWith {
 			_isOk = false;
 			_cancel = true;
-			_reason = "Cannot move up || down more than 10 meters";
+			_reason = "Cannot move up or down more than 10 meters";
 			detach _object;
 			deleteVehicle _object;
 			detach _objectHelper;
