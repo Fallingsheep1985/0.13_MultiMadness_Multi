@@ -40,7 +40,149 @@
 */
 
 //----------------------------Add your custom spawn definitions below this line ----------------------------
+// Sector FNG
 
+[
+"DZAI_marker_sectorfng_front",
+8,
+3,
+false
+] call DZAI_spawn;
+
+[
+"DZAI_marker_sectorfng_sandl",
+8,
+3,
+false
+] call DZAI_spawn;
+
+[
+"DZAI_marker_sectorfng_sandr",
+8,
+3,
+false
+] call DZAI_spawn;
+
+[
+"DZAI_marker_sectorfng_roof",
+8,
+3,
+false
+] call DZAI_spawn;
+
+[
+"DZAI_marker_sectorfng_hang",
+8,
+3,
+false
+] call DZAI_spawn;
+
+[
+"DZAI_marker_sectorfng_back",
+8,
+2,
+false
+] call DZAI_spawn;
+
+[
+"DZAI_marker_sectorfng_crate1",
+8,
+3,
+false
+] call DZAI_spawn;
+
+[
+"DZAI_marker_sectorfng_crate2",
+8,
+2,
+false
+] call DZAI_spawn;
+
+[
+"DZAI_marker_sectorfng_crate3",
+8,
+3,
+false
+] call DZAI_spawn;
+
+[
+"DZAI_marker_sectorfng_crate4",
+6,
+2,
+false
+] call DZAI_spawn;
+
+[
+"DZAI_marker_sectorfng_crate5",
+6,
+3,
+false
+] call DZAI_spawn;
+
+// Golden Town
+[
+"DZAI_patrol_zone_s_1",
+12,
+3,
+false
+] call DZAI_spawn;
+
+[
+"DZAI_patrol_zone_s_2",
+12,
+3,
+false
+] call DZAI_spawn;
+
+[
+"DZAI_patrol_zone_s_3",
+10,
+3,
+false
+] call DZAI_spawn;
+
+[
+"DZAI_patrol_zone_s_4",
+12,
+3,
+false
+] call DZAI_spawn;
+
+[
+"DZAI_patrol_zone_s_5",
+10,
+3,
+false
+] call DZAI_spawn;
+
+//Mine
+[
+"DZAI_patrol_zone_m_1",
+10,
+3,
+false
+] call DZAI_spawn;
+
+[
+"DZAI_patrol_zone_m_2",
+10,
+3,
+false
+] call DZAI_spawn;
+
+[
+"DZAI_patrol_zone_m_3",
+10,
+3,
+false
+] call DZAI_spawn;
+
+[
+"DZAI_patrol_zone_m_4",
+10,
+3,
+false
+] call DZAI_spawn; 
 
 
 
