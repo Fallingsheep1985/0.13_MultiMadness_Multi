@@ -2,8 +2,10 @@
 
 private ["_playerGM"];
 _playerGM = _this select 0;
+
 if (_playerGM) then
 {
+	ADMINGODMODE = true;
 	player_zombieCheck = {};
 	fnc_usec_damageHandler = {};
 	fnc_usec_unconscious = {};
@@ -42,4 +44,5 @@ else
 	player addEventHandler ["handleDamage", {true}];
 	player removeAllEventHandlers "handleDamage";
 	player allowDamage true;
+	ADMINGODMODE = false;
 };
