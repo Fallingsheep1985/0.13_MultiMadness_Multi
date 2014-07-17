@@ -45,9 +45,6 @@ local_lockUnlock = compile preprocessFileLineNumbers "scripts\Towing\local_lockU
 fnc_usec_damageActions = compile preprocessFileLineNumbers "fixes\fn_damageActions.sqf";
 player_updateGui = compile preprocessFileLineNumbers "fixes\player_updateGui.sqf";
 
-//Snap
-player_buildControls	= compile preprocessFileLineNumbers "scripts\snap_build\player_buildControls.sqf";
-snap_object				= compile preprocessFileLineNumbers "scripts\snap_build\snap_object.sqf";
 //Infected Camps
 infectedcamps = compile preprocessFileLineNumbers "scripts\InfectedCamps\object_infectedcamps.sqf";
 camp_spawnZombies = compile preprocessFileLineNumbers "scripts\InfectedCamps\camp_spawnZombies.sqf";
