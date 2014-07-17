@@ -237,6 +237,16 @@ if (dialog) then {closeDialog 0;groupManagementActive = false;} else {createGear
 };
 };
 
+//Debug Monitor
+if (_dikCode == 0x44) then {
+	if (debugMonitor) then {
+		debugMonitor = false;
+		hintSilent "";
+	} else {
+		debugMonitor = true;
+	};
+};
+
 //Keybinds for Base Building
 _shiftState = _this select 2;
 //Elevate NumPad 8
