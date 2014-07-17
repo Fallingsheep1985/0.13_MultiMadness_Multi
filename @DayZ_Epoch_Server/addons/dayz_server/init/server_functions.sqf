@@ -1093,13 +1093,13 @@ execVM "\z\addons\dayz_server\CustomBuildings\sectorfng\sectorfng_init.sqf";
 //IXXO
 execVM "\z\addons\dayz_server\CustomBuildings\balota.sqf";
 execVM "\z\addons\dayz_server\CustomBuildings\kamenka.sqf";
-execVM "\z\addons\dayz_server\CustomBuildings\Krasnostav.sqf";
+execVM "\z\addons\dayz_server\CustomBuildings\Krasno.sqf";
 execVM "\z\addons\dayz_server\CustomBuildings\northeastairfield.sqf";
 execVM "\z\addons\dayz_server\CustomBuildings\vybor.sqf";
-execVM "\z\addons\dayz_server\CustomBuildings\BorMilitaryBase.sqf";
-execVM "\z\addons\dayz_server\CustomBuildings\DichinaMilitaryBase.sqf";
-execVM "\z\addons\dayz_server\CustomBuildings\NovyLugMilitaryBase.sqf";
-execVM "\z\addons\dayz_server\CustomBuildings\Zelenogorsk.sqf";
+execVM "\z\addons\dayz_server\CustomBuildings\basebor.sqf";
+execVM "\z\addons\dayz_server\CustomBuildings\basedichina.sqf";
+execVM "\z\addons\dayz_server\CustomBuildings\basenovy.sqf";
+execVM "\z\addons\dayz_server\CustomBuildings\Zeleno.sqf";
 
 //Caves
 execVM "\z\addons\dayz_server\CustomBuildings\Prud_Cave.sqf";
