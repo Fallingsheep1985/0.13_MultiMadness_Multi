@@ -223,10 +223,8 @@ fnc_wmod_openWeaponModInventory = {
     if(DZE_WEAPON_MOD_USE_HINT_INVENTORY) then {
         [] spawn {
             private["_infistarDebug","_startPosition","_hint","_weapon","_upgrades","_color","_mod","_base","_upgrade"];
-            _infistarDebug = false;
-            if (!(isNil "debugMonitorX")) then {
-                _infistarDebug = debugMonitorX;
-                debugMonitorX = false;
+            if (!(isNil "debugMonitor")) then {
+                debugMonitor = false;
             };
             DZE_WEAPON_MOD_INVENTORY_SHOW = true;
             _startPosition = position player;
@@ -260,7 +258,7 @@ fnc_wmod_openWeaponModInventory = {
             };
             DZE_WEAPON_MOD_INVENTORY_SHOW = false;
             hintSilent "";
-            if(_infistarDebug) then {[] spawn fnc_debugX0;};
+            debugMonitor = true;
         };
     } else {
         systemChat format["Weapon Mod Inventory: %1",(call fnc_wmod_getCountArrayDisplay)];
