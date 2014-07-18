@@ -58,14 +58,14 @@ fnc_snapActionCleanup = {
 			["",true]
 		];
 		if(_s1 > 0) then {
-			DZE_SNAP_PRO_COMMAND_MENU set [count DZE_SNAP_PRO_COMMAND_MENU,[format["Snap: %1",snapActionState], [DZE_SNAP_BUILD_NUMKEYS select ((count DZE_SNAP_PRO_COMMAND_MENU) - 1)], "", -5, [["expression", "[snapActionState,DZE_SNAP_PRO_CURR_OBJECT,DZE_SNAP_PRO_CURR_CLASSNAME,DZE_SNAP_PRO_CURR_OBJECTHELPER] execVM 'custom\snap_pro\snap_build.sqf';"]], "1", "1"]];
+			DZE_SNAP_PRO_COMMAND_MENU set [count DZE_SNAP_PRO_COMMAND_MENU,[format["Snap: %1",snapActionState], [DZE_SNAP_BUILD_NUMKEYS select ((count DZE_SNAP_PRO_COMMAND_MENU) - 1)], "", -5, [["expression", "[snapActionState,DZE_SNAP_PRO_CURR_OBJECT,DZE_SNAP_PRO_CURR_CLASSNAME,DZE_SNAP_PRO_CURR_OBJECTHELPER] execVM 'scripts\snap_pro\snap_build.sqf';"]], "1", "1"]];
 		};
 		if(_s2 > 0) then {
-			DZE_SNAP_PRO_COMMAND_MENU set [count DZE_SNAP_PRO_COMMAND_MENU, [format["Snap Point: %1",snapActionStateSelect], [DZE_SNAP_BUILD_NUMKEYS select ((count DZE_SNAP_PRO_COMMAND_MENU) - 1)], "", -5, [["expression", "[snapActionStateSelect,DZE_SNAP_PRO_CURR_OBJECT,DZE_SNAP_PRO_CURR_CLASSNAME,DZE_SNAP_PRO_CURR_OBJECTHELPER] execVM 'custom\snap_pro\snap_build.sqf';"]], "1", "1"]];
+			DZE_SNAP_PRO_COMMAND_MENU set [count DZE_SNAP_PRO_COMMAND_MENU, [format["Snap Point: %1",snapActionStateSelect], [DZE_SNAP_BUILD_NUMKEYS select ((count DZE_SNAP_PRO_COMMAND_MENU) - 1)], "", -5, [["expression", "[snapActionStateSelect,DZE_SNAP_PRO_CURR_OBJECT,DZE_SNAP_PRO_CURR_CLASSNAME,DZE_SNAP_PRO_CURR_OBJECTHELPER] execVM 'scripts\snap_pro\snap_build.sqf';"]], "1", "1"]];
 		};
 		if(_s3 > 0) then {
 			{
-				DZE_SNAP_PRO_COMMAND_MENU set [count DZE_SNAP_PRO_COMMAND_MENU, [format["Select: %1",_x select 3], [DZE_SNAP_BUILD_NUMKEYS select ((count DZE_SNAP_PRO_COMMAND_MENU) - 1)], "", -5, [["expression", format["['Selected',DZE_SNAP_PRO_CURR_OBJECT,DZE_SNAP_PRO_CURR_CLASSNAME,DZE_SNAP_PRO_CURR_OBJECTHELPER,%1] execVM 'custom\snap_pro\snap_build.sqf';",_foreachindex]]], "1", "1"]];
+				DZE_SNAP_PRO_COMMAND_MENU set [count DZE_SNAP_PRO_COMMAND_MENU, [format["Select: %1",_x select 3], [DZE_SNAP_BUILD_NUMKEYS select ((count DZE_SNAP_PRO_COMMAND_MENU) - 1)], "", -5, [["expression", format["['Selected',DZE_SNAP_PRO_CURR_OBJECT,DZE_SNAP_PRO_CURR_CLASSNAME,DZE_SNAP_PRO_CURR_OBJECTHELPER,%1] execVM 'scripts\snap_pro\snap_build.sqf';",_foreachindex]]], "1", "1"]];
 			} forEach _points;
 		};
 		showCommandingMenu "#USER:DZE_SNAP_PRO_COMMAND_MENU";

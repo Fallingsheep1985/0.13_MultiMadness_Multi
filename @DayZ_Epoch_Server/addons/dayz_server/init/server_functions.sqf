@@ -1152,5 +1152,3 @@ execVM "\z\addons\dayz_server\CustomBuildings\electroZI.sqf";
 //Cherno
 execVM "\z\addons\dayz_server\CustomBuildings\Cherno.sqf";
 
-//Anglorum
-execVM "\z\addons\dayz_server\CustomBuildings\Anglorum.sqf";

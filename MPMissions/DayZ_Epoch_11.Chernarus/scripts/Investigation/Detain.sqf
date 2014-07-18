@@ -9,7 +9,7 @@ detach _newCiv;    // Just incase
 _magazinesPlayer = magazines player;
 _hasScrap = "PartGeneric" in _magazinesPlayer;
 if (_hasScrap) then{
-if !(canbuild) then{
+if (canbuild) then{
 if(_dist < 10 && _isMan && _isAlive ) then {
     // removing required...
     player removeMagazine"PartGeneric";
@@ -49,7 +49,7 @@ if (_newCiv getVariable "Detain" == 1) then {
 };
 };
 }else{
-	if!(canbuild)then{
+	if(!canbuild)then{
 		cutText [format["You cant detain a player in a safezone!"], "PLAIN"];
 		systemChat ('You cant detain a player in a safezone!');
 	}else{
