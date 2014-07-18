@@ -32,9 +32,6 @@ _unit removeAllEventHandlers "GetOut";
 //_var = round ((random 9) + 1);
 Xvar = true; ///test
 if (Xvar) then {
-	//exitWith {}; 
-} else {
-
 _wep = getWeaponCargo _unit;
 _mags = getMagazineCargo _unit;
 _pos = getPosATL _unit;
