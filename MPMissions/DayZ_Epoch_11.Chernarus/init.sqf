@@ -1,4 +1,4 @@
-server_name = "Sheeps Epoch Repack - 0.13";
+server_name = "Sheeps Epoch Repack - 0.12";
 
 
 execVM "admintools\AdminList.sqf";

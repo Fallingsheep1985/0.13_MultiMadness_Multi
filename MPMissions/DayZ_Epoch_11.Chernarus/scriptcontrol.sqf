@@ -87,6 +87,4 @@ BaseJumpScript = true;
 ServicePointScript = true;
 //NOS
 NOSScript = true;
-//Emerald interior design
-EmeraldScript = true
 

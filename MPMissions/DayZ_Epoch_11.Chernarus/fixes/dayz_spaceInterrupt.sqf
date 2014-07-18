@@ -247,15 +247,6 @@ if (_dikCode == 0x44) then {
 	};
 };
 
-//VASP fix
-if (_dikCode == 0x3F) then {
-	if (PreviewLoop) then {
-		PreviewLoop = false;
-	} else {
-		PreviewLoop = true;
-	};
-};
-
 //Keybinds for Base Building
 _shiftState = _this select 2;
 //Elevate NumPad 8

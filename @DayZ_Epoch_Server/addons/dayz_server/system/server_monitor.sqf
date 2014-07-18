@@ -120,12 +120,7 @@ if (isServer && isNil "sm_done") then {
 			diag_log ("MOVED OBJ: " + str(_idKey) + " of class " + _type + " to pos: " + str(_pos));
 		};
 		
-		// Realign characterID to OwnerPUID - need to force save though.
-		if (count _worldspace < 3) then
-		{
-			_worldspace set [count _worldspace, "0"];
-		};		
-		_ownerPUID = _worldspace select 2;
+
 		if (_damage < 1) then {
 			//diag_log format["OBJ: %1 - %2", _idKey,_type];
 			
@@ -133,7 +128,6 @@ if (isServer && isNil "sm_done") then {
 			_object = createVehicle [_type, _pos, [], 0, "CAN_COLLIDE"];
 			_object setVariable ["lastUpdate",time];
 			_object setVariable ["ObjectID", _idKey, true];
-			_object setVariable ["OwnerPUID", _ownerPUID, true];
 
 			_lockable = 0;
 			if(isNumber (configFile >> "CfgVehicles" >> _type >> "lockable")) then {

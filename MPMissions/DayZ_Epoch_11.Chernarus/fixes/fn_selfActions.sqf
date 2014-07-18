@@ -430,11 +430,16 @@ if (!isNull cursorTarget && !_inVehicle && !_isPZombie && (player distance curso
 	_hasToolbox = 	"ItemToolbox" in _itemsPlayer;
 	_hasETool = "ItemEtool" in _itemsPlayer;
 
-	_playerUID = getPlayerUID player;
 	_isMan = _cursorTarget isKindOf "Man";
 	_traderType = _typeOfCursorTarget;
-	_ownerID = _cursorTarget getVariable ["ownerPUID","0"];
-	_characterID = _cursorTarget getVariable ["CharacterID","0"];
+	_ownerID = _cursorTarget getVariable ["CharacterID","0"];
+	
+	_playerUID = getPlayerUID player;
+	_found=[_playerUID,"AX"] call KRON_StrInStr;
+	if (_found) then {
+	   _playerUID=[_playerUID] call KRON_convertPlayerUID;
+	};
+	
 	_isAnimal = _cursorTarget isKindOf "Animal";
 	_isDog =  (_cursorTarget isKindOf "DZ_Pastor" || _cursorTarget isKindOf "DZ_Fin");
 	_isZombie = _cursorTarget isKindOf "zZombie_base";
@@ -477,17 +482,14 @@ if (!isNull cursorTarget && !_inVehicle && !_isPZombie && (player distance curso
 
 	 if (_canDo && (speed player <= 1) && (_cursorTarget isKindOf "Plastic_Pole_EP1_DZ")) then {
 		 if (s_player_maintain_area < 0) then {
-		  	s_player_maintain_area = player addAction [format["<t color='#ff0000'>%1</t>",localize "STR_EPOCH_ACTIONS_MAINTAREA"], "fixes\maintain_area.sqf", "maintain", 5, false];
-		 	s_player_maintain_area_preview = player addAction [format["<t color='#ff0000'>%1</t>",localize "STR_EPOCH_ACTIONS_MAINTPREV"], "fixes\maintain_area.sqf", "preview", 5, false];
-			s_player_plot_boundary = player addAction ["Show plot boundary", "\z\addons\dayz_code\compile\object_showPlotRadius.sqf", "", 1, false];
+		  	s_player_maintain_area = player addAction [format["<t color='#ff0000'>%1</t>",localize "STR_EPOCH_ACTIONS_MAINTAREA"], "\z\addons\dayz_code\actions\maintain_area.sqf", "maintain", 5, false];
+		 	s_player_maintain_area_preview = player addAction [format["<t color='#ff0000'>%1</t>",localize "STR_EPOCH_ACTIONS_MAINTPREV"], "\z\addons\dayz_code\actions\maintain_area.sqf", "preview", 5, false];
 		 };
 	 } else {
     		player removeAction s_player_maintain_area;
     		s_player_maintain_area = -1;
     		player removeAction s_player_maintain_area_preview;
     		s_player_maintain_area_preview = -1;
-		player removeAction s_player_plot_boundary;
-		s_player_plot_boundary = -1;
 	 };
 
 	// CURSOR TARGET ALIVE
@@ -500,25 +502,19 @@ if (!isNull cursorTarget && !_inVehicle && !_isPZombie && (player distance curso
 			};
 		};
 		
-		//diag_log format["fn_selfactions remove: [PlayerUID = %1]  [OwnerID = %2] [Is Modular: %3] [Object: %4]", _playerUID, _ownerID,_isModular, cursortarget];
 		//Allow owners to delete modulars
-  		diag_log format["fn_actons: [PlayerUID: %1] [_ownerID: %2] [_isModular: %3] [typeOfCursorTarget: %4]",_playerUID, _ownerID, _isModular, _typeOfCursorTarget];
-
-		if(_isModular && (_playerUID == _ownerID)) then {
-             if(_hasToolbox && "ItemCrowbar" in _itemsPlayer) then {
-				// diag_log text "fn_selfactions remove: [can remove modular item]";
-                    _player_deleteBuild = true;
-             };
-         };
+               //if(_isModular && (dayz_characterID == _ownerID)) then {
+			   if(_isModular and (_playerUID == _ownerID)) then {
+                        if(_hasToolbox && "ItemCrowbar" in _itemsPlayer) then {
+                                _player_deleteBuild = true;
+                        };
+                };
 		//Allow owners to delete modular doors without locks
-		
-		diag_log format["fn_actons: [PlayerUID: %1] [_ownerID: %2] [_isModularDoor: %3] [typeOfCursorTarget: %4]",_playerUID, _ownerID, _isModularDoor, _typeOfCursorTarget];
-		
-		if(_isModularDoor && (_playerUID == _ownerID)) then {
-            if(_hasToolbox && "ItemCrowbar" in _itemsPlayer) then {
-				_player_deleteBuild = true;
-             };		
-		 };	
+				if(_isModularDoor && (_playerUID == _ownerID)) then {
+                        if(_hasToolbox && "ItemCrowbar" in _itemsPlayer) then {
+                                _player_deleteBuild = true;
+                        };		
+				};	
 		// CURSOR TARGET VEHICLE
 		if(_isVehicle) then {
 			
@@ -531,7 +527,7 @@ if (!isNull cursorTarget && !_inVehicle && !_isPZombie && (player distance curso
 			};
 
 
-			if(!_isMan && _characterID != "0" && !(_cursorTarget isKindOf "Bicycle")) then {
+			if(!_isMan && _ownerID != "0" && !(_cursorTarget isKindOf "Bicycle")) then {
 				_player_lockUnlock_crtl = true;
 			};
 
@@ -681,7 +677,7 @@ if (!isNull cursorTarget && !_inVehicle && !_isPZombie && (player distance curso
 
 	if(_player_deleteBuild) then {
 		if (s_player_deleteBuild < 0) then {
-			s_player_deleteBuild = player addAction [format[localize "str_actions_delete",_text], "fixes\remove.sqf",_cursorTarget, 1, true, true, "", ""];
+			s_player_deleteBuild = player addAction [format[localize "str_actions_delete",_text], "\z\addons\dayz_code\actions\remove.sqf",_cursorTarget, 1, true, true, "", ""];
 		};
 	} else {
 		player removeAction s_player_deleteBuild;
@@ -737,11 +733,11 @@ if (!isNull cursorTarget && !_inVehicle && !_isPZombie && (player distance curso
 	// Allow Owner to lock && unlock vehicle  
 	if(_player_lockUnlock_crtl) then {
 		if (s_player_lockUnlock_crtl < 0) then {
-			_hasKey = _characterID in _temp_keys;
-			_oldOwner = (_characterID == dayz_playerUID);
+			_hasKey = _ownerID in _temp_keys;
+			_oldOwner = (_ownerID == dayz_playerUID);
 			if(locked _cursorTarget) then {
 				if(_hasKey || _oldOwner) then {
-					_Unlock = player addAction [format[localize "STR_EPOCH_ACTIONS_UNLOCK",_text], "\z\addons\dayz_code\actions\unlock_veh.sqf",[_cursorTarget,(_temp_keys_names select (parseNumber _characterID))], 2, true, true, "", ""];
+					_Unlock = player addAction [format[localize "STR_EPOCH_ACTIONS_UNLOCK",_text], "\z\addons\dayz_code\actions\unlock_veh.sqf",[_cursorTarget,(_temp_keys_names select (parseNumber _ownerID))], 2, true, true, "", ""];
 					s_player_lockunlock set [count s_player_lockunlock,_Unlock];
 					s_player_lockUnlock_crtl = 1;
 				} else {
@@ -986,7 +982,7 @@ if(BurnTentsScript)then{
 	if((_typeOfCursorTarget in DZE_LockableStorage) && _ownerID != "0" && (player distance _cursorTarget < 3)) then {
 		if (s_player_unlockvault < 0) then {
 			if(_typeOfCursorTarget in DZE_LockedStorage) then {
-				if(_ownerID == dayz_combination || _ownerID == _playerUID) then {
+				if(_ownerID == dayz_combination || _ownerID == dayz_playerUID) then {
 					_combi = player addAction [format[localize "STR_EPOCH_ACTIONS_OPEN",_text], "\z\addons\dayz_code\actions\vault_unlock.sqf",_cursorTarget, 0, false, true, "",""];
 					s_player_combi set [count s_player_combi,_combi];
 				} else {
@@ -995,7 +991,7 @@ if(BurnTentsScript)then{
 				};
 				s_player_unlockvault = 1;
 			} else {
-				if(_ownerID != dayz_combination && _ownerID != _playerUID) then {
+				if(_ownerID != dayz_combination && _ownerID != dayz_playerUID) then {
 					_combi = player addAction [localize "STR_EPOCH_ACTIONS_RECOMBO", "\z\addons\dayz_code\actions\vault_combination_1.sqf",_cursorTarget, 0, false, true, "",""];
 					s_player_combi set [count s_player_combi,_combi];
 					s_player_unlockvault = 1;
@@ -1008,14 +1004,14 @@ if(BurnTentsScript)then{
 	};
 
 	//Allow owner to pack vault
-	if(_typeOfCursorTarget in DZE_UnLockedStorage && _characterID != "0" && (player distance _cursorTarget < 3)) then {
+	if(_typeOfCursorTarget in DZE_UnLockedStorage && _ownerID != "0" && (player distance _cursorTarget < 3)) then {
 
 		if (s_player_lockvault < 0) then {
-			if(_characterID == dayz_combination || _ownerID == dayz_playerUID) then {
+			if(_ownerID == dayz_combination || _ownerID == dayz_playerUID) then {
 				s_player_lockvault = player addAction [format[localize "STR_EPOCH_ACTIONS_LOCK",_text], "\z\addons\dayz_code\actions\vault_lock.sqf",_cursorTarget, 0, false, true, "",""];
 			};
 		};
-		if (s_player_packvault < 0 && (_characterID == dayz_combination || _ownerID == dayz_playerUID)) then {
+		if (s_player_packvault < 0 && (_ownerID == dayz_combination || _ownerID == dayz_playerUID)) then {
 			s_player_packvault = player addAction [format["<t color='#ff0000'>%1</t>",(format[localize "STR_EPOCH_ACTIONS_PACK",_text])], "\z\addons\dayz_code\actions\vault_pack.sqf",_cursorTarget, 0, false, true, "",""];
 		};
 	} else {
@@ -1097,7 +1093,7 @@ if(BurnTentsScript)then{
 	};
 	
 	// downgrade system
-	if((_isDestructable || _cursorTarget isKindOf "Land_DZE_WoodDoorLocked_Base" || _cursorTarget isKindOf "CinderWallDoorLocked_DZ_Base") && (DZE_Lock_Door == _characterID)) then {
+	if((_isDestructable || _cursorTarget isKindOf "Land_DZE_WoodDoorLocked_Base" || _cursorTarget isKindOf "CinderWallDoorLocked_DZ_Base") && (DZE_Lock_Door == _ownerID)) then {
 		if ((s_player_lastTarget select 1) != _cursorTarget) then {
 			if (s_player_downgrade_build > 0) then {	
 				player removeAction s_player_downgrade_build;
@@ -1289,7 +1285,7 @@ if(NOSScript)then{
 	if(dayz_tameDogs) then {
 		
 		//Dog
-		if (_isDog && _isAlive && (_hasRawMeat) && _characterID == "0" && player getVariable ["dogID", 0] == 0) then {
+		if (_isDog && _isAlive && (_hasRawMeat) && _ownerID == "0" && player getVariable ["dogID", 0] == 0) then {
 			if (s_player_tamedog < 0) then {
 				s_player_tamedog = player addAction [localize "str_actions_tamedog", "\z\addons\dayz_code\actions\tame_dog.sqf", _cursorTarget, 1, false, true, "", ""];
 			};
@@ -1297,7 +1293,7 @@ if(NOSScript)then{
 			player removeAction s_player_tamedog;
 			s_player_tamedog = -1;
 		};
-		if (_isDog && _characterID == dayz_characterID && _isAlive) then {
+		if (_isDog && _ownerID == dayz_characterID && _isAlive) then {
 			_dogHandle = player getVariable ["dogID", 0];
 			if (s_player_feeddog < 0 && _hasRawMeat) then {
 				s_player_feeddog = player addAction [localize "str_actions_feeddog","\z\addons\dayz_code\actions\dog\feed.sqf",[_dogHandle,0], 0, false, true,"",""];
@@ -1492,9 +1488,9 @@ if(RobBankScript)then{
 _dogHandle = player getVariable ["dogID", 0];
 if (_dogHandle > 0) then {
 	_dog = _dogHandle getFSMVariable "_dog";
-	_characterID = "0";
-	if (!isNull cursorTarget) then { _characterID = cursorTarget getVariable ["CharacterID","0"]; };
-	if (_canDo && !_inVehicle && alive _dog && _characterID != dayz_characterID) then {
+	_ownerID = "0";
+	if (!isNull cursorTarget) then { _ownerID = cursorTarget getVariable ["CharacterID","0"]; };
+	if (_canDo && !_inVehicle && alive _dog && _ownerID != dayz_characterID) then {
 		if (s_player_movedog < 0) then {
 			s_player_movedog = player addAction [localize "str_actions_movedog", "\z\addons\dayz_code\actions\dog\move.sqf", player getVariable ["dogID", 0], 1, false, true, "", ""];
 		};
@@ -1550,7 +1546,7 @@ if(DrinkWaterScript)then{
 		} forEach _objectsPond;
 	};
 	 
-	if (_canDrink && speed player <= 1)) then {
+	if (_canDrink) then {
 			if (s_player_drinkWater < 0) then {
 				s_player_drinkWater = player addaction[("<t color=""#0000c7"">" + (localize "STR_action_drink") +"</t>"),"scripts\DrinkWater\drink_water.sqf"];
 			};
@@ -1604,18 +1600,17 @@ if(ZombieBombScript)then{
 		zombieBomb = -1;
 	};
 };
-if(EmeraldScript)then{
-	//Emerald  interior Design
-	isEmerald = ["MAP_kasna_new","MAP_Misc_Boogieman","MAP_ChickenCoop","MAP_Misc_Greenhouse","MAP_Misc_Hutch","MAP_Misc_Well","MAP_Misc_WellPump","MAP_PowerGenerator","MAP_psi_bouda","MAP_pumpa","MAP_stanek_3","MAP_stanek_3_d","MAP_stanek_3B","MAP_AirCond_big","MAP_AirCond_small","MAP_antenna_big_roof","MAP_antenna_small_roof","MAP_antenna_small_roof_1","MAP_drapes","MAP_drapes_long","MAP_GasMeterExt","MAP_Ladder","MAP_P_Ladder","MAP_LadderHalf","MAP_P_LadderLong","MAP_leseni2x","MAP_leseni4x","MAP_Misc_loudspeakers","MAP_parabola_big","MAP_P_Stavebni_kozy","MAP_Heli_H_civil","MAP_Heli_H_army","MAP_Heli_H_cross","MAP_Heli_H_rescue","MAP_Sr_border","MAP_drevo_hromada","MAP_garbage_misc","MAP_garbage_paleta","MAP_Ind_BoardsPack1","MAP_Ind_BoardsPack2","MAP_Ind_Timbers","MAP_Kontejner","MAP_Misc_GContainer_Big","MAP_Misc_HayStack","MAP_Misc_TyreHeap","MAP_Misc_WoodPile","MAP_pneu","MAP_popelnice","MAP_sekyraspalek","MAP_seno_balik","MAP_concrete_block","MAP_Concrete_Ramp","MAP_ramp_concrete","MAP_woodenRamp","MAP_brana","MAP_Houpacka","MAP_nastenkaX","MAP_Piskoviste","MAP_snowman","MAP_Barel1","MAP_Barel3","MAP_Barel4","MAP_Barel5","MAP_Barel6","MAP_Barel7","MAP_Barel8","MAP_Barels","MAP_Barels2","MAP_Barels3","MAP_barrel_empty","MAP_barrel_sand","MAP_barrel_water","MAP_P_bedna","MAP_box_c","MAP_P_cihly1","MAP_P_cihly2","MAP_P_cihly3","MAP_P_cihly4","MAP_metalcrate","MAP_metalcrate_02","Misc_concrete","MAP_Misc_G_Pipes","MAP_Misc_palletsfoiled","MAP_Misc_palletsfoiled_heap","MAP_obstacle_get_over","MAP_obstacle_prone","MAP_obstacle_run_duck","MAP_paletaA","MAP_paletyC","MAP_paletyD","MAP_Pallets_Column","MAP_P_pipe_big","MAP_P_pipe_small","MAP_P_ytong","MAP_picture_a","MAP_picture_a_02","MAP_picture_a_03","MAP_picture_a_04","MAP_picture_a_05","MAP_picture_b","MAP_picture_b_02","MAP_picture_c","MAP_picture_c_02","MAP_picture_d","MAP_picture_e","MAP_picture_f","MAP_picture_f_02","MAP_picture_g","MAP_wall_board","MAP_wall_board_02","MAP_wall_board_03","MAP_F_ch_mod_c","MAP_ch_mod_h","MAP_armchair","MAP_ch_mod_h","MAP_ch_office_B","MAP_chair","MAP_Church_chair","MAP_hospital_bench","MAP_kitchen_chair_a","MAP_lavicka_1","MAP_lavicka_2","MAP_lavicka_3","MAP_lavicka_4","MAP_lobby_chair","MAP_office_chair","MAP_F_postel_manz_kov","MAP_F_postel_panelak1","MAP_F_postel_panelak2","MAP_F_Vojenska_palanda","MAP_postel_manz_kov","MAP_postel_panelak1","MAP_vojenska_palanda","MAP_fridge","MAP_Kitchenstove_Elec","MAP_washing_machine","MAP_P_Basin_A","MAP_P_bath","MAP_F_bath","MAP_lekarnicka","MAP_P_sink","MAP_toilet_b","MAP_P_toilet_b_02","MAP_almara","MAP_case_a","MAP_case_bedroom_a","MAP_case_bedroom_b","MAP_case_cans_b","MAP_case_d","MAP_case_wall_unit_part_c","MAP_case_wall_unit_part_d","MAP_case_wooden_b","MAP_Dhangar_borwnskrin","MAP_Dhangar_brownskrin","MAP_Dhangar_knihovna","MAP_library_a","MAP_shelf","MAP_Skrin_bar","MAP_Skrin_opalena","MAP_Truhla_stara","MAP_briefcase","MAP_Dkamna_bila","MAP_Dkamna_uhli","MAP_F_Dkamna_uhli","MAP_icebox","MAP_mutt_vysilacka","MAP_notebook","MAP_pc","MAP_phonebox","MAP_radio","MAP_radio_b","MAP_satelitePhone","MAP_smallTV","MAP_tv_a","MAP_vending_machine","MAP_lantern","MAP_bucket","MAP_MetalBucket","MAP_FuelCan","MAP_SmallObj_money","MAP_conference_table_a","MAP_desk","MAP_Dhangar_psacistul","MAP_F_conference_table_a","MAP_kitchen_table_a","MAP_lobby_table","MAP_office_table_a","MAP_pultskasou","MAP_SmallTable","MAP_stul_hospoda","MAP_stul_kuch1","MAP_Table","MAP_table_drawer"];
-	_isEmeraldItem = (typeOf cursorTarget) in isEmerald;
-	_emeraldTarget = typeOf cursorTarget;
 
-	if((_isEmeraldItem and (player distance cursorTarget <= 2)) and _canDo) then {
-	if (s_player_removeEmerald < 0) then {
-			s_player_removeEmerald = player addaction [format[("<t color=""#ff0000"">" + ("Remove %1") +"</t>"),_emeraldTarget],"scripts\interior\remove.sqf",_emeraldTarget];
-		};
-	} else {
-		player removeAction s_player_removeEmerald;
-		s_player_removeEmerald = -1;
-	};
-};	
+//Emerald  interior Design
+isEmerald = ["MAP_kasna_new","MAP_Misc_Boogieman","MAP_ChickenCoop","MAP_Misc_Greenhouse","MAP_Misc_Hutch","MAP_Misc_Well","MAP_Misc_WellPump","MAP_PowerGenerator","MAP_psi_bouda","MAP_pumpa","MAP_stanek_3","MAP_stanek_3_d","MAP_stanek_3B","MAP_AirCond_big","MAP_AirCond_small","MAP_antenna_big_roof","MAP_antenna_small_roof","MAP_antenna_small_roof_1","MAP_drapes","MAP_drapes_long","MAP_GasMeterExt","MAP_Ladder","MAP_P_Ladder","MAP_LadderHalf","MAP_P_LadderLong","MAP_leseni2x","MAP_leseni4x","MAP_Misc_loudspeakers","MAP_parabola_big","MAP_P_Stavebni_kozy","MAP_Heli_H_civil","MAP_Heli_H_army","MAP_Heli_H_cross","MAP_Heli_H_rescue","MAP_Sr_border","MAP_drevo_hromada","MAP_garbage_misc","MAP_garbage_paleta","MAP_Ind_BoardsPack1","MAP_Ind_BoardsPack2","MAP_Ind_Timbers","MAP_Kontejner","MAP_Misc_GContainer_Big","MAP_Misc_HayStack","MAP_Misc_TyreHeap","MAP_Misc_WoodPile","MAP_pneu","MAP_popelnice","MAP_sekyraspalek","MAP_seno_balik","MAP_concrete_block","MAP_Concrete_Ramp","MAP_ramp_concrete","MAP_woodenRamp","MAP_brana","MAP_Houpacka","MAP_nastenkaX","MAP_Piskoviste","MAP_snowman","MAP_Barel1","MAP_Barel3","MAP_Barel4","MAP_Barel5","MAP_Barel6","MAP_Barel7","MAP_Barel8","MAP_Barels","MAP_Barels2","MAP_Barels3","MAP_barrel_empty","MAP_barrel_sand","MAP_barrel_water","MAP_P_bedna","MAP_box_c","MAP_P_cihly1","MAP_P_cihly2","MAP_P_cihly3","MAP_P_cihly4","MAP_metalcrate","MAP_metalcrate_02","Misc_concrete","MAP_Misc_G_Pipes","MAP_Misc_palletsfoiled","MAP_Misc_palletsfoiled_heap","MAP_obstacle_get_over","MAP_obstacle_prone","MAP_obstacle_run_duck","MAP_paletaA","MAP_paletyC","MAP_paletyD","MAP_Pallets_Column","MAP_P_pipe_big","MAP_P_pipe_small","MAP_P_ytong","MAP_picture_a","MAP_picture_a_02","MAP_picture_a_03","MAP_picture_a_04","MAP_picture_a_05","MAP_picture_b","MAP_picture_b_02","MAP_picture_c","MAP_picture_c_02","MAP_picture_d","MAP_picture_e","MAP_picture_f","MAP_picture_f_02","MAP_picture_g","MAP_wall_board","MAP_wall_board_02","MAP_wall_board_03","MAP_F_ch_mod_c","MAP_ch_mod_h","MAP_armchair","MAP_ch_mod_h","MAP_ch_office_B","MAP_chair","MAP_Church_chair","MAP_hospital_bench","MAP_kitchen_chair_a","MAP_lavicka_1","MAP_lavicka_2","MAP_lavicka_3","MAP_lavicka_4","MAP_lobby_chair","MAP_office_chair","MAP_F_postel_manz_kov","MAP_F_postel_panelak1","MAP_F_postel_panelak2","MAP_F_Vojenska_palanda","MAP_postel_manz_kov","MAP_postel_panelak1","MAP_vojenska_palanda","MAP_fridge","MAP_Kitchenstove_Elec","MAP_washing_machine","MAP_P_Basin_A","MAP_P_bath","MAP_F_bath","MAP_lekarnicka","MAP_P_sink","MAP_toilet_b","MAP_P_toilet_b_02","MAP_almara","MAP_case_a","MAP_case_bedroom_a","MAP_case_bedroom_b","MAP_case_cans_b","MAP_case_d","MAP_case_wall_unit_part_c","MAP_case_wall_unit_part_d","MAP_case_wooden_b","MAP_Dhangar_borwnskrin","MAP_Dhangar_brownskrin","MAP_Dhangar_knihovna","MAP_library_a","MAP_shelf","MAP_Skrin_bar","MAP_Skrin_opalena","MAP_Truhla_stara","MAP_briefcase","MAP_Dkamna_bila","MAP_Dkamna_uhli","MAP_F_Dkamna_uhli","MAP_icebox","MAP_mutt_vysilacka","MAP_notebook","MAP_pc","MAP_phonebox","MAP_radio","MAP_radio_b","MAP_satelitePhone","MAP_smallTV","MAP_tv_a","MAP_vending_machine","MAP_lantern","MAP_bucket","MAP_MetalBucket","MAP_FuelCan","MAP_SmallObj_money","MAP_conference_table_a","MAP_desk","MAP_Dhangar_psacistul","MAP_F_conference_table_a","MAP_kitchen_table_a","MAP_lobby_table","MAP_office_table_a","MAP_pultskasou","MAP_SmallTable","MAP_stul_hospoda","MAP_stul_kuch1","MAP_Table","MAP_table_drawer"];
+_isEmeraldItem = (typeOf cursorTarget) in isEmerald;
+_emeraldTarget = typeOf cursorTarget;
+
+if((_isEmeraldItem and (player distance cursorTarget <= 2)) and _canDo) then {
+if (s_player_removeEmerald < 0) then {
+        s_player_removeEmerald = player addaction [format[("<t color=""#ff0000"">" + ("Remove %1") +"</t>"),_emeraldTarget],"scripts\interior\remove.sqf",_emeraldTarget];
+    };
+} else {
+    player removeAction s_player_removeEmerald;
+    s_player_removeEmerald = -1;
+}; 
