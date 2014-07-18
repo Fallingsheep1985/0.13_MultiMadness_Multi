@@ -42,8 +42,20 @@ local_lockUnlock = compile preprocessFileLineNumbers "scripts\Towing\local_lockU
 	add_UIDCode  						= compile preprocessFileLineNumbers "dayz_code\external\keypad\fnc_keyPad\functions\add_UIDCode.sqf";
 	remove_UIDCode  					= compile preprocessFileLineNumbers "dayz_code\external\keypad\fnc_keyPad\functions\remove_UIDCode.sqf";
 
+//PLOT POLEFOR LIFE 2.2.3
 fnc_usec_damageActions = compile preprocessFileLineNumbers "fixes\fn_damageActions.sqf";
 player_updateGui = compile preprocessFileLineNumbers "fixes\player_updateGui.sqf";
+player_lockVault =			compile preprocessFileLineNumbers "fixes\player_lockVault.sqf";
+player_updateGui =			compile preprocessFileLineNumbers "fixes\player_updateGui.sqf";
+player_packTent =				compile preprocessFileLineNumbers "fixes\player_packTent.sqf";
+player_packVault =				compile preprocessFileLineNumbers "fixes\player_packVault.sqf";
+player_unlockVault =			compile preprocessFileLineNumbers "fixes\player_unlockVault.sqf";
+player_tentPitch =			compile preprocessFileLineNumbers "fixes\tent_pitch.sqf";
+player_vaultPitch =			compile preprocessFileLineNumbers "fixes\vault_pitch.sqf";
+
+
+
+
 //Snap Build
 
 if (!isDedicated) then {

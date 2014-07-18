@@ -1,4 +1,4 @@
-private ["_found","_display","_ctrlBlood","_ctrlBleed","_bloodVal","_humanityName","_ctrlFood","_ctrlThirst","_thirstVal","_foodVal","_ctrlTemp","_tempVal","_combatVal","_array","_ctrlEar","_ctrlEye","_ctrlCombat","_ctrlFracture","_visualText","_visual","_audibleText","_audible","_blood","_thirstLvl","_foodLvl","_tempImg","_thirst","_food","_temp","_bloodLvl","_tempLvl","_color","_string","_humanity","_size","_friendlies","_charID","_rcharID","_rfriendlies","_rfriendlyTo","_distance","_targetControl"];
+private ["_display","_ctrlBlood","_ctrlBleed","_bloodVal","_humanityName","_ctrlFood","_ctrlThirst","_thirstVal","_foodVal","_ctrlTemp","_tempVal","_combatVal","_array","_ctrlEar","_ctrlEye","_ctrlCombat","_ctrlFracture","_visualText","_visual","_audibleText","_audible","_blood","_thirstLvl","_foodLvl","_tempImg","_thirst","_food","_temp","_bloodLvl","_tempLvl","_color","_string","_humanity","_size","_friendlies","_rfriendlies","_rfriendlyTo","_distance","_targetControl","_playerUID","_rplayerUID"];
 disableSerialization;
 
 _foodVal = 		1 - (dayz_hunger / SleepFood);
@@ -151,28 +151,17 @@ if (!isNull _humanityTarget && isPlayer _humanityTarget && alive _humanityTarget
 
 		// Display name if player opt-in || if friend
 		_friendlies = player getVariable ["friendlies", []];
-		//_charID = player getVariable ["CharacterID", "0"];
-		//_rcharID = _humanityTarget getVariable ["CharacterID", "0"];
-		_charID = getPlayerUID player;
-		_found=[_charID,"AX"] call KRON_StrInStr;
-		if (_found) then {
-		   _charID=[_charID] call KRON_convertPlayerUID;
-		};
-
-		_rcharID = getPlayerUID _humanityTarget;
-		_found=[_rcharID,"AX"] call KRON_StrInStr;
-		if (_found) then {
-		   _rcharID=[_rcharID] call KRON_convertPlayerUID;
-		};
+		_playerUID = getPlayerUID player;
+		_rplayerUID = getPlayerUID _humanityTarget;
 		
 		_rfriendlies = _humanityTarget getVariable ["friendlies", []];
 		_rfriendlyTo = _humanityTarget getVariable ["friendlyTo", []];
 
-		if ((_rcharID in _friendlies) && (_charID in _rfriendlies)) then {
+		if ((_rplayerUID in _friendlies) && (_playerUID in _rfriendlies)) then {
 
-			if !(_charID in _rfriendlyTo) then {
+			if !(_playerUID in _rfriendlyTo) then {
 				// diag_log format["IS FRIENDLY: %1", _player];
-				_rfriendlyTo set [count _rfriendlyTo, _charID];
+				_rfriendlyTo set [count _rfriendlyTo, _playerUID];
 				_humanityTarget setVariable ["friendlyTo", _rfriendlyTo, true];
 			};
 	

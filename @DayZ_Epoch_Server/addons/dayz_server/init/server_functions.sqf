@@ -1095,7 +1095,7 @@ execVM "\z\addons\dayz_server\CustomBuildings\balota.sqf";
 execVM "\z\addons\dayz_server\CustomBuildings\kamenka.sqf";
 execVM "\z\addons\dayz_server\CustomBuildings\Krasno.sqf";
 execVM "\z\addons\dayz_server\CustomBuildings\northeast.sqf";
-execVM "\z\addons\dayz_server\CustomBuildings\vybor.sqf";
+//execVM "\z\addons\dayz_server\CustomBuildings\vybor.sqf";
 execVM "\z\addons\dayz_server\CustomBuildings\basebor.sqf";
 execVM "\z\addons\dayz_server\CustomBuildings\basedichina.sqf";
 execVM "\z\addons\dayz_server\CustomBuildings\basenovy.sqf";

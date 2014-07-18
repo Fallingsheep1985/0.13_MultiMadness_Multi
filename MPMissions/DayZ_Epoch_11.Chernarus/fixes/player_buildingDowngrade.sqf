@@ -2,7 +2,7 @@
 	DayZ Base Building Upgrades
 	Made for DayZ Epoch please ask permission to use/edit/distrubute email vbawol@veteranbastards.com.
 */
-private ["_playerUID","_found","_location","_dir","_classname","_text","_object","_objectID","_objectUID","_newclassname","_refund","_obj","_upgrade","_objectCharacterID","_canBuildOnPlot","_friendlies","_nearestPole","_ownerID","_distance","_needText","_findNearestPoles","_findNearestPole","_IsNearPlot","_i","_invResult","_itemOut","_countOut","_abortInvAdd","_addedItems"];
+private ["_location","_dir","_classname","_text","_object","_objectID","_objectUID","_newclassname","_refund","_obj","_upgrade","_objectCharacterID","_canBuildOnPlot","_friendlies","_nearestPole","_ownerID","_distance","_needText","_findNearestPoles","_findNearestPole","_IsNearPlot","_i","_invResult","_itemOut","_countOut","_abortInvAdd","_addedItems","_playerUID"];
 
 if(DZE_ActionInProgress) exitWith { cutText [(localize "str_epoch_player_48") , "PLAIN DOWN"]; };
 DZE_ActionInProgress = true;
@@ -14,10 +14,10 @@ _distance = 30;
 _needText = localize "str_epoch_player_246";
 
 _playerUID = getPlayerUID player;
-_found=[_playerUID,"AX"] call KRON_StrInStr;
-if (_found) then {
-    _playerUID=[_playerUID] call KRON_convertPlayerUID;
-};
+
+
+
+
 
 // check for near plot
 _findNearestPoles = nearestObjects [(vehicle player), ["Plastic_Pole_EP1_DZ"], _distance];
@@ -41,12 +41,12 @@ if(_IsNearPlot == 0) then {
 	_nearestPole = _findNearestPole select 0;
 
 	// Find owner
-	_ownerID = _nearestPole getVariable["CharacterID","0"];
+	_ownerID = _nearestPole getVariable["ownerPUID","0"];
 
 	// diag_log format["DEBUG BUILDING: %1 = %2", dayz_characterID, _ownerID];
 
 	// check if friendly to owner
-	//if(dayz_characterID == _ownerID) then {
+
 	if(_playerUID == _ownerID) then {
 		_canBuildOnPlot = true;
 	} else {
@@ -65,7 +65,8 @@ if(!_canBuildOnPlot) exitWith {  DZE_ActionInProgress = false; cutText [format[(
 _obj = _this select 3;
 
 // Current charID
-_objectCharacterID 	= _obj getVariable ["CharacterID","0"];
+_objectCharacterID = _obj getVariable ["CharacterID","0"];
+_ownerID = _obj getVariable ["ownerPUID","0"];
 
 if(DZE_Lock_Door != _objectCharacterID) exitWith {  DZE_ActionInProgress = false; cutText [(localize "str_epoch_player_49") , "PLAIN DOWN"]; };
 
@@ -130,10 +131,10 @@ if ((count _upgrade) > 0) then {
 
 		// Reset the character ID on locked doors before they inherit the newclassname
 		if (_classname in DZE_DoorsLocked) then {
-			//_obj setVariable ["CharacterID",dayz_characterID,true];
-			//_objectCharacterID = dayz_characterID;
-			_object setVariable ["CharacterID",_playerUID,true];
-			_objectCharacterID = _playerUID;
+			_obj setVariable ["CharacterID",dayz_characterID,true];
+			_objectCharacterID = dayz_characterID;
+
+
 		};
 
 		_classname = _newclassname;
@@ -147,10 +148,14 @@ if ((count _upgrade) > 0) then {
 		// Set location
 		_object setPosATL _location;
 
+		// Set Owner.
+		_object setVariable ["ownerPUID",_ownerID,true];
+		
+		diag_log format["Player_buildingdowngrade: [newclassname: %1] [_ownerID: %2] [_objectCharacterID: %2]",_newclassname, _ownerID, _objectCharacterID];
 
 		cutText [format[(localize "str_epoch_player_142"),_text], "PLAIN DOWN", 5];
 
-		PVDZE_obj_Swap = [_objectCharacterID,_object,[_dir,_location],_classname,_obj,player];
+		PVDZE_obj_Swap = [_objectCharacterID,_object,[_dir,_location,_ownerID],_classname,_obj,player];
 		publicVariableServer "PVDZE_obj_Swap";
 
 		player reveal _object;

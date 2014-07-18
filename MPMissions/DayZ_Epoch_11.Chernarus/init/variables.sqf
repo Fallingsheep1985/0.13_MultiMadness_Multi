@@ -324,6 +324,8 @@ dayz_resetSelfActions = {
     suv_open = -1;
 	//Drinkwater
 	s_player_drinkWater = -1;
+	//plot pole preview
+	s_player_plot_boundary = -1;
 };
 call dayz_resetSelfActions;
 

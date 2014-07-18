@@ -21,7 +21,8 @@ class Mission
 		"jetskiyanahuiaddon",
 		"glt_bh_wreck",
 		"aif_arma1buildings",
-		"mbg_african_buildings"
+		"mbg_african_buildings",
+		"mbg_buildings_3"
 	};
 	addOnsAuto[]=
 	{
