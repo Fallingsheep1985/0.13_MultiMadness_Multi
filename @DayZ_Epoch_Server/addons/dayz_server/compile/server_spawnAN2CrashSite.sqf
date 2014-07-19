@@ -14,6 +14,11 @@ _spawnRadius	= _this select 6;
 _spawnFire	= _this select 7;
 _fadeFire	= _this select 8;
 
+
+//var fixes
+_itemType = 1;
+dayz_serverobjectmonitor = dayz_serverobjectmonitor;
+
 if(count _this > 9) then {
 	_useStatic = _this select 9;
 } else {

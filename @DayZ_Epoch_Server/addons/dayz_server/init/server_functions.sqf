@@ -840,7 +840,6 @@ server_checkHackers = {
 	} count allUnits;
 	DZE_DYN_HackerCheck = nil;
 };
-
 server_spawnCleanFire = {
 	private ["_delQtyFP","_qty","_delQtyNull","_missionFires"];
 	_missionFires = allMissionObjects "Land_Fire_DZ";
@@ -855,7 +854,7 @@ server_spawnCleanFire = {
 	} count _missionFires;
 	if (_delQtyFP > 0) then {
 		_qty = count _missionFires;
-		diag_log (format["CLEANUP: Deleted %1 fireplaces out of %2",_delQtyNull,_qty]);
+		diag_log (format["CLEANUP: Deleted %1 fireplaces out of %2",_delQtyFP,_qty]);
 	};
 };
 server_spawnCleanLoot = {

@@ -9,13 +9,11 @@ _qty = _this select 0;
 _centerPos = getMarkerPos (_this select 1);
 _placeSearchRadius = _this select 2;
 _placeMinDistance = _this select 3;
-//var fix
-fa_coor2str = nil;
-_itemtype = 0;
 
 // add some loot around the camp
 _addLoot = {
 private ["_clutter","_index","_lootMaxRadius2","_itemType","_position","_item","_nearby","_basePos","_baseClass","_lootMinRadius","_lootMaxRadius","_randomLoot","_guaranteedLoot","_lootTable","_itemTypes","_weights","_cntWeights","_config"];
+
 	_basePos = _this select 0;
 	_baseClass = _this select 1;
 	_lootMinRadius = _this select 2;
@@ -30,15 +28,18 @@ private ["_clutter","_index","_lootMaxRadius2","_itemType","_position","_item","
 			_itemTypes =	[] + getArray (_config >> "itemType");
 			_index =        dayz_CBLBase find toLower(_lootTable);
 			_weights =		dayz_CBLChances select _index;
-			_cntWeights = count _weights;
+			_cntWeights = (count _weights);
 			//Zero divisor fix
 			if((_cntWeights < 0)||(_cntWeights == 0))then{_cntWeights = _cntWeights + 1};
 		
 			for "_x" from (round(random _randomLoot) + _guaranteedLoot) to 1 step -1  do {
 				//create loot
 				_index = floor(random _cntWeights);
-				
+//Zero divisor fix
+				if((_index < 0)||(_index == 0))then{_index = _index + 1};
 				_index = _weights select _index;
+				//Zero divisor fix
+				if((_index < 0)||(_index == 0))then{_index = _index + 1};
 				_itemType = _itemTypes select _index;
 
 				_position = [];
@@ -150,7 +151,7 @@ while {(_b > 0) && (_qty > 0) && (round(time - _time) < 35)} do {
 						_basePos set [2, 0];
 						if ((0 == count (nearestObjects [_basePos, [], _lootMaxRadius])) AND {(0 == { ((_x select 0) distance _basePos) < _placeMinDistance } count _campList)}) then {
 							_campList set [count _campList, [_basePos,_amount,_radius]];
-							diag_log(format["%1 found a nice spot at %2 (%3)", __FILE__, _basePos call fa_coor2str,_x select 1]);
+							//diag_log(format["%1 found a nice spot at %2 (%3)", __FILE__, _basePos call fa_coor2str,_x select 1]);
 							[_basePos, random 360, _baseClass] call spawnComposition;
 							[_basePos, _baseClass, _lootMinRadius, _lootMaxRadius, _randomLoot, _guaranteedLoot] call _addLoot;
 							[_basePos, _lootMinRadius, _lootMaxRadius, _randomObjects, _guaranteedObjects] call _addWrecks;

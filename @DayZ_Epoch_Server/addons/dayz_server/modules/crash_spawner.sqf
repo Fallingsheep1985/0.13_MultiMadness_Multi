@@ -152,12 +152,16 @@ if (_spawnRoll <= _spawnChance) then
     _itemTypes =    [] + getArray (_config >> "itemType");
     _index =        dayz_CBLBase find toLower(_lootTable);
     _weights =        dayz_CBLChances select _index;
-    _cntWeights = count _weights;
+    _cntWeights = (count _weights)
+	//Zero divisor fix
+	if((_cntWeights < 0)||(_cntWeights == 0))then{_cntWeights = _cntWeights + 1};
     for "_x" from 1 to _num do
     {
         _maxLootRadius = (random _maxLootRadius) + _minLootRadius;
         _lootPos = [_pos, _maxLootRadius, random 360] call BIS_fnc_relPos;
         _index = floor(random _cntWeights);
+		//Zero divisor fix
+		if((_index < 0)||(_index == 0))then{_index = _index + 1};
         _index = _weights select _index;
         _itemType = _itemTypes select _index;
         [_itemType select 0, _itemType select 1, _lootPos, 5] call spawn_loot;
