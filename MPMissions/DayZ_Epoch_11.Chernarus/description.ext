@@ -410,7 +410,7 @@ class RscTitles {
 		class controls {
 			class zCamoIcon:RscPictureGUI {
 			idc = 1;
-			text="custom\walkamongstthedead\zombie.paa";
+			text="scripts\walkamongstthedead\zombie.paa";
 			x="0.958313 * safezoneW + safezoneX";
 			y="0.43 * safezoneH + safezoneY";
 			w=0.059999999;
