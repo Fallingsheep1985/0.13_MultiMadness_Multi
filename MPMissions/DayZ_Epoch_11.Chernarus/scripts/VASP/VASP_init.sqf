@@ -1,4 +1,35 @@
-AllAllowedSkins = [
+/*------------------------------------*/
+/* VASP v1.3                          */
+/* Vehicle and Skin Preview           */
+/* OtterNas3                          */
+/* 06/17/2014                         */
+/* Last update: 06/22/2014            */
+/*------------------------------------*/
+
+	/***************************************************/
+	/*                  Configuration                  */
+	/***************************************************/
+	/*              Vehicle Preview on/off             */
+	/*             true = ON / false = OFF             */
+	VASP_VehiclePreview = true;
+	/***************************************************/
+	/*                Skin Preview on/off              */
+	/*             true = ON / false = OFF             */
+	VASP_SkinPreview = true;
+	/***************************************************/
+	/*              Preview / Abort Hotkey             */
+	/*            Change to dik_Code you like          */
+	/*            A list can be found here:            */
+	/* http://community.bistudio.com/wiki/DIK_KeyCodes */
+	VASP_HotKey = 0x3F;
+	/***************************************************/
+	/*               Define the Skin-List              */
+	/* If you have other then the Standard Epoch Skins */
+	/* buyable on your Server, you need to add them to */
+	/* this list!                                      */
+	/*            The LAST entry in the list           */
+	/*         MUST NOT HAVE A COMMA ON THE END!       */
+	AllAllowedSkins = [
 		"Skin_Survivor2_DZ","Skin_SurvivorWcombat_DZ","Skin_SurvivorWdesert_DZ",
 		"Skin_SurvivorWurban_DZ","Skin_SurvivorWsequishaD_DZ","Skin_SurvivorWsequisha_DZ",
 		"Skin_SurvivorWpink_DZ","Skin_SurvivorW3_DZ","Skin_SurvivorW2_DZ",
@@ -18,171 +49,154 @@ AllAllowedSkins = [
 		"Skin_INS_Lopotev_DZ","Skin_INS_Soldier_AR_DZ","Skin_INS_Soldier_CO_DZ",
 		"Skin_INS_Bardak_DZ","Skin_INS_Worker2_DZ"
 	];
-	VASP_VehiclePreview = true;
-	VASP_SkinPreview = true;
+	/***************************************************/
+	/***************************************************/
+	/*             !!! DONT EDIT BELOW !!!             */
+	/***************************************************/
+	/***************************************************/
+
+
+	/* Wait until player is loaded ingame */
+	waitUntil {!isNil "dayz_animalCheck"};
+
+	
+	/* This adds all missing Skins from the AllPlayers Skinlist that is set in the variables.sqf from Epoch */
+	/* Just if someone used that array to define more Skins also */
+	{
+		if (!(_x in AllAllowedSkins)) then {
+			AllAllowedSkins = AllAllowedSkins + [format["Skin_%1",_x]];
+		};
+	} forEach AllPlayers;
+
+	/* Even if i dont like it i try to "Spring über meinen Schatten" and check for Infistar to make it compatible */
+	ServerRunsInfistar = (!isNil 'fnc_infiSTAR_Publish');
+	
+	/* Build the Preview-Platform for the Vehicles if VASP_VehiclePreview is enabled */
+	/* We dont delete it anymore */
+	if (VASP_VehiclePreview) then {
+
+		/* Define all Preview-Platform Positions */
+		previewPlatformPositions = [
+			[979.096,982.321,2500],[984.346,982.321,2500],[984.346,977.071,2500],[984.345,971.821,2500],[979.095,971.822,2500],[973.845,971.822,2500],
+			[973.846,977.072,2500],[979.096,977.072,2500],[973.846,982.322,2500],[968.596,982.322,2500],[968.596,977.072,2500],[968.595,971.822,2500],
+			[963.345,971.823,2500],[963.346,977.073,2500],[968.596,987.572,2500],[963.346,982.323,2500],[963.346,987.573,2500],[973.846,987.572,2500],
+			[979.096,987.572,2500],[984.346,987.571,2500],[984.347,992.821,2500],[979.097,992.822,2500],[973.847,992.822,2500],[968.597,992.822,2500],
+			[963.347,992.823,2500],[984.347,998.071,2500],[979.097,998.072,2500],[973.847,998.072,2500],[968.597,998.072,2500],[963.347,998.073,2500],
+			[958.097,998.073,2500],[958.097,992.823,2500],[958.096,987.573,2500],[958.096,982.323,2500],[958.096,977.073,2500],[958.095,971.823,2500]
+		];
+
+		/* Creating the Preview Platform */
+		for "_i" from 0 to 35 do {
+			call compile format ["
+				previewPlatform%1 = 'MetalFloor_DZ' createVehicleLocal (previewPlatformPositions select %2);
+				previewPlatform%1 setPosASL (previewPlatformPositions select %2);
+				previewPlatform%1 setDir 270;
+				",(_i + 1),(_i)
+			];
+		};
+	};
+	
+
+	/* Functions */
+	/* Preview Vehicles */
 	ON_fnc_VehiclePreview = {
-		private ["_item","_date","_tempDate","_msgCnt","_vehicleSpawnPos","_vehicleType","_vehicleName","_vehicleSpeed","_vehicleSeats","_vehicleWeapons","_vehicleMagazines","_vehicleBackpacks","_vehicleArmor","_vehicleFuel","_VehicleInfoText","_TraderMenuCategory","_TraderMenuItem","_pvp1","_pvp2","_pvp3","_pvp4","_pvp5","_pvp6","_pvp7","_pvp8","_pvp9","_pvp10","_pvp11","_pvp12","_pvp13","_pvp14","_pvp15","_pvp16","_pvp17","_pvp18","_pvp19","_pvp20","_pvp21","_pvp22","_pvp23","_pvp24","_pvp25","_pvp26","_pvp27","_pvp28","_pvp29","_pvp30","_pvp31","_pvp32","_pvp33","_pvp34","_pvp35","_pvp36"];
+		private ["_getVersion","_isBadBeta","_item","_date","_tempDate","_msgCnt","_vehicleSpawnPos","_vehicleType","_vehicleName","_vehicleSpeed","_vehicleSeats","_vehicleWeapons","_vehicleMagazines","_vehicleBackpacks","_vehicleArmor","_vehicleFuel","_VehicleInfoText","_TraderMenuCategory","_TraderMenuItem"];
 		
 		/* Getting Data from the Tradermenu */
 		_item = _this select 0;
 		_TraderMenuCategory = _this select 1;
 		_TraderMenuItem = _this select 2;
+		
+		/* Inform the Player that preview is build and fade out the view */
 		cutText["~~ Preparing the Preview ~~\n~~ Please wait a moment ~~","PLAIN DOWN",0];
 		0 cutText ["~~ Preparing the Preview ~~\n~~ Please wait a moment ~~","BLACK OUT",1];
 		closeDialog 0;
-		sleep 1.5;
+		uiSleep 1.5;
+		
+		/* Check for beta version 112555 where deleteVehicle is not working */
+		_getVersion = productVersion;
+		_isBadBeta = (_getVersion select 3) == 112555;
+		
+		/* Maybe it's Night so we set the Date temporary to High-Noon, otherwirse it would be too Dark to see anything */
 		_date = date;
 		_tempDate = [(_date select 0),(_date select 1),(_date select 2),12,0];
 		setDate _tempDate;
 		player setVariable["Preview",true,true];
+		
+		/* Define the previewVehicle variable the first time if not done already */
 		if (isNil "previewVehicle") then {
 			previewVehicle = objNull;
 		};
-		if (!isNull previewVehicle) then {
-			deleteVehicle previewVehicle;
+		
+		/* Failsafe check for old preview Vehicle */
+		if (_isBadBeta) then {
+			if (!isNull previewVehicle) then {
+				if (damage previewVehicle < 1) then {
+					previewVehicle setDamage 1.000000;
+					previewVehicle setPos [-2000,-2000,0];
+					previewVehicle = objNull;
+				};
+			};
+		} else {
+			if (!isNull previewVehicle) then {
+				deleteVehicle previewVehicle;
+				previewVehicle = objNull;
+			};
 		};
-		waitUntil {sleep 0.01; isNull previewVehicle};
-		_pvp1 = "MetalFloor_DZ" createVehicleLocal [79.096,82.321,2500];
-		_pvp2 = "MetalFloor_DZ" createVehicleLocal [84.346,82.321,2500];
-		_pvp3 = "MetalFloor_DZ" createVehicleLocal [84.346,77.071,2500];
-		_pvp4 = "MetalFloor_DZ" createVehicleLocal [84.345,71.821,2500];
-		_pvp5 = "MetalFloor_DZ" createVehicleLocal [79.095,71.822,2500];
-		_pvp6 = "MetalFloor_DZ" createVehicleLocal [73.845,71.822,2500];
-		_pvp7 = "MetalFloor_DZ" createVehicleLocal [73.846,77.072,2500];
-		_pvp8 = "MetalFloor_DZ" createVehicleLocal [79.096,77.072,2500];
-		_pvp9 = "MetalFloor_DZ" createVehicleLocal [73.846,82.322,2500];
-		_pvp10 = "MetalFloor_DZ" createVehicleLocal [68.596,82.322,2500];
-		_pvp11 = "MetalFloor_DZ" createVehicleLocal [68.596,77.072,2500];
-		_pvp12 = "MetalFloor_DZ" createVehicleLocal [68.595,71.822,2500];
-		_pvp13 = "MetalFloor_DZ" createVehicleLocal [63.345,71.823,2500];
-		_pvp14 = "MetalFloor_DZ" createVehicleLocal [63.346,77.073,2500];
-		_pvp15 = "MetalFloor_DZ" createVehicleLocal [68.596,87.572,2500];
-		_pvp16 = "MetalFloor_DZ" createVehicleLocal [63.346,82.323,2500];
-		_pvp17 = "MetalFloor_DZ" createVehicleLocal [63.346,87.573,2500];
-		_pvp18 = "MetalFloor_DZ" createVehicleLocal [73.846,87.572,2500];
-		_pvp19 = "MetalFloor_DZ" createVehicleLocal [79.096,87.572,2500];
-		_pvp20 = "MetalFloor_DZ" createVehicleLocal [84.346,87.571,2500];
-		_pvp21 = "MetalFloor_DZ" createVehicleLocal [84.347,92.821,2500];
-		_pvp22 = "MetalFloor_DZ" createVehicleLocal [79.097,92.822,2500];
-		_pvp23 = "MetalFloor_DZ" createVehicleLocal [73.847,92.822,2500];
-		_pvp24 = "MetalFloor_DZ" createVehicleLocal [68.597,92.822,2500];
-		_pvp25 = "MetalFloor_DZ" createVehicleLocal [63.347,92.823,2500];
-		_pvp26 = "MetalFloor_DZ" createVehicleLocal [84.347,98.071,2500];
-		_pvp27 = "MetalFloor_DZ" createVehicleLocal [79.097,98.072,2500];
-		_pvp28 = "MetalFloor_DZ" createVehicleLocal [73.847,98.072,2500];
-		_pvp29 = "MetalFloor_DZ" createVehicleLocal [68.597,98.072,2500];
-		_pvp30 = "MetalFloor_DZ" createVehicleLocal [63.347,98.073,2500];
-		_pvp31 = "MetalFloor_DZ" createVehicleLocal [58.097,98.073,2500];
-		_pvp32 = "MetalFloor_DZ" createVehicleLocal [58.097,92.823,2500];
-		_pvp33 = "MetalFloor_DZ" createVehicleLocal [58.096,87.573,2500];
-		_pvp34 = "MetalFloor_DZ" createVehicleLocal [58.096,82.323,2500];
-		_pvp35 = "MetalFloor_DZ" createVehicleLocal [58.096,77.073,2500];
-		_pvp36 = "MetalFloor_DZ" createVehicleLocal [58.095,71.823,2500];
-		_pvp1 setPosASL [79.096,82.321,2500];
-		_pvp2 setPosASL [84.346,82.321,2500];
-		_pvp3 setPosASL [84.346,77.071,2500];
-		_pvp4 setPosASL [84.345,71.821,2500];
-		_pvp5 setPosASL [79.095,71.822,2500];
-		_pvp6 setPosASL [73.845,71.822,2500];
-		_pvp7 setPosASL [73.846,77.072,2500];
-		_pvp8 setPosASL [79.096,77.072,2500];
-		_pvp9 setPosASL [73.846,82.322,2500];
-		_pvp10 setPosASL [68.596,82.322,2500];
-		_pvp11 setPosASL [68.596,77.072,2500];
-		_pvp12 setPosASL [68.595,71.822,2500];
-		_pvp13 setPosASL [63.345,71.823,2500];
-		_pvp14 setPosASL [63.346,77.073,2500];
-		_pvp15 setPosASL [68.596,87.572,2500];
-		_pvp16 setPosASL [63.346,82.323,2500];
-		_pvp17 setPosASL [63.346,87.573,2500];
-		_pvp18 setPosASL [73.846,87.572,2500];
-		_pvp19 setPosASL [79.096,87.572,2500];
-		_pvp20 setPosASL [84.346,87.571,2500];
-		_pvp21 setPosASL [84.347,92.821,2500];
-		_pvp22 setPosASL [79.097,92.822,2500];
-		_pvp23 setPosASL [73.847,92.822,2500];
-		_pvp24 setPosASL [68.597,92.822,2500];
-		_pvp25 setPosASL [63.347,92.823,2500];
-		_pvp26 setPosASL [84.347,98.071,2500];
-		_pvp27 setPosASL [79.097,98.072,2500];
-		_pvp28 setPosASL [73.847,98.072,2500];
-		_pvp29 setPosASL [68.597,98.072,2500];
-		_pvp30 setPosASL [63.347,98.073,2500];
-		_pvp31 setPosASL [58.097,98.073,2500];
-		_pvp32 setPosASL [58.097,92.823,2500];
-		_pvp33 setPosASL [58.096,87.573,2500];
-		_pvp34 setPosASL [58.096,82.323,2500];
-		_pvp35 setPosASL [58.096,77.073,2500];
-		_pvp36 setPosASL [58.095,71.823,2500];
-		_pvp1 setDir 270;
-		_pvp2 setDir 270;
-		_pvp3 setDir 270;
-		_pvp4 setDir 270;
-		_pvp5 setDir 270;
-		_pvp6 setDir 270;
-		_pvp7 setDir 270;
-		_pvp8 setDir 270;
-		_pvp9 setDir 270;
-		_pvp10 setDir 270;
-		_pvp11 setDir 270;
-		_pvp12 setDir 270;
-		_pvp13 setDir 270;
-		_pvp14 setDir 270;
-		_pvp15 setDir 270;
-		_pvp16 setDir 270;
-		_pvp17 setDir 270;
-		_pvp18 setDir 270;
-		_pvp19 setDir 270;
-		_pvp20 setDir 270;
-		_pvp21 setDir 270;
-		_pvp22 setDir 270;
-		_pvp23 setDir 270;
-		_pvp24 setDir 270;
-		_pvp25 setDir 270;
-		_pvp26 setDir 270;
-		_pvp27 setDir 270;
-		_pvp28 setDir 270;
-		_pvp29 setDir 270;
-		_pvp30 setDir 270;
-		_pvp31 setDir 270;
-		_pvp32 setDir 270;
-		_pvp33 setDir 270;
-		_pvp34 setDir 270;
-		_pvp35 setDir 270;
-		_pvp36 setDir 270;
-		_vehicleSpawnPos = [71.266,84.902,2500.1];
+		
+		/* Set Preview-Vehicle spawn position to the very left/bottom of the map */
+		_vehicleSpawnPos = [971.266,984.902,2500.1];
+		
+		/* Create the Vehicle to preview */
 		previewVehicle = (_item select 0) createVehicleLocal _vehicleSpawnPos;
 		previewVehicle setPosASL _vehicleSpawnPos;
 		previewVehicle setDir 0;
-		sleep 0.5;
+		uiSleep 0.5;
 		previewVehicle setVelocity [0,0,0];
+		
+		/* Create the Cam */
 		VehiclePreview_Camera = "camera" camCreate [(_vehicleSpawnPos select 0), (_vehicleSpawnPos select 1) - 30,2505];
 		VehiclePreview_Camera cameraEffect ["internal","back"];
 		VehiclePreview_Camera camSetTarget previewVehicle;
 		VehiclePreview_Camera camSetRelPos [0,30,5];
 		VehiclePreview_Camera camCommit 0;
+		
+		/* Wait un til Cam ready */
 		waitUntil {camCommitted VehiclePreview_Camera};
-		waitUntil{sleep 1;((((velocity previewVehicle) select 0) < 1) && (((velocity previewVehicle) select 1) < 1) && (((velocity previewVehicle) select 2) < 1))};
+		
+		/* Wait until Vehicle is not moving anymore on the platform */
+		waitUntil{uiSleep 0.01;((((velocity previewVehicle) select 0) < 1) && (((velocity previewVehicle) select 1) < 1) && (((velocity previewVehicle) select 2) < 1))};
+		
+		/* Set start cam distance variables */
 		CamDistanceY = 30;
 		CamDistanceZ = 5;
+		
+		/* reset preview loop check variable */
 		PreviewLoop = true;
+		
+		/* Assign the Preview-Abort Hotkey */
 		PreviewAbortHotkey = (findDisplay 46) displayAddEventHandler ["KeyDown", "
-			if ((_this select 1) == 0x3F) then {
+			_handled = false;
+			if ((_this select 1) == VASP_HotKey) then {
 				PreviewLoop = false;
 				(findDisplay 46) displayRemoveEventHandler ['KeyDown', PreviewAbortHotkey];
 				(findDisplay 46) displayRemoveEventHandler ['KeyDown', PreviewRotateHotkey];
 				(findDisplay 46) displayRemoveEventHandler ['KeyDown', PreviewZoomHotkey];
+				_handled = true;
 			};
+			_handled
 		"];
 		
 		/* Assign the Rotation Hotkeys */
 		PreviewRotateHotkey = (findDisplay 46) displayAddEventHandler ["KeyDown", "
+			_handled = false;
 			if ((_this select 1) == 0xCB) then {
 				_dir = getDir previewVehicle;
 				if (_dir == 0) then {
 					previewVehicle setDir 359.5;
 				};
 				previewVehicle setDir (_dir - 0.5);
+				_handled = true;
 			};
 			if ((_this select 1) == 0xCD) then {
 				_dir = getDir previewVehicle;
@@ -190,17 +204,21 @@ AllAllowedSkins = [
 					previewVehicle setDir 0;
 				};
 				previewVehicle setDir (_dir + 0.5);
+				_handled = true;
 			};
+			_handled
 		"];
 		
 		/* Assign the Zoom Hotkeys */
 		PreviewZoomHotkey = (findDisplay 46) displayAddEventHandler ["KeyDown", "
+			_handled = false;
 			if ((_this select 1) == 0xC8) then {
 				if (CamDistanceY > 5) then {
 					CamDistanceY = CamDistanceY - 0.1;
 					VehiclePreview_Camera camSetRelPos [0,CamDistanceY,5];
 					VehiclePreview_Camera camCommit 0;
 				};
+				_handled = true;
 			};
 			if ((_this select 1) == 0xD0) then {
 				if (CamDistanceY < 35) then {
@@ -208,14 +226,16 @@ AllAllowedSkins = [
 					VehiclePreview_Camera camSetRelPos [0,CamDistanceY,5];
 					VehiclePreview_Camera camCommit 0;
 				};
+				_handled = true;
 			};
+			_handled
 		"];
 		
 		/* Fade in the View again */
 		0 cutText ["","BLACK IN",1];
-		sleep 1.1;
+		uiSleep 1.1;
 
-		/* Message coutn variable reset */
+		/* Message count variable reset */
 		_msgCnt = 0;
 
 		/* Getting vehicle Information from config */
@@ -247,7 +267,7 @@ AllAllowedSkins = [
 		cutText["~~ To quit the Preview press F5 ~~","PLAIN DOWN"];
 		while {PreviewLoop} do {
 			if (_msgCnt == 5) then {
-				cutText["~~ To rotate the Vehicle press LEFFT or RIGHT ~~\n~~ To zoom in/out press  UP/DOWN ~~","PLAIN DOWN"];
+				cutText["~~ To rotate the Vehicle press LEFT or RIGHT ~~\n~~ To zoom in/out press  UP/DOWN ~~","PLAIN DOWN"];
 				[_VehicleInfoText, [safezoneX + safezoneW - 0.8,0.50], [safezoneY + safezoneH - 0.8,0.7], 6, 0] spawn BIS_fnc_dynamicText;
 			};
 			if (_msgCnt == 10) then {
@@ -256,61 +276,27 @@ AllAllowedSkins = [
 				_msgCnt = 0;
 			};
 			_msgCnt = _msgCnt + 1;
-			sleep 1;
+			uiSleep 1;
 		};
 		
 		/* Preview closed fade out the view */
 		0 cutText ["","BLACK OUT",1];
 		
-		sleep 1.5;
+		uiSleep 1.5;
 		
 		/* Set Date back to previous value */
 		setDate _date;
 		player setVariable["Preview",false,true];
 		
 		/* Delete all spawned Objects */
-		deleteVehicle _pvp1;
-		deleteVehicle _pvp2;
-		deleteVehicle _pvp3;
-		deleteVehicle _pvp4;
-		deleteVehicle _pvp5;
-		deleteVehicle _pvp6;
-		deleteVehicle _pvp7;
-		deleteVehicle _pvp8;
-		deleteVehicle _pvp9;
-		deleteVehicle _pvp10;
-		deleteVehicle _pvp11;
-		deleteVehicle _pvp12;
-		deleteVehicle _pvp13;
-		deleteVehicle _pvp14;
-		deleteVehicle _pvp15;
-		deleteVehicle _pvp16;
-		deleteVehicle _pvp17;
-		deleteVehicle _pvp18;
-		deleteVehicle _pvp19;
-		deleteVehicle _pvp20;
-		deleteVehicle _pvp21;
-		deleteVehicle _pvp22;
-		deleteVehicle _pvp23;
-		deleteVehicle _pvp24;
-		deleteVehicle _pvp25;
-		deleteVehicle _pvp26;
-		deleteVehicle _pvp27;
-		deleteVehicle _pvp28;
-		deleteVehicle _pvp29;
-		deleteVehicle _pvp30;
-		deleteVehicle _pvp31;
-		deleteVehicle _pvp32;
-		deleteVehicle _pvp33;
-		deleteVehicle _pvp34;
-		deleteVehicle _pvp35;
-		deleteVehicle _pvp36;
-		if (!isNull previewVehicle) then {
+		if (_isBadBeta) then {
+			previewVehicle setDamage 1.000000;
+			previewVehicle setPos [-2000,-2000,0];
+			previewVehicle = objNull;
+		} else {
 			deleteVehicle previewVehicle;
+			previewVehicle = objNull;
 		};
-		
-		/* Wait until all is deleted */
-		waitUntil {sleep 0.01; isNull previewVehicle};
 		
 		/* Destroy the Cam */
 		VehiclePreview_Camera cameraEffect ["terminate","back"];
@@ -319,7 +305,7 @@ AllAllowedSkins = [
 		/* Fade in the view */
 		0 cutText ["","BLACK IN",1];
 		
-		sleep 1.1;
+		uiSleep 1.1;
 		
 		/* Reopen the Tradermenu on the same position we left */
 		TraderCategoryLoadFinished = false;
@@ -328,74 +314,149 @@ AllAllowedSkins = [
 		lbSetCurSel [12000, _TraderMenuCategory];
 		[_TraderMenuCategory] spawn TraderDialogLoadItemList;
 		waitUntil{TraderCategoryLoadFinished};
-		sleep 0.5;
+		uiSleep 0.5;
 		lbSetCurSel [12001, _TraderMenuItem];
 		[_TraderMenuItem] spawn TraderDialogShowPrices;
 	};
 
 	/* Preview Skins */
 	ON_fnc_SkinPreview = {
-		private ["_item","_date","_tempDate","_msgCnt","_SkinInfoText","_TraderMenuCategory","_TraderMenuItem","_unitSpawnPos","_model","_skinType","_skinName","_skinDesc","_pvp1","_initUnit"];
+		private ["_getVersion","_isBadBeta","_item","_date","_tempDate","_msgCnt","_SkinInfoText","_TraderMenuCategory","_TraderMenuItem","_unitSpawnPos","_model","_skinType","_skinName","_skinDesc","_pvp1","_initUnit"];
 		
+		/* Getting Data from the Tradermenu */
 		_item = _this select 0;
 		_TraderMenuCategory = _this select 1;
 		_TraderMenuItem = _this select 2;
 
+		/* Inform the Player that preview is build and fade out the view */
 		cutText["~~ Preparing the Preview ~~\n~~ Please wait a moment ~~","PLAIN DOWN",0];
 		0 cutText ["~~ Preparing the Preview ~~\n~~ Please wait a moment ~~","BLACK OUT",1];
 		closeDialog 0;
-		sleep 1.5;
+		uiSleep 1.5;
 		
+		/* Check for beta version 112555 where deleteVehicle is not working */
+		_getVersion = productVersion;
+		_isBadBeta = (_getVersion select 3) == 112555;
+
+		/* Maybe it's Night so we set the Date temporary to High-Noon, otherwirse it would be too Dark to see anything */
 		_date = date;
 		_tempDate = [(_date select 0),(_date select 1),(_date select 2),12,0];
 		setDate _tempDate;
 		player setVariable["Preview",true,true];
 
+		/* Define the previeUnit variable the first time if not done already */
 		if (isNil "previewUnit") then {
 			previewUnit = objNull;
 		};
 
-		if (!isNull previewUnit) then {
-			deleteVehicle previewUnit;
+		/* Failsafe check for old preview Skin */
+		if (_isBadBeta) then {
+			if (!isNull previewUnit) then {
+				if (damage previewUnit < 1) then {
+					previewUnit setDamage 1.000000;
+					previewUnit setPos [-2000,-2000,0];
+					previewUnit = objNull;
+				};
+			};
+		} else {
+			if (!isNull previewUnit) then {
+				deleteVehicle previewUnit;
+				previewUnit = objNull;
+			};
 		};
-		waitUntil {sleep 0.01; isNull previewUnit};
 
-		_pvp1 = "MetalFloor_DZ" createVehicleLocal [79.096,82.321,2500];
-		_pvp1 setPosASL [79.096,82.321,2500];
+		/* Check Infistar is running - If it is running we need to use a publicVariable to define how many Players previewing a Skin at the moment */
+		if (ServerRunsInfistar) then {
+			
+			/* PVDZE_SkinPreviewCounter not yet set so we create the variable */
+			if (isNil "PVDZE_SkinPreviewCounter") then {
+			
+				/* Cause this Player is the first we set it to 1 */
+				PVDZE_SkinPreviewCounter = 1;
+			
+			/* PVDZE_SkinPreviewCounter is already set, so we just add 1 to it */
+			} else {
+				
+				/* New value = Old value + 1 */
+				PVDZE_SkinPreviewCounter = PVDZE_SkinPreviewCounter + 1;
+			};
+			/* Shout out the variable to the public so every Player knows it actual value */
+			publicVariable "PVDZE_SkinPreviewCounter";
 		
-		_unitSpawnPos = [79.096,82.321,2500.1];
+		/* Thank God a Server that is not running Infistar so we dont need to take care about if playableUnits is working or not... */
+		} else {
+		
+			/* Just set the  variable to 1 so the rest of the script works */
+			PVDZE_SkinPreviewCounter = 1;
+		};
+		
+		/* Create the Preview-Platform - Position depends on amount of PVDZE_SkinPreviewCounter */
+		_pvp1 = "MetalFloor_DZ" createVehicleLocal [(79.096 + (10 * PVDZE_SkinPreviewCounter)),82.321,2500];
+		_pvp1 setPosASL [(79.096 + (10 * PVDZE_SkinPreviewCounter)),82.321,2500];
+		
+		/* Set the unit's Spawnposition - Position depends on amount of PVDZE_SkinPreviewCounter */
+		_unitSpawnPos = [(79.096 + (10 * PVDZE_SkinPreviewCounter)),82.321,2500.5];
+		
+		/* Get the Model name for createAgent function */
 		_model = getText (configFile >> "CfgSurvival" >> "Skins" >> (_item select 0) >> "playerModel");
 
+		/* Create the Unit with Model to preview - Hide from other Players view */
 		previewUnit = createAgent [format["%1",_model], _unitSpawnPos, [], 0, "CAN_COLLIDE"];
 		previewUnit setDir 180;
 		previewUnit setPosASL _unitSpawnPos;
 		previewUnit allowDammage false; previewUnit disableAI 'FSM'; previewUnit disableAI 'AUTOTARGET'; previewUnit disableAI 'TARGET'; previewUnit forceSpeed 0;
-		_initUnit = format["{ if ((getPlayerUID _x) != '%1') then { _x hideObject %2; }; } forEach playableUnits;", (getPlayerUID player), previewUnit];
+		
+		/* playableUnits just holds the player himself when Server runs Infistar, dunno if correct, or why this but... */
+		/* We check if Infistar is running and if not we can use a way better function to hide the unit from other players */
+		if (!(ServerRunsInfistar)) then {
+			_initUnit = format["{if ((getPlayerUID _x) != %1) then {%2 hideObject true;};} forEach playableUnits;", (getPlayerUID player), previewUnit];
+			uiSleep 0.1;
+			previewUnit setVehicleInit _initUnit;
+			uiSleep 0.1;
+			processInitCommands;
+			uiSleep 0.1;
+			clearVehicleInit previewUnit
+		};
 
+		/* Create the Cam */
 		SkinPreview_Camera = "camera" camCreate [(_unitSpawnPos select 0), (_unitSpawnPos select 1) - 10,2502];
 		SkinPreview_Camera cameraEffect ["internal","back"];
 		SkinPreview_Camera camSetTarget previewUnit;
 		SkinPreview_Camera camSetRelPos [0,10,2];
 		SkinPreview_Camera camCommit 0;
 		
+		/* Wait un til Cam ready */
+		waitUntil {camCommitted SkinPreview_Camera};
+
+		/* Set start cam distance variables */
 		CamDistanceY = 10;
 		
+		/* reset preview loop check variable */
 		PreviewLoop = true;
+
+		/* Assign the Preview-Abort Hotkey */
 		PreviewAbortHotkey = (findDisplay 46) displayAddEventHandler ["KeyDown", "
-			if ((_this select 1) == 0x3F) then {
+			_handled = false;
+			if ((_this select 1) == VASP_HotKey) then {
 				PreviewLoop = false;
 				(findDisplay 46) displayRemoveEventHandler ['KeyDown', PreviewAbortHotkey];
 				(findDisplay 46) displayRemoveEventHandler ['KeyDown', PreviewRotateHotkey];
 				(findDisplay 46) displayRemoveEventHandler ['KeyDown', PreviewZoomHotkey];
+				_handled = true;
 			};
+			_handled
 		"];
+
+		/* Assign the Rotation Hotkeys */
 		PreviewRotateHotkey = (findDisplay 46) displayAddEventHandler ["KeyDown", "
+			_handled = false;
 			if ((_this select 1) == 0xCB) then {
 				_dir = getDir previewUnit;
 				if (_dir == 0) then {
 					previewUnit setDir 359;
 				};
 				previewUnit setDir (_dir - 1);
+				_handled = true;
 			};
 			if ((_this select 1) == 0xCD) then {
 				_dir = getDir previewUnit;
@@ -403,15 +464,21 @@ AllAllowedSkins = [
 					previewUnit setDir 0;
 				};
 				previewUnit setDir (_dir + 1);
+				_handled = true;
 			};
+			_handled
 		"];
+
+		/* Assign the Zoom Hotkeys */
 		PreviewZoomHotkey = (findDisplay 46) displayAddEventHandler ["KeyDown", "
+			_handled = false;
 			if ((_this select 1) == 0xC8) then {
 				if (CamDistanceY > 1) then {
 					CamDistanceY = CamDistanceY - 0.1;
 					SkinPreview_Camera camSetRelPos [0,CamDistanceY,2];
 					SkinPreview_Camera camCommit 0;
 				};
+				_handled = true;
 			};
 			if ((_this select 1) == 0xD0) then {
 				if (CamDistanceY < 20) then {
@@ -419,18 +486,24 @@ AllAllowedSkins = [
 					SkinPreview_Camera camSetRelPos [0,CamDistanceY,2];
 					SkinPreview_Camera camCommit 0;
 				};
+				_handled = true;
 			};
+			_handled
 		"];
 		
+		/* Fade in the View again */
 		0 cutText ["","BLACK IN",1];
-		sleep 1.1;
+		uiSleep 1.1;
 
+		/* Message count variable reset */
 		_msgCnt = 0;
 
+		/* Getting Model Information from config */
 		_skinType = (_item select 0);
 		_skinName = getText (configFile >> "CfgMagazines" >> _skinType >> "displayName");
 		_skinDesc = getText (configFile >> "CfgMagazines" >> _skinType >> "descriptionShort");
 
+		/* Generating the Text */
 		if (_skinName == _skinDesc) then {
 			_SkinInfoText = format ["
 				<t size='0.7'		align='center' 	color='#5882FA'>%1</t>				<br/>",
@@ -445,10 +518,11 @@ AllAllowedSkins = [
 			];
 		};
 
+		/* Hotkey Message and action check */
 		cutText["~~ To quit the Preview press F5 ~~","PLAIN DOWN"];
 		while {PreviewLoop} do {
 			if (_msgCnt == 5) then {
-				cutText["~~ To rotate the Unit press LEFFT or RIGHT ~~\n~~ To zoom in/out press  UP/DOWN ~~","PLAIN DOWN"];
+				cutText["~~ To rotate the Unit press LEFT or RIGHT ~~\n~~ To zoom in/out press  UP/DOWN ~~","PLAIN DOWN"];
 				[_SkinInfoText, [safezoneX + safezoneW - 0.8,0.50], [safezoneY + safezoneH - 0.8,0.7], 6, 0] spawn BIS_fnc_dynamicText;
 			};
 			if (_msgCnt == 10) then {
@@ -457,38 +531,53 @@ AllAllowedSkins = [
 				_msgCnt = 0;
 			};
 			_msgCnt = _msgCnt + 1;
-			sleep 1;
+			uiSleep 1;
 		};
 		
+		/* Preview closed fade out the view */
 		0 cutText ["","BLACK OUT",1];
 		
-		sleep 1.5;
+		uiSleep 1.5;
 		
+		/* Set Date back to previous value */
 		setDate _date;
 		player setVariable["Preview",false,true];
 
-		if (!isNull previewUnit) then {
+		/* Delete all spawned Objects */
+		if (_isBadBeta) then {
+			previewUnit setDamage 1.000000;
+			previewUnit setPos [-2000,-2000,0];
+			_pvp1 setDamage 1.000000;
+			_pvp1 setPos [-2000,-2000,0];
+			previewUnit = objNull;
+			_pvp1 = objNull;
+		} else {
 			deleteVehicle previewUnit;
+			deleteVehicle _pvp1;
+			previewUnit = objNull;
+			_pvp1 = objNull;
 		};
-		waitUntil {sleep 0.01; isNull previewUnit};
-		deleteVehicle _pvp1;
 		
+		/* Destroy the Cam */
 		SkinPreview_Camera cameraEffect ["terminate","back"];
 		camDestroy SkinPreview_Camera;
 		
+		/* Fade in the view */
 		0 cutText ["","BLACK IN",1];
 		
-		sleep 1.1;
+		uiSleep 1.1;
+		
+		/* Reopen the Tradermenu on the same position we left */
 		TraderCategoryLoadFinished = false;
 		[nil,nil,nil,LastTraderMenu] execVM "\z\addons\dayz_code\actions\show_dialog.sqf";
 		waitUntil {dialog};
 		lbSetCurSel [12000, _TraderMenuCategory];
 		[_TraderMenuCategory] spawn TraderDialogLoadItemList;
 		waitUntil{TraderCategoryLoadFinished};
-		sleep 0.5;
+		uiSleep 0.5;
 		lbSetCurSel [12001, _TraderMenuItem];
 		[_TraderMenuItem] spawn TraderDialogShowPrices;
 		
-		SkinPreviewCount = SkinPreviewCount - 1;
-		publicVariable "SkinPreviewCount";
+		PVDZE_SkinPreviewCounter = PVDZE_SkinPreviewCounter - 1;
+		publicVariable "PVDZE_SkinPreviewCounter";
 	};

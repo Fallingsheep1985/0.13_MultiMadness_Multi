@@ -1,3 +1,11 @@
+/*------------------------------------*/
+/* VASP v1.3                          */
+/* Vehicle and Skin Preview           */
+/* OtterNas3                          */
+/* 06/17/2014                         */
+/* Last update: 06/22/2014            */
+/*------------------------------------*/
+
 // trader menu gui by maca134
 TraderDialogCatList = 12000;
 TraderDialogItemList = 12001;
@@ -11,8 +19,16 @@ TraderCurrentCatIndex = -1;
 TraderCatList = -1;
 TraderItemList = -1;
 
+
 TraderDialogLoadItemList = {
 	private ["_index","_trader_id","_activatingPlayer","_distance","_objclass","_item_list"];
+	
+	//close debug
+	if (debugMonitor) then {
+		debugMonitor = false;
+		hintSilent "";
+	};
+	
 	TraderItemList = -1;
 	_index = _this select 0;
 
@@ -192,16 +208,44 @@ TraderDialogShowPrices = {
 
 	ctrlSetText [TraderDialogSellPrice, format["%1 %2", _item select 5, _item select 7]];
 
+	/* If Vehicle-Preview is enabled in the config */
 	if (VASP_VehiclePreview) then {
+	
+		/* Fail-Safe check if Hotkey is set and if remove it */
 		if (!isNil "VehiclePreviewHotkey") then {
+			
+			/* Reset the VehiclePreviewList variable */
 			VehiclePreviewList = nil;
+			
+			/* Remove the Preview-Hotkey */
 			(findDisplay 46) displayRemoveEventHandler ["KeyDown", VehiclePreviewHotkey];
+			
+			/* Reset the VehiclePreviewHotkey variable */
 			VehiclePreviewHotkey = nil;
 		};
-		if ((_item select 9) == "\z\addons\dayz_code\actions\trade_any_vehicle.sqf") then {
+		
+		/* If the Item that clicked on in the Traderdialog is a Vehicle */
+		if (["trade_any_",_item select 9] call fnc_inString) then {
+			
+			/* Store the Traderdialog Item information in VehiclePreviewList */
 			VehiclePreviewList = _item;
-			VehiclePreviewHotkey = (findDisplay 46) displayAddEventHandler ["KeyDown", "if ((_this select 1) == 0x3F) then {[VehiclePreviewList,LastTraderSelectCategory,LastTraderSelectItem] spawn ON_fnc_VehiclePreview;};"];
-
+			
+			/* Add the Preview-Hotkey */
+			VehiclePreviewHotkey = (findDisplay 46) displayAddEventHandler ["KeyDown", "
+				_handled = false;
+				if ((_this select 1) == VASP_HotKey) then {
+					[VehiclePreviewList,LastTraderSelectCategory,LastTraderSelectItem] spawn ON_fnc_VehiclePreview;
+					_handled = true;
+				};
+				_handled
+			"];
+			
+			/* If Infistar is running we override his Debug-Monitor */
+			if (ServerRunsInfistar) then {
+				debugMonitorX = false;
+			};
+			
+			/* Show the Preview-Hint to the Player */
 			hint parseText format ["
 				<t size='1.3'font='Bitstream'align='center'color='#00FF00'>! PREVIEW !</t><br/>
 				<t></t><br/>
@@ -213,23 +257,74 @@ TraderDialogShowPrices = {
 				(_item select 1)
 			];
 
+			/* Spawn check for Dialog close */
 			[] spawn {
+				
+				/* Wait until the Tradermenu is closes either by Preview-Hotkey or by closing the Traderdialog normal */
 				waitUntil {sleep 0.1;!dialog};
+				
+				/* If Infistar is running we remove the override of his Debug-Monitor */
+				if (ServerRunsInfistar) then {
+					debugMonitorX = false;
+				};
+				
+				/* Remove the Preview-Hotkey */
 				(findDisplay 46) displayRemoveEventHandler ["KeyDown", VehiclePreviewHotkey];
+				
+				/* Reset the VehiclePreviewHotkey variable */
 				VehiclePreviewHotkey = nil;
+				
+				//show debug again
+				debugMonitor = true;
+				[] spawn fnc_debug;
 			};
 		};
 	};
+	
+	/* If Skin-Preview is enabled in the config */
 	if (VASP_SkinPreview) then {
+	//close debug
+		if (debugMonitor) then {
+			debugMonitor = false;
+			hintSilent "";
+		};
+	
+		
+		/* Fail-Safe check if Hotkey is set and if remove it */
 		if (!isNil "SkinPreviewHotkey") then {
+
+			/* Reset the SkinPreviewList variable */
 			SkinPreviewList = nil;
+
+			/* Remove the Preview-Hotkey */
 			(findDisplay 46) displayRemoveEventHandler ["KeyDown", SkinPreviewHotkey];
+
+			/* Reset the SkinPreviewHotkey variable */
 			SkinPreviewHotkey = nil;
 		};
-		if ((_item select 9) == "\z\addons\dayz_code\actions\trade_items.sqf" && (_item select 0) in AllAllowedSkins) then {
-			SkinPreviewList = _item;
-			SkinPreviewHotkey = (findDisplay 46) displayAddEventHandler ["KeyDown", "if ((_this select 1) == 0x3F) then {[SkinPreviewList,LastTraderSelectCategory,LastTraderSelectItem] spawn ON_fnc_SkinPreview;};"];
 
+		/* If the Item that clicked on in the Traderdialog is a Skin */
+		if ((_item select 9) == "\z\addons\dayz_code\actions\trade_items.sqf" && (_item select 0) in AllAllowedSkins) then {
+			
+			/* Store the Traderdialog Item information in VehiclePreviewList */
+			SkinPreviewList = _item;
+			
+			/* Add the Preview-Hotkey */
+			SkinPreviewHotkey = (findDisplay 46) displayAddEventHandler ["KeyDown", "
+				_handled = false;
+				if ((_this select 1) == VASP_HotKey) then {
+					[SkinPreviewList,LastTraderSelectCategory,LastTraderSelectItem] spawn ON_fnc_SkinPreview;
+					_handled = true;
+				};
+				_handled
+			"];
+
+			/* If Infistar is running we override his Debug-Monitor */
+			if (ServerRunsInfistar) then {
+				debugMonitorX = false;
+			};
+
+			/* Show the Preview-Hint to the Player */
 			hint parseText format ["
 				<t size='1.3'font='Bitstream'align='center'color='#00FF00'>! PREVIEW !</t><br/>
 				<t></t><br/>
@@ -241,9 +336,22 @@ TraderDialogShowPrices = {
 				(_item select 1)
 			];
 
+			/* Spawn check for Dialog close */
 			[] spawn {
+
+				/* Wait until the Tradermenu is closes either by Preview-Hotkey or by closing the Traderdialog normal */
 				waitUntil {sleep 0.1;!dialog};
+				
+				/* If Infistar is running we remove the override of his Debug-Monitor */
+				if (ServerRunsInfistar) then {
+					debugMonitorX = false;
+				};
+				
+				/* Remove the Preview-Hotkey */
 				(findDisplay 46) displayRemoveEventHandler ["KeyDown", SkinPreviewHotkey];
+
+				/* Reset the VehiclePreviewHotkey variable */
+				SkinPreviewHotkey = nil;
 			};
 		};
 	};

@@ -244,8 +244,25 @@ if (_dikCode == 0x44) then {
 		hintSilent "";
 	} else {
 		debugMonitor = true;
+		[] spawn fnc_debug;
 	};
 };
+	if (_dikCode == 0x3F) then {
+				PreviewLoop = false;
+				(findDisplay 46) displayRemoveEventHandler ['KeyDown', PreviewAbortHotkey];
+				(findDisplay 46) displayRemoveEventHandler ['KeyDown', PreviewRotateHotkey];
+				(findDisplay 46) displayRemoveEventHandler ['KeyDown', PreviewZoomHotkey];
+				VehiclePreview_Camera cameraEffect ["terminate","back"];
+				camDestroy VehiclePreview_Camera;
+				SkinPreview_Camera cameraEffect ["terminate","back"];
+				camDestroy SkinPreview_Camera;
+				player setVariable["Preview",false,true];
+				deleteVehicle previewUnit;
+				deleteVehicle previewVehicle;
+				previewVehicle = objNull;
+				previewUnit = objNull;
+				_handled = true;
+			};
 
 //Keybinds for Base Building
 _shiftState = _this select 2;
