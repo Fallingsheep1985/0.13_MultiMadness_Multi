@@ -221,11 +221,12 @@ fnc_wmod_toggleWeaponModInventory = {
 
 fnc_wmod_openWeaponModInventory = {
     if(DZE_WEAPON_MOD_USE_HINT_INVENTORY) then {
+	//debug flash fix
+			debugMonitor = false;
+			hintSilent "";
+	
         [] spawn {
             private["_infistarDebug","_startPosition","_hint","_weapon","_upgrades","_color","_mod","_base","_upgrade"];
-            if (!(isNil "debugMonitor")) then {
-                debugMonitor = false;
-            };
             DZE_WEAPON_MOD_INVENTORY_SHOW = true;
             _startPosition = position player;
             while {DZE_WEAPON_MOD_INVENTORY_SHOW && (((position player) distance _startPosition) < 5)} do {
@@ -257,8 +258,8 @@ fnc_wmod_openWeaponModInventory = {
                 sleep 0.5;
             };
             DZE_WEAPON_MOD_INVENTORY_SHOW = false;
-            hintSilent "";
-            debugMonitor = true;
+			debugMonitor = true;
+			[] spawn fnc_debug;
         };
     } else {
         systemChat format["Weapon Mod Inventory: %1",(call fnc_wmod_getCountArrayDisplay)];
