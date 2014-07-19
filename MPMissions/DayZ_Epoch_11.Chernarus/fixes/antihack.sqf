@@ -72,7 +72,7 @@ while {1 == 1} do {
 	_topv = 0;
 	_toph = 0;
 
-	// removed so admins can TP to ME
+	// removed so admins can Teleport,TP to ME, TP to Player and for NOS
 	/*
 	while {((typeName player == "OBJECT") && {((player in playableUnits) || {(alive player)})})} do {
 		_curpos = getPosATL (vehicle player);
