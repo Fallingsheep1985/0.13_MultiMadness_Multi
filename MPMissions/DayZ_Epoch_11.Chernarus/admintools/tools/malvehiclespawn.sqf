@@ -1,15 +1,14 @@
-//Malory's edited locked vehicle spawner
-
-private ["_worldspace","_charID","_veh","_location","_isOk","_vehtospawn","_part_in","_qty_in","_qty","_obj","_objectID","_objectUID","_started","_finished","_animState","_isMedic","_dir","_helipad","_removed","_keyColor","_keyNumber","_keySelected","_isKeyOK","_config","_textPartIn","_textPartOut"];
- _vehtospawn = _this select 0; 
+private ["_worldspace","_charID","_veh","_activatingPlayer","_location","_isOk","_vehtospawn","_dir","_helipad","_removed","_keyColor","_keyNumber","_keySelected","_isKeyOK","_config"];
+ _vehtospawn = _this select 0;
+ _dist = 10; 
  _activatingPlayer = player;
  _charID = dayz_characterID;
  _dir = getdir vehicle player;
  _pos = getPos vehicle player;
- _pos = [(_pos select 0)+8*sin(_dir),(_pos select 1)+8*cos(_dir),0];
+ _pos = [(_pos select 0)+_dist*sin(_dir),(_pos select 1)+_dist*cos(_dir),0];
  _worldspace = [_dir,_pos];
  
-cutText ["Spawn Starting...", "PLAIN DOWN"];
+cutText ["Starting Spawn...", "PLAIN DOWN"];
  
 // First select key color
 _keyColor = ["Green","Red","Blue","Yellow","Black"] call BIS_fnc_selectRandom;
@@ -27,35 +26,39 @@ _isOk = [player,_config] call BIS_fnc_invAdd;
 waitUntil {!isNil "_isOk"};
 if (_isOk and _isKeyOK) then {
  
-_removed = ([player,_part_in,_qty_in] call BIS_fnc_invRemove);
-_dir = round(random 360);
- 
-_helipad = nearestObjects [player, ["HeliHCivil","HeliHempty"], 100];
-if(count _helipad > 0) then {
-	_location = (getPosATL (_helipad select 0));
+//	_removed = ([player,_part_in,_qty_in] call BIS_fnc_invRemove);
+	_dir = round(random 360); 
+	/*_helipad = nearestObjects [player, ["HeliHCivil","HeliHempty"], 100];
+
+	if(count _helipad > 0) then {
+		_location = (getPosATL (_helipad select 0));
+	} else {
+		_location = position player findEmptyPosition [0,15,_vehtospawn];
+	};
+	*/
+	//fix spawn issue
+	_location = _pos;
+	
+	//place vehicle spawn marker (local)
+	_veh = createVehicle [_vehtospawn, _pos, [], 0, "CAN_COLLIDE"];
+	//_veh = createVehicle ["Sign_arrow_down_large_EP1", _location, [], 0, "CAN_COLLIDE"]; 
+	_location = (getPosATL _veh);
+		 
+	PVDZE_veh_Publish2 = [_veh,[_dir,_location],_vehtospawn,false,_keySelected,_activatingPlayer];
+	publicVariableServer  "PVDZE_veh_Publish2";
+	player reveal _veh;
+	 
+	cutText ["Vehicle spawned, key added to toolbelt.", "PLAIN DOWN"];
+	
+	if ( AdminTrackTempVehicles ) then{
+		_playerUID = getplayerUID player;
+		_playerName = name player;
+		_pos = getPos player;
+		_log  = (format["[ADMIN TOOLS] - SPAWN PERMANENT VEHICLE - Admin Name: %1 UID: %2 Vehicle: %4 POS: %3" , _playerName, _playerUID, _pos, _vehtospawn ]);
+		admin_Log = [_log];
+		publicVariableServer "admin_Log";
+	};
+	
 } else {
-	_location = [(position player),0,20,1,0,2000,0] call BIS_fnc_findSafePos;
-};
- 
-//place vehicle spawn marker (local)
-_veh = createVehicle ["Sign_arrow_down_large_EP1", _location, [], 0, "CAN_COLLIDE"];
- 
-_location = (getPosATL _veh);
- 
-PVDZE_veh_Publish2 = [_veh,[_dir,_location],_vehtospawn,false,_keySelected,_activatingPlayer];
-publicVariableServer  "PVDZE_veh_Publish2";
-player reveal _veh;
-if ( AdminTrackVehicles )then {
-	_pos = getPos player;
-	_playerUID = getplayerUID player;
-	_playerName = name player;
-	//LOG TO RPT
-	_log  = (format["[ADMIN TOOLS] - SPAWN LOCKED VEHICLE  - Admin Name: %1 UID: %2 Position: %3" , _playerName, _playerUID, _pos ]);
-	admin_Log = [_log];
-	publicVariableServer "admin_Log";
-};
-cutText [format[("Vehicle Spawned and key added."),_qty_in,_textPartIn,_textPartOut], "PLAIN DOWN"];
- 
-} else {
-cutText ["Your tool-belt was full.", "PLAIN DOWN"];
+	cutText ["Your toolbelt is full.", "PLAIN DOWN"];
 };
