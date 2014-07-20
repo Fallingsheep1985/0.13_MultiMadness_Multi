@@ -3,7 +3,7 @@
 	Made for DayZ Epoch please ask permission to use/edit/distrubute email vbawol@veteranbastards.com.
 */
 private ["_helperColor","_objectHelper","_objectHelperDir","_objectHelperPos","_canDo",
-"_location","_dir","_classname","_item","_hasrequireditem","_missing","_hastoolweapon","_cancel","_reason","_started","_finished","_animState","_isMedic","_dis","_sfx","_hasbuilditem","_tmpbuilt","_onLadder","_isWater","_require","_text","_offset","_IsNearPlot","_isOk","_location1","_location2","_counter","_limit","_proceed","_num_removed","_position","_object","_canBuildOnPlot","_friendlies","_nearestPole","_ownerID","_findNearestPoles","_findNearestPole","_distance","_classnametmp","_ghost","_isPole","_needText","_lockable","_zheightchanged","_rotate","_combination_1","_combination_2","_combination_3","_combination_4","_combination","_combination_1_Display","_combinationDisplay","_zheightdirection","_abort","_isNear","_need","_needNear","_vehicle","_inVehicle","_requireplot","_objHDiff","_isLandFireDZ","_isTankTrap"];
+"_location","_dir","_classname","_item","_hasrequireditem","_missing","_hastoolweapon","_cancel","_reason","_started","_finished","_animState","_isMedic","_dis","_sfx","_hasbuilditem","_object","_onLadder","_isWater","_require","_text","_offset","_IsNearPlot","_isOk","_location1","_location2","_counter","_limit","_proceed","_num_removed","_position","_object","_canBuildOnPlot","_friendlies","_nearestPole","_ownerID","_findNearestPoles","_findNearestPole","_distance","_classnametmp","_ghost","_isPole","_needText","_lockable","_zheightchanged","_rotate","_combination_1","_combination_2","_combination_3","_combination_4","_combination","_combination_1_Display","_combinationDisplay","_zheightdirection","_abort","_isNear","_need","_needNear","_vehicle","_inVehicle","_requireplot","_objHDiff","_isLandFireDZ","_isTankTrap"];
 
 if(DZE_ActionInProgress) exitWith { cutText [(localize "str_epoch_player_40") , "PLAIN DOWN"];};
 DZE_ActionInProgress = true;
@@ -446,9 +446,9 @@ if (isClass (missionConfigFile >> "SnapBuilding" >> _classname)) then {
 		_classname = _classnametmp;
 
 		// Start Build
-		_tmpbuilt = createVehicle [_classname, _location, [], 0, "CAN_COLLIDE"];
+		_object = createVehicle [_classname, _location, [], 0, "CAN_COLLIDE"];
 
-		_tmpbuilt setdir _dir;
+		_object setdir _dir;
 
 		// Get position based on object
 		_location = _position;
@@ -457,7 +457,7 @@ if (isClass (missionConfigFile >> "SnapBuilding" >> _classname)) then {
 			_location set [2,0];
 		};
 
-		_tmpbuilt setPosATL _location;
+		_object setPosATL _location;
 
 
 		cutText [format[(localize "str_epoch_player_138"),_text], "PLAIN DOWN"];
@@ -542,7 +542,7 @@ if (isClass (missionConfigFile >> "SnapBuilding" >> _classname)) then {
 					[] spawn player_plotPreview;
 				};
 
-				_tmpbuilt setVariable ["OEMPos",_location,true];
+				_object setVariable ["OEMPos",_location,true];
 
 				if(_lockable > 1) then {
 
@@ -588,30 +588,30 @@ if (isClass (missionConfigFile >> "SnapBuilding" >> _classname)) then {
 						};
 					};
 
-					_tmpbuilt setVariable ["CharacterID",_combination,true];
+					_object setVariable ["CharacterID",_combination,true];
 
 
-					PVDZE_obj_Publish = [_combination,_tmpbuilt,[_dir,_location],_classname];
+					PVDZE_obj_Publish = [_combination,_object,[_dir,_location],_classname];
 					publicVariableServer "PVDZE_obj_Publish";
 
 					cutText [format[(localize "str_epoch_player_140"),_combinationDisplay,_text], "PLAIN DOWN", 5];
 
 
 				} else {
-					_tmpbuilt setVariable ["CharacterID",_playerUID,true];
+					_object setVariable ["CharacterID",_playerUID,true];
 
 					// fire?
-					if(_tmpbuilt isKindOf "Land_Fire_DZ") then {
-						_tmpbuilt spawn player_fireMonitor;
+					if(_object isKindOf "Land_Fire_DZ") then {
+						_object spawn player_fireMonitor;
 					} else {
 
-						//PVDZE_obj_Publish = [dayz_characterID,_tmpbuilt,[_dir,_location],_classname];
-						PVDZE_obj_Publish = [_playerUID,_tmpbuilt,[_dir,_location],_classname];
+						//PVDZE_obj_Publish = [dayz_characterID,_object,[_dir,_location],_classname];
+						PVDZE_obj_Publish = [_playerUID,_object,[_dir,_location],_classname];
 						publicVariableServer "PVDZE_obj_Publish";
 					};
 				};
 			} else {
-				deleteVehicle _tmpbuilt;
+				deleteVehicle _object;
 				cutText [(localize "str_epoch_player_46") , "PLAIN DOWN"];
 			};
 
@@ -622,7 +622,7 @@ if (isClass (missionConfigFile >> "SnapBuilding" >> _classname)) then {
 				player playActionNow "stop";
 			};
 
-			deleteVehicle _tmpbuilt;
+			deleteVehicle _object;
 
 			cutText [(localize "str_epoch_player_46") , "PLAIN DOWN"];
 		};

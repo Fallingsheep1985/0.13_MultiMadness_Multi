@@ -75,6 +75,31 @@ if (isnil "dayz_disco") then {
 	dayz_disco = [];
 };
 */
+//plot pole fix
+_allPoleObjs = allMissionObjects "Plastic_Pole_EP1_DZ";
+_playerOwnedPlots = [];
+diag_log format["Running pole stuff for char %1", _characterID];
+diag_log format["All Poles: %1", _allPoleObjs];
+	{
+            diag_log format["Pole: %1",_x];
+            _ownerID = _x getVariable["CharacterID","0"];
+            diag_log format["Owner of pole: %1", _ownerID];
+            if (_ownerID == _characterID) then {
+                diag_log format["Owner: %1 == Char: %2", _ownerID, _characterID];
+                _playerOwnedPlots set [(count _playerOwnedPlots), _x];
+            };
+	} forEach (_allPoleObjs);
+        diag_log format["Player owned plots: %1", _playerOwnedPlots];
+	_player_death_object_record = [
+		_characterID,
+		_playerID,
+        _playerOwnedPlots
+	];
+        diag_log format["Player death records: %1", _player_death_object_record];
+
+	DeadPlayerPlotObjects set [(count DeadPlayerPlotObjects), _player_death_object_record];
+	diag_log format["DeadPlayerObjects: %1", DeadPlayerPlotObjects];
+
 
 // dayz_disco = dayz_disco - [_playerID];
 _newObject setVariable["processedDeath",diag_tickTime];

@@ -5,6 +5,8 @@ BIS_MPF_remoteExecutionServer = {
 		[nil,(_this select 1) select 0,"loc",rJIPEXEC,[any,any,"per","execVM","ca\Modules\Functions\init.sqf"]] call RE;
 	};
 };
+//plot pole fix
+DeadPlayerPlotObjects = [];
 
 BIS_Effects_Burn =				{};
 server_playerCharacters =		compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\server_playerCharacters.sqf";
@@ -39,6 +41,8 @@ server_spawnEvents =			compile preprocessFileLineNumbers "\z\addons\dayz_server\
 fnc_plyrHit   =					compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\fnc_plyrHit.sqf";
 server_deaths = 				compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\server_playerDeaths.sqf";
 server_maintainArea = 			compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\server_maintainArea.sqf";
+//plot pole fix
+server_changePlotsOwner =		compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\server_changePlotsOwner.sqf"; 
 
 /* PVS/PVC - Skaronator */
 server_sendToClient =			compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\server_sendToClient.sqf";

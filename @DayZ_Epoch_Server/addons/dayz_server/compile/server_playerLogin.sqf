@@ -146,6 +146,11 @@ if (worldName == "chernarus") then {
 	([4654,9595,0] nearestObject 145259) setDamage 1;
 	([4654,9595,0] nearestObject 145260) setDamage 1;
 };
+//plot pole fix
+if (_isNew) then {
+	diag_log format["Player %1 Character %2 is NEW", _playerID, _charID];
+	[_charID, _playerID, _playerObj] call server_changePlotsOwner;
+};
 
 dayzPlayerLogin = [_charID,_inventory,_backpack,_survival,_isNew,dayz_versionNo,_model,_isHiveOk,_newPlayer,_isInfected];
 (owner _playerObj) publicVariableClient "dayzPlayerLogin";
