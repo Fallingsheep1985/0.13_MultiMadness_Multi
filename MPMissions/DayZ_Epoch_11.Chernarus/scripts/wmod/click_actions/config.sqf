@@ -41,14 +41,14 @@ DZE_CLICK_ACTIONS = [
    //Radio
    ["ItemRadio","Group Management","[] execVM 'scripts\dzgm\loadGroupManagement.sqf';","true"],
    //Emerald
-   ["ItemRadio","Picture Frame","createDialog 'WGT_INTERIOR1';","true"],
-   ["ItemRadio","Chair","createDialog 'WGT_INTERIOR2';","true"],
-   ["ItemRadio","Bed","createDialog 'WGT_INTERIOR3';","true"],
-   ["ItemRadio","Bathroom","createDialog 'WGT_INTERIOR4';","true"],
-   ["ItemRadio","Shelf","createDialog 'WGT_INTERIOR5';","true"],
-   ["ItemRadio","Misc","createDialog 'WGT_INTERIOR6';","true"],
-   ["ItemRadio","Table","createDialog 'WGT_INTERIOR7';","true"],
-   ["ItemRadio","Exterior","createDialog 'WGT_INTERIOR8';","true"],
+   ["ItemEmerald","Picture Frame","createDialog 'WGT_INTERIOR1';","true"],
+   ["ItemEmerald","Chair","createDialog 'WGT_INTERIOR2';","true"],
+   ["ItemEmerald","Bed","createDialog 'WGT_INTERIOR3';","true"],
+   ["ItemEmerald","Bathroom","createDialog 'WGT_INTERIOR4';","true"],
+   ["ItemEmerald","Shelf","createDialog 'WGT_INTERIOR5';","true"],
+   ["ItemEmerald","Misc","createDialog 'WGT_INTERIOR6';","true"],
+   ["ItemEmerald","Table","createDialog 'WGT_INTERIOR7';","true"],
+   ["ItemEmerald","Exterior","createDialog 'WGT_INTERIOR8';","true"],
    //Pistols
    ["glock17_EP1","Suicide","[] execVM 'scripts\suicide\suicide_init.sqf';","true"],
    ["M9","Suicide","[] execVM 'scripts\suicide\suicide_init.sqf';","true"],
