@@ -1,31 +1,5 @@
 disableSerialization;
 
-donorListBase = [
-	"10332294", //ebay
-	"0",
-	"0"
-];
-
-donorListBases = [
-	[2324.2893,15365.067,0], //ebay
-	[],
-	[]
-];
-donorClassLvl1 = ["120958982","110704838","108784838"];
-donorClassLvl2 = ["120958982","110704838","108784838"];
-donorClassLvl3 = ["120958982","110704838","108784838"];
-donorListClass = [
-	"120958982", //ebay
-	"110704838",
-	"108784838"
-];
-
-donorListClasses = [
-	["ebay's Loadout","GUE_Soldier_2_DZ",["100Rnd_762x51_M240","100Rnd_762x51_M240","30Rnd_9x19_UZI_SD","30Rnd_9x19_UZI_SD","30Rnd_9x19_UZI_SD","ItemAntibiotic","ItemBloodbag","ItemEpinephrine","ItemMorphine","Skin_GUE_Soldier_Sniper_DZ","ItemBandage"],["Mk_48_DZ","UZI_SD_EP1","Binocular_Vector","NVGoggles","ItemCompass","ItemHatchet","ItemKnife","Itemmatchbox","Itemetool","ItemSledge","ItemWatch","ItemGPS","ItemCrowbar"],"DZ_Backpack_EP1",["5Rnd_86x70_L115A1","5Rnd_86x70_L115A1","5Rnd_86x70_L115A1"],["BAF_LRR_scoped_W"],0,0],
-	[],
-	[]
-];
-
 DefaultMagazines = ["ItemBandage","ItemBandage","ItemBandage","ItemPainkiller","ItemWaterbottle","FoodPistachio","17Rnd_9x19_glock17","17Rnd_9x19_glock17","17Rnd_9x19_glock17"]; 
 DefaultWeapons = ["ItemMap","ItemFlashlight","ItemToolbox","glock17_EP1"]; 
 DefaultBackpack = "DZ_Assault_Pack_EP1";

@@ -1154,3 +1154,30 @@ execVM "\z\addons\dayz_server\CustomBuildings\electroZI.sqf";
 
 //Cherno
 execVM "\z\addons\dayz_server\CustomBuildings\Cherno.sqf";
+
+//Enhanced Spawn Selection
+donorListBase = [
+	"10332294", //ebay example
+	"0",
+	"0"
+];
+
+donorListBases = [
+	[2324.2893,15365.067,0], //ebay example
+	[],
+	[]
+];
+donorClassLvl1 = ["120958982","110704838","108784838"];
+donorClassLvl2 = ["120958982","110704838","108784838"];
+donorClassLvl3 = ["120958982","110704838","108784838"];
+donorListClass = [
+	"120958982", //sheep
+	"110704838",
+	"108784838"
+];
+
+donorListClasses = [
+	["ebay's Loadout","GUE_Soldier_2_DZ",["100Rnd_762x51_M240","100Rnd_762x51_M240","30Rnd_9x19_UZI_SD","30Rnd_9x19_UZI_SD","30Rnd_9x19_UZI_SD","ItemAntibiotic","ItemBloodbag","ItemEpinephrine","ItemMorphine","Skin_GUE_Soldier_Sniper_DZ","ItemBandage"],["Mk_48_DZ","UZI_SD_EP1","Binocular_Vector","NVGoggles","ItemCompass","ItemHatchet","ItemKnife","Itemmatchbox","Itemetool","ItemSledge","ItemWatch","ItemGPS","ItemCrowbar"],"DZ_Backpack_EP1",["5Rnd_86x70_L115A1","5Rnd_86x70_L115A1","5Rnd_86x70_L115A1"],["BAF_LRR_scoped_W"],0,0],
+	[],
+	[]
+];
