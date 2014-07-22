@@ -1,6 +1,4 @@
-//Script Control
-//Allows you to customize the repack by turning certain scripts on or off
-//true = on /false = off
+//Script Control - Allows you to customize the repack by turning certain scripts on or off - true = on /false = off
 //Admintools
 AdminScript = true;
 //CAGN Safezones
@@ -61,7 +59,7 @@ BuryHumanScript = true;
 BurnTentsScript = true;
 //Tent Heal
 TentHealScript = true;
-//Rob Bank
+//Rob Bank - bank will still be on map just cant rob it
 RobBankScript = true;
 //Drink Water
 DrinkWaterScript = true;
@@ -87,4 +85,13 @@ BaseJumpScript = true;
 ServicePointScript = true;
 //NOS
 NOSScript = true;
-
+//Crafting
+CRAFTINGSCRIPT = true;
+//Carepackages (100oz Briefcase)
+CarepackageScript = true;
+//Emerald Interior Design
+EmeraldScript = true;
+//SirenS
+SirenScript = true;
+//Base Build 1.3
+basebuildScript = true;
