@@ -95,3 +95,5 @@ EmeraldScript = true;
 SirenScript = true;
 //Base Build 1.3
 basebuildScript = true;
+//Elevator
+ElevatorScript = true;

@@ -63,7 +63,7 @@ DZE_BuildingLimit = 400;//how many items can a player build
 DZE_PlayerZed = false; // should players have chance of becoming a ZOMBIE when they respawn after death
 DZE_LootSpawnTimer = 10;// in minutes
 DZE_MissionLootTable = true; //Custom Loot Tables
-DZE_selfTransfuse = true;
+DZE_selfTransfuse = true; //Self blood bag
 
 DZE_selfTransfuse_Values = [
 6000, //Blood amount
@@ -77,6 +77,19 @@ ns_blow_delaymod = 0.90; //blowout delay
 ns_blow_itemapsi = "NVGoggles"; //ItemAPSI replacement
 ns_blow_playerdamage = 4000; // damage players without ns_blow_itemapsi can get per blowout
 ns_blow_emp = false; //Namalsk Only
+
+ELE_PlatformClass = "MetalFloor_DZ"; // what item to use as elevator
+ELE_StopClass = "MetalFloor_Preview_DZ";
+ELE_MaxRange = 25; 
+ELE_Size = 4; 
+ELE_Speed = 2;
+ELE_StopWaitTime = 5;
+ELE_UpdatesPerSecond = 60; // animation updates per second
+ELE_RequiredBuildTools = ["ItemToolbox", "ItemCrowbar"]; // required tools for building an elevator and elevator stop
+ELE_RequiredBuildItems = [["PartGeneric",4], "PartEngine", "ItemGenerator", "ItemJerrycan"]; // required items to build an elevator
+ELE_RequiredBuildStopItems = [["PartGeneric",4]]; // required items to build an elevator stop
+ELE_Debug = false;  // debug flag
+
 
 EpochEvents = [["any","any","any","any",30,"crash_spawner"],["any","any","any","any",0,"crash_spawner"],["any","any","any","any",15,"supply_drop"]];
 dayz_fullMoonNights = true;
@@ -242,6 +255,11 @@ if(ServicePointScript)then{
 if(BaseJumpScript)then{
 	if (!isDedicated) then {
 		execVM "scripts\BaseJump\baseJump.sqf";
+	};
+};
+if(ElevatorScript)then{
+	if (!isDedicated) then {
+		["scripts\elevator"] execVM "scripts\elevator\elevator_init.sqf";
 	};
 };
 espawn = compile preprocessFileLineNumbers "scripts\spawn\spawn.sqf";
