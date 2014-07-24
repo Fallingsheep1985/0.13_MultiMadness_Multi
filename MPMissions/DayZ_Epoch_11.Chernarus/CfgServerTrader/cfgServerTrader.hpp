@@ -83,10 +83,7 @@ class CfgTraderCategory {
 	#include "Category\NeutralVehicleParts.hpp"
 	#include "Category\NeutralWholesale.hpp"
 	
-	#include "Category\FriendlyDrugs.hpp"
-	#include "Category\NeutralDrugs.hpp"
-	#include "Category\FriendlyGems.hpp"
-	#include "Category\NeutralGems.hpp"
-	#include "Category\FriendlyMisc.hpp"
-	#include "Category\NeutralMisc.hpp"
+	#include "Category\Drugs.hpp"
+	#include "Category\Gems.hpp"
+	#include "Category\Misc.hpp"
 };
