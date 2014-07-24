@@ -64,6 +64,8 @@ DZE_PlayerZed = false; // should players have chance of becoming a ZOMBIE when t
 DZE_LootSpawnTimer = 10;// in minutes
 DZE_MissionLootTable = true; //Custom Loot Tables
 DZE_selfTransfuse = true; //Self blood bag
+//Config based traders
+DZE_ConfigTrader = true;
 
 DZE_selfTransfuse_Values = [
 6000, //Blood amount

@@ -585,3 +585,5 @@ class CfgSounds
 #include "scripts\interior\dialogs.hpp"
 //multi character select
 #include "RscDisplayCharacterSelect.hpp"
+//Config based traders
+#include "CfgServerTrader\cfgServerTrader.hpp"
