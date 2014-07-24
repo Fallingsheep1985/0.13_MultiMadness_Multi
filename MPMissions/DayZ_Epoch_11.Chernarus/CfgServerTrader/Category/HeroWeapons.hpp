@@ -39,4 +39,14 @@ class Category_477 {
 		buy[] = {1,"ItemGoldBar10oz"};
 		sell[] = {5,"ItemGoldBar"};
 	};
+	class DMR {
+		type = "trade_weapons";
+		buy[] = {2,"ItemGoldBar10oz"};
+		sell[] = {1,"ItemGoldBar10oz"};
+	};
+	class M107_DZ {
+		type = "trade_weapons";
+		buy[] = {4,"ItemGoldBar10oz"};
+		sell[] = {2,"ItemGoldBar10oz"};
+	};
 };

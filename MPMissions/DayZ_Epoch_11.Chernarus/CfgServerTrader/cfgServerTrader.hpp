@@ -82,4 +82,11 @@ class CfgTraderCategory {
 	#include "CfgServerTrader\Category\NeutralUtilityVehicles.hpp"
 	#include "CfgServerTrader\Category\NeutralVehicleParts.hpp"
 	#include "CfgServerTrader\Category\NeutralWholesale.hpp"
+	
+	#include "CfgServerTrader\Category\FriendlyDrugs.hpp"
+	#include "CfgServerTrader\Category\NeutralDrugs.hpp"
+	#include "CfgServerTrader\Category\FriendlyGems.hpp"
+	#include "CfgServerTrader\Category\NeutralGems.hpp"
+	#include "CfgServerTrader\Category\FriendlyMisc.hpp"
+	#include "CfgServerTrader\Category\NeutralMisc.hpp"
 };

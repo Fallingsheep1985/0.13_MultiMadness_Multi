@@ -49,6 +49,41 @@ class Category_662 {
 		buy[] = {6,"ItemGoldBar"};
 		sell[] = {3,"ItemGoldBar"};
 	};
+	class ItemComboLock{
+		type = "trade_items";
+		buy[] = {8,"ItemGoldBar10oz"};
+		sell[] = {4,"ItemGoldBar10oz"};
+	};
+	class ItemMixOil{
+		type = "trade_items";
+		buy[] = {4,"ItemGoldBar10oz"};
+		sell[] = {2,"ItemGoldBar10oz"};
+	};
+	class ChainSaw{
+		type = "trade_items";
+		buy[] = {1,"ItemBriefcase100oz"};
+		sell[] = {5,"ItemGoldBar10oz"};
+	};
+	class ChainSawB{
+		type = "trade_items";
+		buy[] = {1,"ItemBriefcase100oz"};
+		sell[] = {5,"ItemGoldBar10oz"};
+	};
+	class ChainSawG{
+		type = "trade_items";
+		buy[] = {1,"ItemBriefcase100oz"};
+		sell[] = {5,"ItemGoldBar10oz"};
+	};
+	class ChainSawp{
+		type = "trade_items";
+		buy[] = {1,"ItemBriefcase100oz"};
+		sell[] = {5,"ItemGoldBar10oz"};
+	};
+	class ChainSawR{
+		type = "trade_items";
+		buy[] = {1,"ItemBriefcase100oz"};
+		sell[] = {5,"ItemGoldBar10oz"};
+	};
 };
 class Category_508 {
 	class ItemSandbag {
@@ -110,5 +145,40 @@ class Category_508 {
 		type = "trade_items";
 		buy[] = {6,"ItemGoldBar"};
 		sell[] = {3,"ItemGoldBar"};
+	};
+	class ItemComboLock{
+		type = "trade_items";
+		buy[] = {8,"ItemGoldBar10oz"};
+		sell[] = {4,"ItemGoldBar10oz"};
+	};
+	class ItemMixOil{
+		type = "trade_items";
+		buy[] = {4,"ItemGoldBar10oz"};
+		sell[] = {2,"ItemGoldBar10oz"};
+	};
+	class ChainSaw{
+		type = "trade_items";
+		buy[] = {1,"ItemBriefcase100oz"};
+		sell[] = {5,"ItemGoldBar10oz"};
+	};
+	class ChainSawB{
+		type = "trade_items";
+		buy[] = {1,"ItemBriefcase100oz"};
+		sell[] = {5,"ItemGoldBar10oz"};
+	};
+	class ChainSawG{
+		type = "trade_items";
+		buy[] = {1,"ItemBriefcase100oz"};
+		sell[] = {5,"ItemGoldBar10oz"};
+	};
+	class ChainSawp{
+		type = "trade_items";
+		buy[] = {1,"ItemBriefcase100oz"};
+		sell[] = {5,"ItemGoldBar10oz"};
+	};
+	class ChainSawR{
+		type = "trade_items";
+		buy[] = {1,"ItemBriefcase100oz"};
+		sell[] = {5,"ItemGoldBar10oz"};
 	};
 };

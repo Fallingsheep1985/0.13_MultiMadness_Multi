@@ -2,7 +2,7 @@ class Category_493 {
 	class CH_47F_EP1_DZE {
 		type = "trade_any_vehicle";
 		buy[] = {4,"ItemBriefcase100oz"};
-		sell[] = {1,"ItemBriefcase100oz"};
+		sell[] = {2,"ItemBriefcase100oz"};
 	};
 	class UH1H_DZE {
 		type = "trade_any_vehicle";
@@ -28,5 +28,10 @@ class Category_493 {
 		type = "trade_any_vehicle";
 		buy[] = {2,"ItemBriefcase100oz"};
 		sell[] = {1,"ItemBriefcase100oz"};
+	};
+	class CH53_DZE {
+		type = "trade_any_vehicle";
+		buy[] = {4,"ItemBriefcase100oz"};
+		sell[] = {2,"ItemBriefcase100oz"};
 	};
 };

@@ -29,4 +29,14 @@ class Category_562 {
 		buy[] = {2,"ItemBriefcase100oz"};
 		sell[] = {1,"ItemBriefcase100oz"};
 	};
+	class BTR90_HQ_DZE {
+		type = "trade_any_vehicle";
+		buy[] = {6,"ItemBriefcase100oz"};
+		sell[] = {3,"ItemBriefcase100oz"};
+	};
+	class LAV25_HQ_DZE {
+		type = "trade_any_vehicle";
+		buy[] = {6,"ItemBriefcase100oz"};
+		sell[] = {3,"ItemBriefcase100oz"};
+	};
 };
