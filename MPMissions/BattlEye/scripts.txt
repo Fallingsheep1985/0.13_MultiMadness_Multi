@@ -81,6 +81,7 @@
 5 "addMagazineCargoGlobal\[\"ItemGoldBar\",500\];"
 5 "addMagazineCargoGlobal\[\"ItemGoldBar10oz\",500\];"
 5 "addMagazineCargoGlobal\[\"ItemBriefcase100oz\",500\];"
+//Malory
 5 setMarkerPosLocal !"\"setMarkerPosLocal\"," !"dayzesp.sqf"," !"rsetMarkerPosLocal = 'setMarkerPosLocal'" !"rsetMarkerPosLocalcode = compile PreprocessFile (BIS_PathMPscriptCommands + 'setMarkerPosLocal.sqf')"
 5 setDammage !"\"setDammage\"," !"looknrepair.sqf"," !"Godmode.sqf"," !"cargod.sqf"
 5 addGroupIcon !"dayzesp.sqf"
