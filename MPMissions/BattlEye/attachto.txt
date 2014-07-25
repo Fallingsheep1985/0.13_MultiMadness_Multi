@@ -19,3 +19,5 @@
 5 "Parachute"
 5 "VaultStorage" !"VaultStorageLocked"
 5 "LockboxStorage" !"LockboxStorageLocked"
+5 "Old_bike_TK_CIV_EP1"
+5 "GAZ_Vodnik_MedEvac"
