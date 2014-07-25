@@ -1,4 +1,4 @@
 //new
-5 "" !"DZE_WMOD_INVENTORY" !"donorListBase" !"donorListBases" !"donorListClass" !"donorListClasses" !"DefaultMagazines" !"DefaultWeapons" !"DefaultBackpack" !"donorClassLvl1" !"donorClassLvl2" !"donorClassLvl3" !"presetClasses" !"admin_Log" !"PVDZ_ply_Arrst" !="currentInvites" !"PVDZE_" !"norrn" !"usec" !="remExField" !="remExFP" !="drn_AskServerDynamicWeatherEventArgs" !="BIS_effects_gepv" !="PVDZ_Server_Simulation"
+5 "" !"axeLampObjects" !"DZE_WMOD_INVENTORY" !"donorListBase" !"donorListBases" !"donorListClass" !"donorListClasses" !"DefaultMagazines" !"DefaultWeapons" !"DefaultBackpack" !"donorClassLvl1" !"donorClassLvl2" !"donorClassLvl3" !"presetClasses" !"admin_Log" !"PVDZ_ply_Arrst" !="currentInvites" !"PVDZE_" !"norrn" !"usec" !="remExField" !="remExFP" !="drn_AskServerDynamicWeatherEventArgs" !="BIS_effects_gepv" !="PVDZ_Server_Simulation"
 5 "remExFP" !="\"remExFP\" = \[,,\"per\",\"execVM\",\"ca\\Modules\\Functions\\init.sqf\"\]" !"\[,,\"per\",\"execVM\",\"ca\\Modules\\Functions\\init.sqf\"\]"
 5 "dayzInfectedCamps"
