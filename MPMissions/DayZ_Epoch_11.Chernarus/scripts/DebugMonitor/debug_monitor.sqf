@@ -9,11 +9,12 @@ fnc_debug = {
 		_kills = 		player getVariable["zombieKills",0];
 		_killsH = 		player getVariable["humanKills",0];
 		_killsB = 		player getVariable["banditKills",0];
-		if (player == vehicle player) then {
-			_pic = (gettext (configFile >> 'CfgWeapons' >> (currentWeapon player) >> 'picture'));
-		} else {
-			_pic = (gettext (configFile >> 'CfgVehicles' >> (typeof vehicle player) >> 'picture'));
-		};
+		_pic = (gettext (configFile >> 'CfgVehicles' >> (typeof vehicle player) >> 'picture'));
+        if (player == vehicle player) then{
+            _pic = (gettext (configFile >> 'cfgWeapons' >> (currentWeapon player) >> 'picture'));
+        }else{
+            _pic = (gettext (configFile >> 'CfgVehicles' >> (typeof vehicle player) >> 'picture'));
+        };
 		_info_player =
 			"
 			<t size='1' font='Bitstream' align='Center' >%1</t><br/>
