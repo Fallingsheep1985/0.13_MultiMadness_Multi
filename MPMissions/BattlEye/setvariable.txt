@@ -14,7 +14,6 @@
 5 "rland"
 5 "rsetdir"
 5 "local_sefFuel"
-5 "zombiespawn"
 1 "spawn" !"\"zombiespawn\" = " !="_this spawn fnc_plyrHit;"
 1 "BIS_Effects"
 5 "hiveupdateresu"

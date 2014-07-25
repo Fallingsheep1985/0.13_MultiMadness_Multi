@@ -61,5 +61,4 @@
 5 "SpecialWeapons"
 5 "_uav"
 5 "Land_bucket_ep1"
-5 "#lightpoint"
 
