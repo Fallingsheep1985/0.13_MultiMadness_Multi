@@ -9,16 +9,9 @@ fnc_debug = {
 		_kills = 		player getVariable["zombieKills",0];
 		_killsH = 		player getVariable["humanKills",0];
 		_killsB = 		player getVariable["banditKills",0];
-		_pic = (gettext (configFile >> 'CfgVehicles' >> (typeof vehicle player) >> 'picture'));
-        if (player == vehicle player) then{
-            _pic = (gettext (configFile >> 'cfgWeapons' >> (currentWeapon player) >> 'picture'));
-        }else{
-            _pic = (gettext (configFile >> 'CfgVehicles' >> (typeof vehicle player) >> 'picture'));
-        };
 		_info_player =
 			"
 			<t size='1' font='Bitstream' align='Center' >%1</t><br/>
-			<img size='4.75' image='%2'/><br/>
 			<t size='1' font='Bitstream' align='center' color='#5882FA'>Survived %11 Days</t><br/>
 			<t size='1' font='Bitstream' align='left' color='#CC0000'>Blood: </t><t size='1' font='Bitstream' align='right'>%10</t><br/>
 			<t size='1' font='Bitstream' align='left' color='#0066CC'>Humanity: </t><t size='1' font='Bitstream' align='right'>%6</t><br/>
@@ -28,7 +21,7 @@ fnc_debug = {
 			<t size='1' font='Bitstream' align='left' color='#FFBF00'>Bandits Killed: </t><t size='1' font='Bitstream' align='right'>%9</t><br/>
 			<t size='1' font='Bitstream' align='left' color='#FFBF00'>Zombies Killed: </t><t size='1' font='Bitstream' align='right'>%7</t><br/>
 			<t size='1' font='Bitstream' align='left' color='#FFBF00'>FPS: </t><t size='1' font='Bitstream' align='right'>%4</t><br/>
-			<br>
+			<br/>
 			<t size='1' font='Bitstream' align='center' color='#FFBF00'>Server Restart: </t><t size='1' font='Bitstream' align='right'>%5min</t><br/>
 			<t size='1'font='Bitstream'align='center' color='#104E8B' >Press F10 to Toggle Debug</t><br/>
 			";
