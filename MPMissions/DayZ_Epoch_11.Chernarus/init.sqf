@@ -151,7 +151,7 @@ if (!isDedicated) then {
 	//[false,12] execVM "\z\addons\dayz_code\compile\local_lights_init.sqf";
 	if(SafezoneScripts)then{
 		//Community Safezones
-		 execVM "scripts\CAGN\agn_SafeZoneCommander.sqf";	
+		 execVM "scripts\CAGN\initiate.sqf";	
 	};
 };
 if(ServerWelcomeCreditsScript)then{
