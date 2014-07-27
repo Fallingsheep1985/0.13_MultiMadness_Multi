@@ -2,11 +2,11 @@
 
 class CfgBuildingLoot {
 	class Default {
-		zombieChance = 0.2;
+		zombieChance = 0.5;
 		minRoaming = 0;
 		maxRoaming = 2;
 		zombieClass[] = {"zZombie_Base","z_hunter","z_teacher","z_suit1","z_suit2","z_worker1","z_worker2","z_worker3","z_villager1","z_villager2","z_villager3"};
-		lootChance = 0;
+		lootChance = 0.02;
 		lootPos[] = {};
 
 		lootPosSmall[] = {};
@@ -23,35 +23,35 @@ class CfgBuildingLoot {
 	};
 	
 	class Castle: Default {
-		lootChance = 0.2;
+		lootChance = 0.5;
 		lootPos[] = {};
 		lootType[] = {
 		//one spawn
 		//tools
-			//{"ItemMatchbox","weapon",0.01},
+			{"ItemMatchbox_DZE","weapon",0.01},
 			{"ItemKnife","weapon",0.01},
 			{"ItemMap","generic",0.01},
 			{"ItemCompass","weapon",0.01},
 			{"ItemFlashlight","weapon",0.01},
 		//weapons
-			{"WeaponHolder_ItemHatchet","object",0.01},
+			{"WeaponHolder_ItemHatchet_DZE","object",0.01},
 		//special
 			{"WeaponHolder_ItemTent","object",0.01},
-			//{"WeaponHolder_DomeTentStorage","object",0.01},
+			{"WeaponHolder_DomeTentStorage","object",0.01},
 		//mags special
 			{"PartWoodPile","magazine",0.04},
 		//bags
 			//{"DZ_Patrol_Pack_EP1","object",0.01},
 		//Multiple spawns
-			//{"","Residential",0.60},
+			{"","Residential",0.60},
 			{"","generic",0.40}
 		};
 	};
 	class Residential: Default {
-		zombieChance = 0.3;
+		zombieChance = 0.4;
 		maxRoaming = 2;
 		zombieClass[] = {"zZombie_Base","z_hunter","z_teacher","z_villager1","z_villager2","z_villager3"};
-		lootChance = 0.4;
+		lootChance = 0.5;
 		lootPos[] = {};
 		lootType[] = {
 			{"ItemWatch","generic",0.04},
@@ -95,8 +95,8 @@ class CfgBuildingLoot {
 	class Office: Default {
 		maxRoaming = 3;
 		zombieClass[] = {"z_suit1","z_suit2"};
-		zombieChance = 0.3;
-		lootChance = 0.4;
+		zombieChance = 0.4;
+		lootChance = 0.6;
 		lootPos[] = {};
 		lootType[] = {
 			{"ItemWatch","generic",0.04},
@@ -142,7 +142,7 @@ class CfgBuildingLoot {
 		zombieChance = 0.4;
 		zombieClass[] = {"z_worker1","z_worker2","z_worker3"};
 		maxRoaming = 2;
-		lootChance = 0.4;
+		lootChance = 0.8;
 		lootPos[] = {};
 		lootType[] = {
 			{"ItemGenerator","magazine",0.01},
@@ -178,7 +178,7 @@ class CfgBuildingLoot {
 		zombieChance = 0.4;
 		zombieClass[] = {"z_worker1","z_worker2","z_worker3"};
 		maxRoaming = 2;
-		lootChance = 0.4;
+		lootChance = 0.6;
 		lootPos[] = {};
 		lootType[] = {
 			{"ItemGenerator","magazine",0.01},
@@ -212,7 +212,7 @@ class CfgBuildingLoot {
 		zombieChance = 0.3;
 		maxRoaming = 3;
 		zombieClass[] = {"zZombie_Base","z_hunter","z_hunter","z_hunter","z_villager1","z_villager2","z_villager3"};
-		lootChance = 0.5;
+		lootChance = 0.7;
 		lootPos[] = {};
 		lootType[] = {
 			{"ItemJerrycan","magazine",0.05},
@@ -236,7 +236,7 @@ class CfgBuildingLoot {
 		};
 	};
 	class Supermarket: Default {
-		lootChance = 0.6;
+		lootChance = 0.8;
 		minRoaming = 2;
 		maxRoaming = 6;
 		zombieChance = 0.3;
@@ -283,7 +283,7 @@ class CfgBuildingLoot {
 		zombieChance = 0.4;
 		maxRoaming = 2;
 		zombieClass[] = {"z_soldier_pilot"};
-		lootChance = 0.5;
+		lootChance = 0.7;
 		lootPos[] = {};
 		lootType[] = {
 			{ "assaultrifles", "cfglootweapon", 0.10 },
@@ -305,7 +305,7 @@ class CfgBuildingLoot {
 		zombieChance = 0.4;
 		maxRoaming = 2;
 		zombieClass[] = {"z_soldier_pilot"};
-		lootChance = 0.5;
+		lootChance = 0.7;
 		lootPos[] = {};
 		lootType[] = {
 			{ "assaultrifles", "cfglootweapon", 0.10 },
@@ -344,7 +344,7 @@ class CfgBuildingLoot {
 		zombieChance = 0.3;
 		maxRoaming = 6;
 		zombieClass[] = {"z_soldier","z_soldier_heavy","z_policeman"};
-		lootChance = 0.4;
+		lootChance = 0.6;
 		lootPos[] = {};
 		lootType[] = {
 			{ "pistols", "cfglootweapon", 0.04},
