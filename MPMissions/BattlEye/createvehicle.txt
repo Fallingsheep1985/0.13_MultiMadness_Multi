@@ -3,6 +3,7 @@
 1 "SeaGull"
 5 "box" !="DebugBoxPlayer_DZ" !="MedBox0" !="AmmoBoxSmall_556" !="AmmoBoxSmall_762" !="ItemMatchbox" !="ItemToolbox" !="CardBoardBox" !="FoodBox0" !="FoodBox1" !="FoodBox2" !="FoodBox3" !="LockboxStorageLocked" !="LockboxStorage" !="WeaponHolder_ItemLockbox" !="USOrdnanceBox"
 5 "Mine"
+1 "Cow" !="Cow01" !="Cow02" !="Cow03" !="Cow04"
 5 "ARTY_"
 5 "SADARM_"
 5 "LASER_"
