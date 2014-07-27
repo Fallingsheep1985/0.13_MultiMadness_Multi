@@ -28,11 +28,11 @@ LightsScripts = true;
 //Snow Storm
 SnowScript = true;
 //Ground Fog
-GroundFogScript = true;
+GroundFogScript = false;//FPS
 //Wind Dust
-WindDustScript = true;
+WindDustScript = false;//FPS
 //Exploded vehicles drop loot
-ExplodedVehicleLootScript = true;
+ExplodedVehicleLootScript = false;//Dosnt work yet
 //Walk Amongst Dead
 WalkAmongstDeadScript = true;
 //Debug Monitor
@@ -69,8 +69,6 @@ AntiZombieEmitterScript = true;
 ZombieBaitScript = true;
 //Zombie Bomb
 ZombieBombScript = true;
-//NOS for cars
-NitroScript = true;
 //Take Clothes
 TakeClothesScript = true;
 //Suicide
@@ -85,6 +83,7 @@ BaseJumpScript = true;
 ServicePointScript = true;
 //NOS
 NOSScript = true;
+NitroScript = true;
 //Crafting
 CRAFTINGSCRIPT = true;
 //Carepackages (100oz Briefcase)
