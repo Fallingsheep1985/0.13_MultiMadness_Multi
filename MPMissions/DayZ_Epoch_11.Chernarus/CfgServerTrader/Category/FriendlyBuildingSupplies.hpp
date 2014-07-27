@@ -70,27 +70,27 @@ class Category_678 {
 		sell[] = {2,"ItemGoldBar10oz"};
 	};
 	class ChainSaw{
-		type = "trade_items";
+		type = "trade_weapons";
 		buy[] = {1,"ItemBriefcase100oz"};
 		sell[] = {5,"ItemGoldBar10oz"};
 	};
 	class ChainSawB{
-		type = "trade_items";
+		type = "trade_weapons";
 		buy[] = {1,"ItemBriefcase100oz"};
 		sell[] = {5,"ItemGoldBar10oz"};
 	};
 	class ChainSawG{
-		type = "trade_items";
+		type = "trade_weapons";
 		buy[] = {1,"ItemBriefcase100oz"};
 		sell[] = {5,"ItemGoldBar10oz"};
 	};
 	class ChainSawp{
-		type = "trade_items";
+		type = "trade_weapons";
 		buy[] = {1,"ItemBriefcase100oz"};
 		sell[] = {5,"ItemGoldBar10oz"};
 	};
 	class ChainSawR{
-		type = "trade_items";
+		type = "trade_weapons";
 		buy[] = {1,"ItemBriefcase100oz"};
 		sell[] = {5,"ItemGoldBar10oz"};
 	};
